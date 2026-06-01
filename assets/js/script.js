@@ -1,5 +1,10 @@
 /* =========================================================
    Aaruni Multispeciality Hospital — Ultra-Premium Interactions
+   Airlume-inspired flowing canvas. Reuses the original animation
+   engine: cursor glow, scroll bar, particle canvas (dots+crosses,
+   mouse repulsion, connecting lines), [data-tilt] 3D tilt,
+   magnetic buttons, reveal observer, counters, FAQ accordion,
+   parallax, text scramble, burger nav, sticky header, modal.
    ========================================================= */
 (function () {
   "use strict";
@@ -53,7 +58,7 @@
     });
   }
 
-  /* ── Particle canvas — dramatic ─────────────────────────── */
+  /* ── Particle canvas — full page, dramatic ──────────────── */
   (function initParticles() {
     const canvas = document.getElementById("particles");
     if (!canvas) return;
@@ -62,22 +67,19 @@
     let mouseX = -9999, mouseY = -9999;
 
     function resize() {
-      W = canvas.width  = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
     }
     resize();
     window.addEventListener("resize", resize, { passive: true });
 
-    // Track mouse for repulsion
-    canvas.addEventListener("pointermove", e => {
-      const r = canvas.getBoundingClientRect();
-      mouseX = e.clientX - r.left;
-      mouseY = e.clientY - r.top;
-    });
-    canvas.addEventListener("pointerleave", () => { mouseX = -9999; mouseY = -9999; });
+    window.addEventListener("pointermove", e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, { passive: true });
 
-    const PARTICLE_COUNT = 120;
-    const CROSS_COUNT    = 20;
+    const PARTICLE_COUNT = 110;
+    const CROSS_COUNT    = 18;
 
     function randomParticle(isCross) {
       return {
@@ -120,7 +122,6 @@
       const REPEL_FORCE  = 2.5;
 
       particles.forEach(p => {
-        // Mouse repulsion
         const dx = p.x - mouseX;
         const dy = p.y - mouseY;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -130,7 +131,6 @@
           p.vy += (dy / dist) * force * .05;
         }
 
-        // dampen velocity
         p.vx *= .99;
         p.vy *= .99;
 
@@ -159,7 +159,6 @@
         }
       });
 
-      // Connecting lines between close particles
       for (let i = 0; i < PARTICLE_COUNT; i++) {
         for (let j = i + 1; j < PARTICLE_COUNT; j++) {
           const ddx = particles[i].x - particles[j].x;
@@ -167,8 +166,7 @@
           const d   = Math.sqrt(ddx * ddx + ddy * ddy);
           if (d < 110) {
             ctx.save();
-            ctx.globalAlpha = .15 * (1 - d / 110);
-            // alternate line colors based on particle colors
+            ctx.globalAlpha = .13 * (1 - d / 110);
             const c1 = particles[i].color === "#8b5cf6" ? "#8b5cf6" : "#00e5d4";
             ctx.strokeStyle = c1;
             ctx.lineWidth = .6;
@@ -186,37 +184,15 @@
     tick();
   })();
 
-  /* ── Hero orb 3D tilt on pointer move ──────────────────── */
-  (function initOrbTilt() {
-    const wrap = document.getElementById("orbWrap");
-    const orb  = document.getElementById("heroOrb");
-    if (!wrap || !orb) return;
-    wrap.addEventListener("pointermove", e => {
-      const r  = wrap.getBoundingClientRect();
-      const rx =  ((e.clientY - r.top  - r.height / 2) / (r.height / 2)) * -14;
-      const ry =  ((e.clientX - r.left - r.width  / 2) / (r.width  / 2)) *  14;
-      wrap.style.setProperty("--rx", rx + "deg");
-      wrap.style.setProperty("--ry", ry + "deg");
-      orb.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-    });
-    wrap.addEventListener("pointerleave", () => {
-      orb.style.transform = "";
-    });
-  })();
-
   /* ── Universal 3D card tilt via [data-tilt] ─────────────── */
   document.querySelectorAll("[data-tilt]").forEach(el => {
     el.addEventListener("pointermove", e => {
       const r  = el.getBoundingClientRect();
-      const rx = ((e.clientY - r.top  - r.height / 2) / (r.height / 2)) * -8;
-      const ry = ((e.clientX - r.left - r.width  / 2) / (r.width  / 2)) *  8;
-      el.style.setProperty("--rx", rx + "deg");
-      el.style.setProperty("--ry", ry + "deg");
+      const rx = ((e.clientY - r.top  - r.height / 2) / (r.height / 2)) * -7;
+      const ry = ((e.clientX - r.left - r.width  / 2) / (r.width  / 2)) *  7;
       el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(10px)`;
     });
-    el.addEventListener("pointerleave", () => {
-      el.style.transform = "";
-    });
+    el.addEventListener("pointerleave", () => { el.style.transform = ""; });
   });
 
   /* ── Magnetic button effect ─────────────────────────────── */
@@ -227,9 +203,7 @@
       const dy = (e.clientY - r.top  - r.height / 2) * .25;
       btn.style.transform = `translate(${dx}px,${dy}px)`;
     });
-    btn.addEventListener("pointerleave", () => {
-      btn.style.transform = "";
-    });
+    btn.addEventListener("pointerleave", () => { btn.style.transform = ""; });
   });
 
   /* ── Scroll reveal — IntersectionObserver ───────────────── */
@@ -287,7 +261,7 @@
     });
   });
 
-  /* ── Dept / organ modal ─────────────────────────────────── */
+  /* ── Dept / speciality modal ────────────────────────────── */
   const DEPTS = {
     heart: {
       title: "Cardiology",
@@ -381,6 +355,7 @@
     modal.removeAttribute("hidden");
     requestAnimationFrame(() => modal.classList.add("open"));
     document.body.style.overflow = "hidden";
+    if (modalClose) modalClose.focus();
   }
 
   function closeModal() {
@@ -435,52 +410,50 @@
     });
   }
 
-  /* ── Parallax on scroll ─────────────────────────────────── */
-  const bgWord   = document.querySelector(".hero__bg-word");
-  const cityWrap = document.querySelector(".hero__city-wrap");
-  const heroGlowA = document.querySelector(".hero__bg-glow--a");
-  const heroGlowB = document.querySelector(".hero__bg-glow--b");
-
+  /* ── Parallax on scroll — drift the ambient orbs ────────── */
+  const orbs = document.querySelectorAll(".bg-orb");
   window.addEventListener("scroll", () => {
     const y = window.scrollY;
-    if (bgWord)    bgWord.style.transform    = `translate(-50%, calc(-50% + ${y * .3}px))`;
-    if (cityWrap)  cityWrap.style.transform  = `translateY(${y * .2}px)`;
-    if (heroGlowA) heroGlowA.style.transform = `translateY(${y * .15}px)`;
-    if (heroGlowB) heroGlowB.style.transform = `translateY(${-y * .1}px)`;
+    orbs.forEach((orb, i) => {
+      const speed = (i % 2 === 0 ? .06 : -.05) * (i + 1);
+      orb.style.transform = `translateY(${y * speed}px)`;
+    });
   }, { passive: true });
 
-  /* ── Text scramble on organ h3 hover ───────────────────── */
+  /* ── Text scramble on hero title (once, on reveal) ──────── */
   function scramble(el) {
-    const chars    = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const original = el.textContent;
-    let frame = 0;
-    const interval = setInterval(() => {
-      el.textContent = original.split("").map((c, i) => {
-        if (i < frame) return original[i];
-        return c === " " ? " " : chars[Math.floor(Math.random() * chars.length)];
-      }).join("");
-      frame += 2;
-      if (frame > original.length) {
-        el.textContent = original;
-        clearInterval(interval);
-      }
-    }, 30);
-  }
-
-  document.querySelectorAll(".organ__info h3").forEach(h3 => {
-    h3.closest(".organ") && h3.closest(".organ").addEventListener("mouseenter", () => scramble(h3));
-  });
-
-  /* ── Smooth section background reveal ──────────────────── */
-  const sectionIO = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.intersectionRatio >= .5) {
-        e.target.classList.add("section--bright");
-      } else {
-        e.target.classList.remove("section--bright");
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    // Scramble only direct text nodes, leaving inner markup intact.
+    el.querySelectorAll("*:not(.grad)").forEach(() => {});
+    const targets = [];
+    el.childNodes.forEach(node => {
+      if (node.nodeType === 3 && node.textContent.trim()) targets.push(node);
+      else if (node.nodeType === 1) {
+        node.childNodes.forEach(n => { if (n.nodeType === 3 && n.textContent.trim()) targets.push(n); });
       }
     });
-  }, { threshold: .5 });
-  document.querySelectorAll(".section").forEach(s => sectionIO.observe(s));
+    targets.forEach(node => {
+      const original = node.textContent;
+      let frame = 0;
+      const interval = setInterval(() => {
+        node.textContent = original.split("").map((c, i) => {
+          if (i < frame) return original[i];
+          return c === " " ? " " : chars[Math.floor(Math.random() * chars.length)];
+        }).join("");
+        frame += 1.5;
+        if (frame > original.length) { node.textContent = original; clearInterval(interval); }
+      }, 32);
+    });
+  }
+
+  const scrambleEl = document.querySelector("[data-scramble]");
+  if (scrambleEl) {
+    const sIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { scramble(scrambleEl); sIO.unobserve(scrambleEl); }
+      });
+    }, { threshold: .4 });
+    sIO.observe(scrambleEl);
+  }
 
 })();
