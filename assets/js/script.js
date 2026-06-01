@@ -86,8 +86,12 @@
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.06 });
+  }, { threshold: 0.01, rootMargin: "0px 0px 0px 0px" });
   document.querySelectorAll(".clip-reveal").forEach(el => io.observe(el));
+  /* Fallback: reveal everything after 800ms in case observer misfires */
+  setTimeout(() => {
+    document.querySelectorAll(".clip-reveal:not(.visible)").forEach(el => el.classList.add("visible"));
+  }, 800);
 
   /* ── Animated counters ──────────────────────────────────── */
   const counterIO = new IntersectionObserver(entries => {
