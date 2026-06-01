@@ -124,6 +124,42 @@
     });
   }
 
+  /* ---------- Organ cards: cursor-follow glow + reveal ---------- */
+  var organs = document.querySelectorAll(".organ");
+  organs.forEach(function (organ) {
+    organ.addEventListener("pointermove", function (e) {
+      var r = organ.getBoundingClientRect();
+      organ.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");
+      organ.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
+    });
+  });
+
+  if ("IntersectionObserver" in window) {
+    var organObs = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    organs.forEach(function (o) { organObs.observe(o); });
+
+    /* richer reveal-up for headings/media */
+    var ups = document.querySelectorAll(
+      ".hero__content, .about__media, .why__media, .stat, .facility, .contact__map, .excellence .section__head"
+    );
+    ups.forEach(function (el) { el.classList.add("reveal-up"); });
+    var upObs = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add("is-visible"); obs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    ups.forEach(function (el) { upObs.observe(el); });
+  } else {
+    organs.forEach(function (o) { o.classList.add("is-visible"); });
+  }
+
   /* ---------- Current year in footer ---------- */
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();

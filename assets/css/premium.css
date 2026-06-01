@@ -1,0 +1,197 @@
+/* =========================================================
+   Aaruni — Premium layer
+   Neon "Centres of Excellence" organ showcase + global polish.
+   Layered on top of style.css.
+   ========================================================= */
+
+:root {
+  --neon: #25e7d6;          /* cyan-teal */
+  --neon-blue: #3aa0ff;     /* electric blue */
+  --navy: #060d1c;          /* deep space navy */
+  --navy-2: #0a1730;
+}
+
+/* ---------- Small button variant ---------- */
+.btn--sm { padding: 9px 18px; font-size: .88rem; }
+
+/* =========================================================
+   CENTRES OF EXCELLENCE (dark, dramatic)
+   ========================================================= */
+.excellence {
+  position: relative;
+  background: radial-gradient(900px 600px at 20% -10%, #102a4d 0%, transparent 55%),
+              radial-gradient(800px 500px at 100% 110%, #0c2342 0%, transparent 50%),
+              linear-gradient(180deg, var(--navy), var(--navy-2));
+  overflow: hidden;
+  isolation: isolate;
+}
+/* giant background watermark word */
+.excellence__watermark {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-family: var(--font-head); font-weight: 800; letter-spacing: .04em;
+  font-size: clamp(8rem, 26vw, 22rem); line-height: 1;
+  color: #fff; opacity: .03; white-space: nowrap; pointer-events: none; z-index: 0;
+  user-select: none;
+}
+/* ambient light blobs */
+.excellence__glow { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .5; z-index: 0; pointer-events: none; }
+.excellence__glow--1 { width: 420px; height: 420px; background: #0e9384; top: -120px; right: -80px; animation: drift 14s ease-in-out infinite; }
+.excellence__glow--2 { width: 380px; height: 380px; background: #1c5fb0; bottom: -120px; left: -60px; animation: drift 18s ease-in-out infinite reverse; }
+@keyframes drift { 0%,100% { transform: translate(0,0); } 50% { transform: translate(40px, 30px); } }
+
+.excellence .container { position: relative; z-index: 2; }
+.section__head--light .section__sub--light { color: #9fb3c8; }
+.eyebrow--neon { color: var(--neon); text-shadow: 0 0 14px rgba(37,231,214,.5); }
+
+/* ---------- Organ grid ---------- */
+.organs {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 8px;
+}
+.organ {
+  position: relative; display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 34px 26px 30px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 22px;
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: transform .4s cubic-bezier(.22,.61,.36,1), border-color .4s, box-shadow .4s;
+  cursor: default;
+}
+.organ::before {
+  /* sheen that sweeps on hover */
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: radial-gradient(420px 220px at var(--mx, 50%) var(--my, 0%), rgba(37,231,214,.16), transparent 60%);
+  opacity: 0; transition: opacity .4s; pointer-events: none;
+}
+.organ:hover, .organ:focus-visible {
+  transform: translateY(-8px);
+  border-color: rgba(37,231,214,.5);
+  box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(37,231,214,.25), 0 0 40px rgba(37,231,214,.15);
+  outline: none;
+}
+.organ:hover::before, .organ:focus-visible::before { opacity: 1; }
+
+/* ---------- Organ stage + SVG ---------- */
+.organ__stage { position: relative; width: 150px; height: 150px; display: grid; place-items: center; margin-bottom: 14px; }
+.organ__svg { width: 132px; height: 132px; overflow: visible; }
+.organ__svg g { fill: none; stroke: var(--neon); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round;
+  filter: drop-shadow(0 0 4px rgba(37,231,214,.8)); transition: filter .4s, stroke .4s; }
+.organ__svg .o-vessel { stroke-width: 1.6; opacity: .85; }
+.organ__svg .o-spark, .organ__svg .o-embryo-head { fill: var(--neon); stroke: none; filter: drop-shadow(0 0 6px var(--neon)); }
+.organ__svg .o-ring { stroke: var(--neon-blue); stroke-width: 1; opacity: .4; stroke-dasharray: 4 6; }
+
+/* glow pulse behind organ */
+.organ__pulse {
+  position: absolute; width: 90px; height: 90px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,231,214,.45), transparent 70%);
+  z-index: -1; animation: organPulse 3s ease-in-out infinite;
+}
+@keyframes organPulse { 0%,100% { transform: scale(.85); opacity: .5; } 50% { transform: scale(1.15); opacity: .9; } }
+
+/* gentle continuous float, varied per card */
+.organ:nth-child(1) .organ__svg { animation: organFloat 4.2s ease-in-out infinite; }
+.organ:nth-child(2) .organ__svg { animation: organFloat 5s ease-in-out infinite .4s; }
+.organ:nth-child(3) .organ__svg { animation: organFloat 4.6s ease-in-out infinite .8s; }
+.organ:nth-child(4) .organ__svg { animation: organFloat 5.4s ease-in-out infinite .2s; }
+.organ:nth-child(5) .organ__svg { animation: organFloat 4.8s ease-in-out infinite .6s; }
+@keyframes organFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+
+/* heart beats; embryo head bobs; ring spins */
+.o-heart { transform-box: fill-box; transform-origin: center; animation: beat 1.15s ease-in-out infinite; }
+@keyframes beat { 0%,100% { transform: scale(1); } 12% { transform: scale(1.08); } 24% { transform: scale(1); } 38% { transform: scale(1.04); } 50% { transform: scale(1); } }
+.o-ring { transform-box: fill-box; transform-origin: center; animation: spin 16s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* draw-on reveal when visible */
+.o-draw path, .o-draw circle { stroke-dasharray: 320; stroke-dashoffset: 320; }
+.organ.is-visible .o-draw path, .organ.is-visible .o-draw circle {
+  animation: draw 1.6s ease forwards;
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* hover: intensify + recolor toward white-hot */
+.organ:hover .organ__svg g, .organ:focus-visible .organ__svg g {
+  stroke: #aefff7; filter: drop-shadow(0 0 10px var(--neon)) drop-shadow(0 0 20px rgba(37,231,214,.6));
+}
+.organ:hover .organ__pulse { animation-duration: 1.4s; }
+.organ:hover .organ__stage { transform: scale(1.06); transition: transform .4s; }
+
+/* ---------- Organ text ---------- */
+.organ__body h3 { color: #fff; font-size: 1.18rem; margin-bottom: 6px; }
+.organ__body p { color: #9fb3c8; font-size: .92rem; max-width: 240px; }
+
+/* info chip slides up on hover */
+.organ__chip {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 16px;
+  padding: 7px 14px; border-radius: 999px; font-size: .8rem; font-weight: 600; color: #bff7f0;
+  background: rgba(37,231,214,.1); border: 1px solid rgba(37,231,214,.3);
+  opacity: 0; transform: translateY(10px); transition: opacity .35s, transform .35s;
+}
+.organ:hover .organ__chip, .organ:focus-visible .organ__chip { opacity: 1; transform: translateY(0); }
+.organ__chip-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 8px var(--neon); animation: blink 1.6s infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+
+/* ---------- "And many more" card ---------- */
+.organ--more { justify-content: center; background: linear-gradient(180deg, rgba(37,231,214,.08), rgba(58,160,255,.05)); }
+.organ__more-inner { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.organ__more-icon {
+  width: 60px; height: 60px; display: grid; place-items: center; border-radius: 18px;
+  font-size: 2rem; font-weight: 300; color: var(--navy); background: var(--neon);
+  box-shadow: 0 0 30px rgba(37,231,214,.5); margin-bottom: 8px;
+}
+.organ--more h3 { color: #fff; font-size: 1.18rem; }
+.organ--more p { color: #9fb3c8; font-size: .92rem; max-width: 260px; margin-bottom: 8px; }
+
+/* =========================================================
+   GLOBAL "ALIVE" POLISH
+   ========================================================= */
+
+/* hero floating accent shapes */
+.hero { isolation: isolate; }
+.hero::after {
+  content: ""; position: absolute; width: 340px; height: 340px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(14,147,132,.18), transparent 70%);
+  top: 6%; right: -6%; z-index: 0; animation: drift 12s ease-in-out infinite;
+}
+.hero__inner { position: relative; z-index: 1; }
+
+/* subtle lift on all interactive cards already handled; add image zoom */
+.about__media img, .why__media img, .hero__media > img { transition: transform .6s cubic-bezier(.22,.61,.36,1); }
+.about__media:hover img, .why__media:hover img, .hero__media:hover > img { transform: scale(1.03); }
+
+/* button shine sweep */
+.btn--primary { position: relative; overflow: hidden; }
+.btn--primary::after {
+  content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+  transform: skewX(-20deg); transition: left .6s;
+}
+.btn--primary:hover::after { left: 130%; }
+
+/* nav links animated underline */
+.nav__link { position: relative; }
+.nav__link::after {
+  content: ""; position: absolute; left: 14px; right: 14px; bottom: 4px; height: 2px;
+  background: var(--primary); transform: scaleX(0); transform-origin: left; transition: transform .28s;
+}
+.nav__link:hover::after { transform: scaleX(1); }
+
+/* fade/slide reveals (richer than base) */
+.reveal-up { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s cubic-bezier(.22,.61,.36,1); }
+.reveal-up.is-visible { opacity: 1; transform: none; }
+
+/* responsive */
+@media (max-width: 980px) {
+  .organs { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 620px) {
+  .organs { grid-template-columns: 1fr; }
+  .excellence__watermark { font-size: 7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .o-heart, .o-ring, .organ__pulse, .organ__svg, .excellence__glow, .hero::after,
+  .organ__chip-dot { animation: none !important; }
+  .o-draw path, .o-draw circle { stroke-dashoffset: 0 !important; }
+}
