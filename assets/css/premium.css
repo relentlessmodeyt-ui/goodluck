@@ -78,9 +78,126 @@
 .organ--more h3 { color: var(--head); font-size: 1.18rem; }
 .organ--more p { color: var(--body); font-size: .92rem; max-width: 260px; margin-bottom: 8px; }
 
+/* organ cards are clickable */
+.organ[data-key] { cursor: pointer; }
+
+/* 3D tilt on hover via JS inline transform — ensure preserve-3d */
+.organs { perspective: 1400px; }
+.organ { transform-style: preserve-3d; }
+
 @media (max-width: 980px) { .organs { grid-template-columns: repeat(2,1fr); } }
 @media (max-width: 620px) { .organs { grid-template-columns: 1fr; } .excellence__watermark { font-size: 7rem; } }
 @media (prefers-reduced-motion: reduce) {
   .o-heart, .o-ring, .organ__pulse, .organ__svg, .excellence__glow, .organ__chip-dot { animation: none !important; }
   .o-draw path, .o-draw circle { stroke-dashoffset: 0 !important; }
 }
+
+/* =========================================================
+   HERO EXTRAS — particles, city text, location highlight
+   ========================================================= */
+.hero__particles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.hero__city {
+  position: absolute; bottom: 2%; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-head); font-weight: 800; letter-spacing: .28em;
+  font-size: clamp(2.2rem, 8vw, 7rem); line-height: 1; white-space: nowrap;
+  color: transparent; -webkit-text-stroke: 1px rgba(41,231,214,.18);
+  pointer-events: none; user-select: none; z-index: 1;
+  animation: cityBreath 8s ease-in-out infinite;
+}
+@keyframes cityBreath { 0%,100%{opacity:.7; -webkit-text-stroke-color: rgba(41,231,214,.18);} 50%{opacity:1; -webkit-text-stroke-color: rgba(41,231,214,.30);} }
+
+.hero__location-highlight { color: var(--neon); font-weight: 600; font-style: normal; }
+
+/* =========================================================
+   ABOUT BADGES
+   ========================================================= */
+.about__badges { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0; }
+.about__badge { padding: 6px 16px; border-radius: 999px; font-size: .8rem; font-weight: 700;
+  color: var(--neon); border: 1px solid rgba(41,231,214,.35); background: rgba(41,231,214,.08);
+  letter-spacing: .06em; }
+
+/* =========================================================
+   DOCTOR / DEPT MODAL
+   ========================================================= */
+.modal { position: fixed; inset: 0; z-index: 500; display: flex; align-items: flex-end; justify-content: center; }
+.modal[hidden] { display: none; }
+.modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.7); backdrop-filter: blur(6px); }
+.modal__panel {
+  position: relative; z-index: 2; width: 100%; max-width: 680px; max-height: 90vh;
+  background: linear-gradient(180deg, #0d1f3c, #060d1c);
+  border: 1px solid rgba(41,231,214,.25); border-bottom: none;
+  border-radius: 28px 28px 0 0; padding: 40px 36px 44px; overflow-y: auto;
+  transform: translateY(100%); transition: transform .45s cubic-bezier(.22,.61,.36,1);
+}
+.modal:not([hidden]) .modal__panel { transform: translateY(0); }
+.modal__close {
+  position: absolute; top: 18px; right: 20px; width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,.07); border: 1px solid var(--line); color: var(--head);
+  font-size: 1.4rem; line-height: 1; display: grid; place-items: center; transition: background .2s;
+}
+.modal__close:hover { background: rgba(41,231,214,.15); color: var(--neon); }
+
+/* Modal content structure (filled by JS) */
+.modal__dept-name { font-family: var(--font-head); font-size: 1.7rem; font-weight: 800; color: var(--head); margin-bottom: 4px; }
+.modal__tagline { color: var(--neon); font-size: .9rem; font-weight: 600; margin-bottom: 18px; display: block; }
+.modal__desc { color: var(--body); margin-bottom: 26px; line-height: 1.7; }
+.modal__services { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+.modal__service { padding: 7px 16px; border-radius: 999px; font-size: .82rem; font-weight: 600;
+  color: var(--neon-soft); background: rgba(41,231,214,.09); border: 1px solid rgba(41,231,214,.25); }
+.modal__doctor {
+  display: flex; gap: 18px; align-items: center; padding: 20px 22px; border-radius: 18px;
+  background: rgba(255,255,255,.04); border: 1px solid var(--line-2); margin-bottom: 24px;
+}
+.modal__doc-avatar {
+  width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center;
+  background: linear-gradient(135deg, rgba(41,231,214,.2), rgba(58,160,255,.2));
+  border: 2px solid rgba(41,231,214,.4); font-size: 1.8rem;
+}
+.modal__doc-name { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--head); }
+.modal__doc-qual { font-size: .84rem; color: var(--neon); margin: 2px 0; }
+.modal__doc-role { font-size: .84rem; color: var(--body); }
+.modal__doc-note { font-size: .84rem; color: var(--muted); margin-top: 6px; font-style: italic; }
+.modal__divider { height: 1px; background: var(--line); margin: 0 0 24px; }
+.modal__cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* =========================================================
+   FAQ ACCORDION
+   ========================================================= */
+.faq__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.faq__item { border-radius: var(--radius); border: 1px solid var(--line); overflow: hidden;
+  background: var(--surface); backdrop-filter: blur(10px); transition: border-color .3s; }
+.faq__item:has(.faq__q[aria-expanded="true"]) { border-color: rgba(41,231,214,.4); }
+.faq__q {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 20px 22px; background: transparent; border: none; color: var(--head);
+  font-family: var(--font-head); font-weight: 600; font-size: .97rem; text-align: left; cursor: pointer;
+  transition: color .2s;
+}
+.faq__q:hover { color: var(--neon); }
+.faq__arrow {
+  flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(41,231,214,.1);
+  border: 1px solid rgba(41,231,214,.3); display: grid; place-items: center;
+  transition: transform .35s, background .2s;
+}
+.faq__arrow::after { content: ""; width: 8px; height: 8px; border-right: 2px solid var(--neon); border-bottom: 2px solid var(--neon); transform: rotate(45deg) translate(-2px,-2px); display: block; }
+.faq__q[aria-expanded="true"] .faq__arrow { transform: rotate(180deg); background: rgba(41,231,214,.2); }
+.faq__a { height: 0; overflow: hidden; transition: height .38s cubic-bezier(.22,.61,.36,1); }
+.faq__a p { padding: 0 22px 20px; color: var(--body); font-size: .94rem; line-height: 1.72; }
+
+@media (max-width: 760px) { .faq__grid { grid-template-columns: 1fr; } }
+
+/* =========================================================
+   GLOBAL — extra depth touches
+   ========================================================= */
+/* Subtle scan-line noise overlay on dark sections */
+.excellence::after, .faq::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
+}
+.excellence .container, .faq .container { position: relative; z-index: 2; }
+
+/* Hero content sits above canvas */
+.hero__inner { position: relative; z-index: 2; }
+.hero__watermark { z-index: 1; }
+.hero__city { z-index: 1; }
+

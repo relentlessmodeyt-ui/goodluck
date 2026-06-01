@@ -68,14 +68,16 @@
   <main>
     <!-- HERO -->
     <section class="hero" id="home">
+      <canvas id="heroParticles" class="hero__particles" aria-hidden="true"></canvas>
       <span class="hero__watermark" aria-hidden="true">AARUNI</span>
+      <span class="hero__city" aria-hidden="true">JHUNJHUNU</span>
       <div class="container hero__inner">
         <div class="hero__content reveal">
           <span class="pill glass"><span class="pill__dot"></span> Trusted multispeciality care since 2020</span>
           <h1 class="hero__title">Where advanced<br />medicine meets <em>human care</em></h1>
           <p class="hero__lead">
             NABH-accredited specialists, modern technology and round-the-clock
-            emergency care — all under one roof in the heart of Jhunjhunu.
+            emergency care — right here <strong class="hero__location-highlight">in the heart of Jhunjhunu.</strong>
           </p>
           <div class="hero__actions">
             <a href="#appointment" class="btn btn--primary btn--lg">Book an Appointment</a>
@@ -143,7 +145,7 @@
         </div>
 
         <div class="organs">
-          <article class="organ reveal" data-organ="heart" tabindex="0">
+          <article class="organ reveal" data-organ="heart" data-key="heart" tabindex="0" role="button" aria-haspopup="dialog">
             <div class="organ__stage">
               <svg class="organ__svg" viewBox="0 0 120 120" aria-hidden="true">
                 <g class="o-heart o-draw">
@@ -161,7 +163,7 @@
             <div class="organ__chip"><span class="organ__chip-dot"></span> 24×7 Cardiac Monitoring</div>
           </article>
 
-          <article class="organ reveal" data-delay="1" data-organ="brain" tabindex="0">
+          <article class="organ reveal" data-delay="1" data-organ="brain" data-key="brain" tabindex="0" role="button" aria-haspopup="dialog">
             <div class="organ__stage">
               <svg class="organ__svg" viewBox="0 0 120 120" aria-hidden="true">
                 <g class="o-brain o-draw">
@@ -180,7 +182,7 @@
             <div class="organ__chip"><span class="organ__chip-dot"></span> Advanced Neuro Imaging</div>
           </article>
 
-          <article class="organ reveal" data-delay="2" data-organ="spine" tabindex="0">
+          <article class="organ reveal" data-delay="2" data-organ="spine" data-key="spine" tabindex="0" role="button" aria-haspopup="dialog">
             <div class="organ__stage">
               <svg class="organ__svg" viewBox="0 0 120 120" aria-hidden="true">
                 <g class="o-spine o-draw">
@@ -194,7 +196,7 @@
             <div class="organ__chip"><span class="organ__chip-dot"></span> Joint Replacement</div>
           </article>
 
-          <article class="organ reveal" data-organ="kidney" tabindex="0">
+          <article class="organ reveal" data-organ="kidney" data-key="kidney" tabindex="0" role="button" aria-haspopup="dialog">
             <div class="organ__stage">
               <svg class="organ__svg" viewBox="0 0 120 120" aria-hidden="true">
                 <g class="o-kidney o-draw">
@@ -210,7 +212,7 @@
             <div class="organ__chip"><span class="organ__chip-dot"></span> Kidney &amp; Stone Care</div>
           </article>
 
-          <article class="organ reveal" data-delay="1" data-organ="embryo" tabindex="0">
+          <article class="organ reveal" data-delay="1" data-organ="embryo" data-key="embryo" tabindex="0" role="button" aria-haspopup="dialog">
             <div class="organ__stage">
               <svg class="organ__svg" viewBox="0 0 120 120" aria-hidden="true">
                 <g class="o-embryo o-draw">
@@ -260,13 +262,20 @@
         <div class="about__content reveal" data-delay="1">
           <span class="eyebrow">About Aaruni</span>
           <h2 class="section__title">A hospital built around <em>the patient</em></h2>
-          <p>Aaruni Multispeciality Hospital is among the fastest-growing healthcare institutions in Rajasthan, delivering top-quality, patient-focused care to Jhunjhunu and the surrounding region — from everyday consultations to complex surgeries.</p>
+          <p>Founded by eminent orthopaedist <strong style="color:var(--head)">Dr. Sunil Poonia (MBBS, MS Orthopedics)</strong>, Aaruni Multispeciality Hospital is among the fastest-growing NABH-accredited institutions in Rajasthan — delivering advanced, compassionate care to Jhunjhunu and beyond since 2020.</p>
           <ul class="ticks">
-            <li>Highly skilled, multi-disciplinary medical team</li>
-            <li>State-of-the-art diagnostic &amp; surgical technology</li>
-            <li>Round-the-clock ICU, trauma &amp; ambulance support</li>
-            <li>Transparent, patient-centric approach to care</li>
+            <li>Highly skilled, multi-disciplinary specialist team</li>
+            <li>Advanced ICU with BiPAP, ventilator &amp; continuous monitoring</li>
+            <li>In-house MRI, CT, USG, X-Ray, Echo &amp; Pathology lab</li>
+            <li>Modular OTs, NICU, Laparoscopy &amp; Reconstructive Surgery</li>
+            <li>Surgical Gastroenterology, Nephrology &amp; Vascular Surgery</li>
+            <li>24×7 Trauma, Ambulance &amp; On-site Pharmacy</li>
           </ul>
+          <div class="about__badges">
+            <span class="about__badge">NABH Accredited</span>
+            <span class="about__badge">Est. 2020</span>
+            <span class="about__badge">Rajasthan's Fastest Growing</span>
+          </div>
           <a href="#appointment" class="btn btn--primary">Schedule a Visit</a>
         </div>
       </div>
@@ -347,6 +356,43 @@
       </div>
     </section>
 
+    <!-- FAQ -->
+    <section class="section faq" id="faq">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="eyebrow">Common Questions</span>
+          <h2 class="section__title">Things people <em>ask us most</em></h2>
+          <p class="section__sub">Quick answers to the questions on every visitor's mind before they walk through our doors.</p>
+        </div>
+        <div class="faq__grid">
+          <div class="faq__item reveal">
+            <button class="faq__q" aria-expanded="false">Is Aaruni Hospital open 24 hours, including weekends and holidays?<span class="faq__arrow" aria-hidden="true"></span></button>
+            <div class="faq__a"><p>Yes — Aaruni Multispeciality Hospital is open 24 hours a day, 7 days a week, 365 days a year. Our emergency department, ICU and trauma care never close, and on-call specialists are available round the clock.</p></div>
+          </div>
+          <div class="faq__item reveal" data-delay="1">
+            <button class="faq__q" aria-expanded="false">Does the hospital have an on-site pharmacy and diagnostic lab?<span class="faq__arrow" aria-hidden="true"></span></button>
+            <div class="faq__a"><p>Yes. We have a fully stocked 24×7 pharmacy within the hospital. Our in-house diagnostics include MRI, CT scan, Ultrasonography (USG), digital X-Ray, Echocardiography and a full-service pathology lab — so most tests are done on-site without delay.</p></div>
+          </div>
+          <div class="faq__item reveal">
+            <button class="faq__q" aria-expanded="false">How do I book an appointment with a specific specialist?<span class="faq__arrow" aria-hidden="true"></span></button>
+            <div class="faq__a"><p>You can book via the appointment form on this page, call us directly at <a href="tel:+919587875550" style="color:var(--neon)">+91 95878 75550</a>, or walk in at any time. Our reception team will connect you with the right specialist and confirm a convenient slot.</p></div>
+          </div>
+          <div class="faq__item reveal" data-delay="1">
+            <button class="faq__q" aria-expanded="false">Is Aaruni Hospital NABH accredited? What does that mean for me?<span class="faq__arrow" aria-hidden="true"></span></button>
+            <div class="faq__a"><p>Yes, we are NABH (National Accreditation Board for Hospitals) accredited. This means our hospital meets strict national standards for patient safety, hygiene, clinical care and governance — so you can trust the quality of every procedure and interaction.</p></div>
+          </div>
+          <div class="faq__item reveal">
+            <button class="faq__q" aria-expanded="false">Do you offer ambulance services? How quickly can you respond?<span class="faq__arrow" aria-hidden="true"></span></button>
+            <div class="faq__a"><p>Yes. We have well-equipped ambulances available 24×7 for rapid patient transport. Call <a href="tel:+919587875550" style="color:var(--neon)">+91 95878 75550</a> for immediate dispatch. Our team is trained to provide pre-hospital stabilisation en route.</p></div>
+          </div>
+          <div class="faq__item reveal" data-delay="1">
+            <button class="faq__q" aria-expanded="false">What insurance or cashless facilities does the hospital accept?<span class="faq__arrow" aria-hidden="true"></span></button>
+            <div class="faq__a"><p>We work with a wide range of insurance providers and empanelments. Please call our billing desk at <a href="tel:+919587875550" style="color:var(--neon)">+91 95878 75550</a> or visit the hospital to confirm your specific insurer and get assistance with cashless claims processing.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section class="section" id="contact">
       <div class="container">
@@ -368,6 +414,14 @@
         </div>
       </div>
     </section>
+  <!-- DOCTOR / DEPARTMENT MODAL -->
+  <div class="modal" id="deptModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal__backdrop" id="modalBackdrop"></div>
+    <div class="modal__panel">
+      <button class="modal__close" id="modalClose" aria-label="Close">&times;</button>
+      <div class="modal__content" id="modalContent"><!-- filled by JS --></div>
+    </div>
+  </div>
   </main>
 
   <!-- FOOTER -->
