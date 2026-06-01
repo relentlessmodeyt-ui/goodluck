@@ -1,5 +1,5 @@
 /* =========================================================
-   Aaruni Multispeciality Hospital — Interactions
+   Aaruni Multispeciality Hospital — Ultra-Premium Interactions
    ========================================================= */
 (function () {
   "use strict";
@@ -7,6 +7,25 @@
   /* ── Year ──────────────────────────────────────────────── */
   const yrEl = document.getElementById("yr");
   if (yrEl) yrEl.textContent = new Date().getFullYear();
+
+  /* ── Cursor glow follow ─────────────────────────────────── */
+  const glow = document.getElementById("cursorGlow");
+  if (glow) {
+    document.addEventListener("pointermove", e => {
+      glow.style.left = e.clientX + "px";
+      glow.style.top  = e.clientY + "px";
+    });
+  }
+
+  /* ── Scroll progress bar ────────────────────────────────── */
+  const scrollBar = document.createElement("div");
+  scrollBar.className = "scroll-bar";
+  document.body.prepend(scrollBar);
+  window.addEventListener("scroll", () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const pct   = total > 0 ? (window.scrollY / total) * 100 : 0;
+    scrollBar.style.width = pct + "%";
+  }, { passive: true });
 
   /* ── Sticky header ─────────────────────────────────────── */
   const header = document.getElementById("header");
@@ -34,12 +53,13 @@
     });
   }
 
-  /* ── Particle canvas ────────────────────────────────────── */
+  /* ── Particle canvas — dramatic ─────────────────────────── */
   (function initParticles() {
     const canvas = document.getElementById("particles");
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     let W, H, particles = [];
+    let mouseX = -9999, mouseY = -9999;
 
     function resize() {
       W = canvas.width  = canvas.offsetWidth;
@@ -48,59 +68,90 @@
     resize();
     window.addEventListener("resize", resize, { passive: true });
 
-    const PARTICLE_COUNT = 80;
-    const CROSS_COUNT    = 12;
+    // Track mouse for repulsion
+    canvas.addEventListener("pointermove", e => {
+      const r = canvas.getBoundingClientRect();
+      mouseX = e.clientX - r.left;
+      mouseY = e.clientY - r.top;
+    });
+    canvas.addEventListener("pointerleave", () => { mouseX = -9999; mouseY = -9999; });
+
+    const PARTICLE_COUNT = 120;
+    const CROSS_COUNT    = 20;
 
     function randomParticle(isCross) {
       return {
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - .5) * .4,
-        vy: (Math.random() - .5) * .4,
-        size: isCross ? (Math.random() * 6 + 4) : (Math.random() * 1.8 + .6),
-        alpha: Math.random() * .4 + .1,
+        x:      Math.random() * (W || 800),
+        y:      Math.random() * (H || 600),
+        vx:     (Math.random() - .5) * .45,
+        vy:     (Math.random() - .5) * .45,
+        size:   isCross ? (Math.random() * 6 + 4) : (Math.random() * 1.8 + .6),
+        alpha:  Math.random() * .4 + .1,
         isCross,
-        pulse: Math.random() * Math.PI * 2,
+        pulse:  Math.random() * Math.PI * 2,
+        color:  Math.random() > .5 ? "#00e5d4" : "#8b5cf6",
+        rot:    Math.random() * Math.PI * 2,
+        rotV:   (Math.random() - .5) * .01,
       };
     }
 
     for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(randomParticle(false));
     for (let i = 0; i < CROSS_COUNT; i++)    particles.push(randomParticle(true));
 
-    function drawCross(x, y, size, alpha) {
+    function drawCross(x, y, size, alpha, rot, color) {
       ctx.save();
       ctx.globalAlpha = alpha;
-      ctx.strokeStyle = "rgba(0,229,212,1)";
+      ctx.strokeStyle = color || "rgba(0,229,212,1)";
       ctx.lineWidth = 1.5;
       ctx.lineCap = "round";
+      ctx.translate(x, y);
+      ctx.rotate(rot);
       ctx.beginPath();
-      ctx.moveTo(x - size, y); ctx.lineTo(x + size, y);
-      ctx.moveTo(x, y - size); ctx.lineTo(x, y + size);
+      ctx.moveTo(-size, 0); ctx.lineTo(size, 0);
+      ctx.moveTo(0, -size); ctx.lineTo(0, size);
       ctx.stroke();
       ctx.restore();
     }
 
-    let raf;
     function tick() {
       ctx.clearRect(0, 0, W, H);
-      const t = Date.now() / 1000;
+
+      const REPEL_RADIUS = 120;
+      const REPEL_FORCE  = 2.5;
 
       particles.forEach(p => {
+        // Mouse repulsion
+        const dx = p.x - mouseX;
+        const dy = p.y - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < REPEL_RADIUS && dist > 0) {
+          const force = (REPEL_RADIUS - dist) / REPEL_RADIUS * REPEL_FORCE;
+          p.vx += (dx / dist) * force * .05;
+          p.vy += (dy / dist) * force * .05;
+        }
+
+        // dampen velocity
+        p.vx *= .99;
+        p.vy *= .99;
+
         p.x += p.vx;
         p.y += p.vy;
         p.pulse += .012;
+        if (p.isCross) p.rot += p.rotV;
+
         const a = p.alpha * (.7 + .3 * Math.sin(p.pulse));
+
         if (p.x < 0) p.x = W;
         if (p.x > W) p.x = 0;
         if (p.y < 0) p.y = H;
         if (p.y > H) p.y = 0;
 
         if (p.isCross) {
-          drawCross(p.x, p.y, p.size, a * .5);
+          drawCross(p.x, p.y, p.size, a * .5, p.rot, p.color);
         } else {
           ctx.save();
           ctx.globalAlpha = a;
-          ctx.fillStyle = Math.random() > .3 ? "#00e5d4" : "#4f8eff";
+          ctx.fillStyle = p.color;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
           ctx.fill();
@@ -108,16 +159,18 @@
         }
       });
 
-      // draw connecting lines between close particles
+      // Connecting lines between close particles
       for (let i = 0; i < PARTICLE_COUNT; i++) {
         for (let j = i + 1; j < PARTICLE_COUNT; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 100) {
+          const ddx = particles[i].x - particles[j].x;
+          const ddy = particles[i].y - particles[j].y;
+          const d   = Math.sqrt(ddx * ddx + ddy * ddy);
+          if (d < 110) {
             ctx.save();
-            ctx.globalAlpha = (.12 * (1 - dist / 100));
-            ctx.strokeStyle = "#00e5d4";
+            ctx.globalAlpha = .15 * (1 - d / 110);
+            // alternate line colors based on particle colors
+            const c1 = particles[i].color === "#8b5cf6" ? "#8b5cf6" : "#00e5d4";
+            ctx.strokeStyle = c1;
             ctx.lineWidth = .6;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
@@ -128,73 +181,87 @@
         }
       }
 
-      raf = requestAnimationFrame(tick);
+      requestAnimationFrame(tick);
     }
     tick();
   })();
 
-  /* ── Hero orb 3D tilt ───────────────────────────────────── */
+  /* ── Hero orb 3D tilt on pointer move ──────────────────── */
   (function initOrbTilt() {
     const wrap = document.getElementById("orbWrap");
     const orb  = document.getElementById("heroOrb");
     if (!wrap || !orb) return;
     wrap.addEventListener("pointermove", e => {
-      const r   = wrap.getBoundingClientRect();
-      const cx  = r.left + r.width  / 2;
-      const cy  = r.top  + r.height / 2;
-      const rx  =  ((e.clientY - cy) / (r.height / 2)) * -12;
-      const ry  =  ((e.clientX - cx) / (r.width  / 2)) *  12;
-      orb.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+      const r  = wrap.getBoundingClientRect();
+      const rx =  ((e.clientY - r.top  - r.height / 2) / (r.height / 2)) * -14;
+      const ry =  ((e.clientX - r.left - r.width  / 2) / (r.width  / 2)) *  14;
+      wrap.style.setProperty("--rx", rx + "deg");
+      wrap.style.setProperty("--ry", ry + "deg");
+      orb.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg)`;
     });
     wrap.addEventListener("pointerleave", () => {
       orb.style.transform = "";
     });
   })();
 
-  /* ── Generic 3D card tilt ───────────────────────────────── */
-  function add3DTilt(selector, strength = 8) {
-    document.querySelectorAll(selector).forEach(card => {
-      card.addEventListener("pointermove", e => {
-        const r  = card.getBoundingClientRect();
-        const cx = r.left + r.width  / 2;
-        const cy = r.top  + r.height / 2;
-        const rx =  ((e.clientY - cy) / (r.height / 2)) * -strength;
-        const ry =  ((e.clientX - cx) / (r.width  / 2)) *  strength;
-        card.style.transform = `translateY(-8px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-      });
-      card.addEventListener("pointerleave", () => {
-        card.style.transform = "";
-      });
+  /* ── Universal 3D card tilt via [data-tilt] ─────────────── */
+  document.querySelectorAll("[data-tilt]").forEach(el => {
+    el.addEventListener("pointermove", e => {
+      const r  = el.getBoundingClientRect();
+      const rx = ((e.clientY - r.top  - r.height / 2) / (r.height / 2)) * -8;
+      const ry = ((e.clientX - r.left - r.width  / 2) / (r.width  / 2)) *  8;
+      el.style.setProperty("--rx", rx + "deg");
+      el.style.setProperty("--ry", ry + "deg");
+      el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(10px)`;
     });
-  }
-  add3DTilt(".doc-card:not(.doc-card--cta)", 6);
-  add3DTilt(".feat", 5);
+    el.addEventListener("pointerleave", () => {
+      el.style.transform = "";
+    });
+  });
 
-  /* ── Scroll reveal ──────────────────────────────────────── */
-  const io = new IntersectionObserver((entries) => {
+  /* ── Magnetic button effect ─────────────────────────────── */
+  document.querySelectorAll(".btn--magnetic, .btn--primary").forEach(btn => {
+    btn.addEventListener("pointermove", e => {
+      const r  = btn.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width  / 2) * .25;
+      const dy = (e.clientY - r.top  - r.height / 2) * .25;
+      btn.style.transform = `translate(${dx}px,${dy}px)`;
+    });
+    btn.addEventListener("pointerleave", () => {
+      btn.style.transform = "";
+    });
+  });
+
+  /* ── Scroll reveal — IntersectionObserver ───────────────── */
+  const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        io.unobserve(e.target);
+      }
     });
   }, { threshold: .12 });
   document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
   /* ── Animated counters ──────────────────────────────────── */
-  const counterIO = new IntersectionObserver((entries) => {
+  const counterIO = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
       const el  = e.target;
       const end = parseInt(el.dataset.count, 10);
       let start = 0;
       const dur = 1800;
-      const step = dur / 60;
-      const inc  = end / (dur / (1000 / 60));
+      const inc = end / (dur / (1000 / 60));
       const timer = setInterval(() => {
         start += inc;
         if (start >= end) { start = end; clearInterval(timer); }
-        const suffix = end >= 1000 ? "+" : (end === 24 ? "×7" : "+");
-        el.textContent = end >= 1000
-          ? Math.round(start / 1000) + "K" + "+"
-          : Math.round(start) + (end === 24 ? "×7" : "+");
+        if (end >= 1000) {
+          el.textContent = Math.round(start / 1000) + "K+";
+        } else if (end === 24) {
+          el.textContent = Math.round(start) + "×7";
+        } else {
+          el.textContent = Math.round(start) + "+";
+        }
       }, 1000 / 60);
       counterIO.unobserve(el);
     });
@@ -208,7 +275,6 @@
       const body   = item.querySelector(".faq__body");
       const isOpen = btn.getAttribute("aria-expanded") === "true";
 
-      // close all others
       document.querySelectorAll(".faq__btn[aria-expanded='true']").forEach(other => {
         if (other !== btn) {
           other.setAttribute("aria-expanded", "false");
@@ -320,24 +386,27 @@
   function closeModal() {
     if (!modal) return;
     modal.classList.remove("open");
-    setTimeout(() => { modal.setAttribute("hidden", ""); document.body.style.overflow = ""; }, 420);
+    setTimeout(() => {
+      modal.setAttribute("hidden", "");
+      document.body.style.overflow = "";
+    }, 420);
   }
 
-  // expose for inline onclick
   window.closeModal = closeModal;
 
   document.querySelectorAll(".organ[data-key]").forEach(el => {
     el.addEventListener("click", () => openModal(el.dataset.key));
-    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(el.dataset.key); } });
+    el.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(el.dataset.key); }
+    });
   });
 
-  // doc cards clicking to matching modal
   document.querySelectorAll(".doc-card[data-key]").forEach(el => {
     el.addEventListener("click", () => openModal(el.dataset.key));
   });
 
   if (modalOverlay) modalOverlay.addEventListener("click", closeModal);
-  if (modalClose)   modalClose.addEventListener("click",   closeModal);
+  if (modalClose)   modalClose.addEventListener("click", closeModal);
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 
   /* ── Appointment form ───────────────────────────────────── */
@@ -366,13 +435,52 @@
     });
   }
 
-  /* ── Parallax: hero bg word + city text on scroll ───────── */
-  const bgWord  = document.querySelector(".hero__bg-word");
+  /* ── Parallax on scroll ─────────────────────────────────── */
+  const bgWord   = document.querySelector(".hero__bg-word");
   const cityWrap = document.querySelector(".hero__city-wrap");
+  const heroGlowA = document.querySelector(".hero__bg-glow--a");
+  const heroGlowB = document.querySelector(".hero__bg-glow--b");
+
   window.addEventListener("scroll", () => {
     const y = window.scrollY;
-    if (bgWord)   bgWord.style.transform   = `translate(-50%, calc(-50% + ${y * .25}px))`;
-    if (cityWrap) cityWrap.style.transform = `translateY(${y * .15}px)`;
+    if (bgWord)    bgWord.style.transform    = `translate(-50%, calc(-50% + ${y * .3}px))`;
+    if (cityWrap)  cityWrap.style.transform  = `translateY(${y * .2}px)`;
+    if (heroGlowA) heroGlowA.style.transform = `translateY(${y * .15}px)`;
+    if (heroGlowB) heroGlowB.style.transform = `translateY(${-y * .1}px)`;
   }, { passive: true });
+
+  /* ── Text scramble on organ h3 hover ───────────────────── */
+  function scramble(el) {
+    const chars    = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const original = el.textContent;
+    let frame = 0;
+    const interval = setInterval(() => {
+      el.textContent = original.split("").map((c, i) => {
+        if (i < frame) return original[i];
+        return c === " " ? " " : chars[Math.floor(Math.random() * chars.length)];
+      }).join("");
+      frame += 2;
+      if (frame > original.length) {
+        el.textContent = original;
+        clearInterval(interval);
+      }
+    }, 30);
+  }
+
+  document.querySelectorAll(".organ__info h3").forEach(h3 => {
+    h3.closest(".organ") && h3.closest(".organ").addEventListener("mouseenter", () => scramble(h3));
+  });
+
+  /* ── Smooth section background reveal ──────────────────── */
+  const sectionIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.intersectionRatio >= .5) {
+        e.target.classList.add("section--bright");
+      } else {
+        e.target.classList.remove("section--bright");
+      }
+    });
+  }, { threshold: .5 });
+  document.querySelectorAll(".section").forEach(s => sectionIO.observe(s));
 
 })();
