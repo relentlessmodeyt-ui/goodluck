@@ -1,10 +1,7 @@
 /* =========================================================
    Aaruni Multispeciality Hospital — Interactions
-   - Mobile navigation
-   - Sticky header shadow
-   - Animated stat counters
-   - Scroll reveal
-   - Appointment form (client-side handling)
+   Mobile nav · sticky header · scroll reveal · counters
+   · organ cursor-glow + draw · hero orb tilt · appointment form
    ========================================================= */
 (function () {
   "use strict";
@@ -12,15 +9,12 @@
   /* ---------- Mobile navigation ---------- */
   var navToggle = document.getElementById("navToggle");
   var nav = document.getElementById("nav");
-
   if (navToggle && nav) {
     navToggle.addEventListener("click", function () {
       var open = nav.classList.toggle("is-open");
       navToggle.classList.toggle("is-open", open);
       navToggle.setAttribute("aria-expanded", String(open));
     });
-
-    // Close the menu after choosing a link (mobile)
     nav.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () {
         nav.classList.remove("is-open");
@@ -32,50 +26,61 @@
 
   /* ---------- Sticky header shadow ---------- */
   var header = document.getElementById("header");
-  var onScroll = function () {
-    if (header) header.classList.toggle("is-scrolled", window.scrollY > 8);
-  };
+  var onScroll = function () { if (header) header.classList.toggle("is-scrolled", window.scrollY > 8); };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
   /* ---------- Animated counters ---------- */
   function animateCount(el) {
     var target = parseInt(el.getAttribute("data-count"), 10) || 0;
-    var duration = 1600;
-    var start = null;
+    var duration = 1600, start = null;
     function step(ts) {
       if (!start) start = ts;
-      var progress = Math.min((ts - start) / duration, 1);
-      // easeOutCubic
-      var eased = 1 - Math.pow(1 - progress, 3);
-      var value = Math.floor(eased * target);
-      el.textContent = value >= 1000 ? value.toLocaleString("en-IN") + "+" : String(value);
-      if (progress < 1) requestAnimationFrame(step);
+      var p = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var v = Math.floor(eased * target);
+      el.textContent = v >= 1000 ? v.toLocaleString("en-IN") + "+" : String(v);
+      if (p < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
   }
 
-  /* ---------- Scroll reveal + counters via IntersectionObserver ---------- */
-  var revealTargets = document.querySelectorAll(
-    ".card, .facility, .why__item, .contact__card, .quick__item, .about__content, .about__media, .section__head"
-  );
-  revealTargets.forEach(function (el) { el.classList.add("reveal"); });
+  /* ---------- Cursor-follow glow (organs + feature cards) ---------- */
+  document.querySelectorAll(".organ, .feat").forEach(function (el) {
+    el.addEventListener("pointermove", function (e) {
+      var r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");
+      el.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
+    });
+  });
 
+  /* ---------- Hero orb subtle tilt on pointer ---------- */
+  var orb = document.querySelector("[data-tilt]");
+  if (orb && window.matchMedia("(pointer:fine)").matches) {
+    var stage = orb.closest(".hero__stage") || orb;
+    stage.addEventListener("pointermove", function (e) {
+      var r = stage.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      orb.style.transform = "rotateY(" + (x * 12) + "deg) rotateX(" + (-y * 12) + "deg)";
+    });
+    stage.addEventListener("pointerleave", function () { orb.style.transform = ""; });
+  }
+
+  /* ---------- Scroll reveal + counters ---------- */
+  var reveals = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
-    var revealObs = new IntersectionObserver(function (entries, obs) {
+    var obs = new IntersectionObserver(function (entries, o) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          obs.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add("is-visible"); o.unobserve(entry.target); }
       });
-    }, { threshold: 0.12 });
-    revealTargets.forEach(function (el) { revealObs.observe(el); });
+    }, { threshold: 0.14 });
+    reveals.forEach(function (el) { obs.observe(el); });
 
     var counted = false;
-    var statsSection = document.querySelector(".stats");
-    if (statsSection) {
-      var statObs = new IntersectionObserver(function (entries) {
+    var statsGrid = document.querySelector(".stats__grid");
+    if (statsGrid) {
+      var sObs = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting && !counted) {
             counted = true;
@@ -83,84 +88,34 @@
           }
         });
       }, { threshold: 0.4 });
-      statObs.observe(statsSection);
+      sObs.observe(statsGrid);
     }
   } else {
-    revealTargets.forEach(function (el) { el.classList.add("is-visible"); });
+    reveals.forEach(function (el) { el.classList.add("is-visible"); });
     document.querySelectorAll(".stat strong[data-count]").forEach(animateCount);
   }
 
   /* ---------- Appointment form ---------- */
   var form = document.getElementById("appointmentForm");
   var note = document.getElementById("formNote");
-
   if (form && note) {
-    // Prevent past dates
     var dateInput = form.querySelector('input[name="date"]');
     if (dateInput) dateInput.min = new Date().toISOString().split("T")[0];
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       note.className = "form-note";
-
       var name = form.name.value.trim();
       var phone = form.phone.value.trim();
-
-      if (!name || !phone) {
-        note.textContent = "Please enter your name and phone number.";
-        note.classList.add("is-error");
-        return;
-      }
-      if (phone.replace(/\D/g, "").length < 8) {
-        note.textContent = "Please enter a valid phone number.";
-        note.classList.add("is-error");
-        return;
-      }
-
-      // No backend wired up — acknowledge and offer a direct call.
+      if (!name || !phone) { note.textContent = "Please enter your name and phone number."; note.classList.add("is-error"); return; }
+      if (phone.replace(/\D/g, "").length < 8) { note.textContent = "Please enter a valid phone number."; note.classList.add("is-error"); return; }
       note.textContent = "Thank you, " + name + "! Our team will call you shortly to confirm your appointment.";
       note.classList.add("is-success");
       form.reset();
     });
   }
 
-  /* ---------- Organ cards: cursor-follow glow + reveal ---------- */
-  var organs = document.querySelectorAll(".organ");
-  organs.forEach(function (organ) {
-    organ.addEventListener("pointermove", function (e) {
-      var r = organ.getBoundingClientRect();
-      organ.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");
-      organ.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
-    });
-  });
-
-  if ("IntersectionObserver" in window) {
-    var organObs = new IntersectionObserver(function (entries, obs) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.25 });
-    organs.forEach(function (o) { organObs.observe(o); });
-
-    /* richer reveal-up for headings/media */
-    var ups = document.querySelectorAll(
-      ".hero__content, .about__media, .why__media, .stat, .facility, .contact__map, .excellence .section__head"
-    );
-    ups.forEach(function (el) { el.classList.add("reveal-up"); });
-    var upObs = new IntersectionObserver(function (entries, obs) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) { entry.target.classList.add("is-visible"); obs.unobserve(entry.target); }
-      });
-    }, { threshold: 0.15 });
-    ups.forEach(function (el) { upObs.observe(el); });
-  } else {
-    organs.forEach(function (o) { o.classList.add("is-visible"); });
-  }
-
-  /* ---------- Current year in footer ---------- */
+  /* ---------- Year ---------- */
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 })();
