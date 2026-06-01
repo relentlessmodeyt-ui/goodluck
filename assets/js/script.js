@@ -91,7 +91,7 @@
         alpha:  Math.random() * .4 + .1,
         isCross,
         pulse:  Math.random() * Math.PI * 2,
-        color:  Math.random() > .5 ? "#00e5d4" : "#8b5cf6",
+        color:  Math.random() > .5 ? "#2563eb" : "#06b6d4",
         rot:    Math.random() * Math.PI * 2,
         rotV:   (Math.random() - .5) * .01,
       };
@@ -103,7 +103,7 @@
     function drawCross(x, y, size, alpha, rot, color) {
       ctx.save();
       ctx.globalAlpha = alpha;
-      ctx.strokeStyle = color || "rgba(0,229,212,1)";
+      ctx.strokeStyle = color || "rgba(37,99,235,1)";
       ctx.lineWidth = 1.5;
       ctx.lineCap = "round";
       ctx.translate(x, y);
@@ -166,8 +166,8 @@
           const d   = Math.sqrt(ddx * ddx + ddy * ddy);
           if (d < 110) {
             ctx.save();
-            ctx.globalAlpha = .13 * (1 - d / 110);
-            const c1 = particles[i].color === "#8b5cf6" ? "#8b5cf6" : "#00e5d4";
+            ctx.globalAlpha = .10 * (1 - d / 110);
+            const c1 = particles[i].color === "#06b6d4" ? "#06b6d4" : "#2563eb";
             ctx.strokeStyle = c1;
             ctx.lineWidth = .6;
             ctx.beginPath();
