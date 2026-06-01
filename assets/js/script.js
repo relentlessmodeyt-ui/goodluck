@@ -1,9 +1,9 @@
 /* =========================================================
-   Aaruni Multispeciality Hospital — Kinetic Dark Build
-   Cursor dot + glow, scroll bar, particles (80 dots),
-   clip-path reveals, counter animation, spec-list accordion,
-   [data-tilt], magnetic buttons, FAQ accordion, modal,
-   appointment form, sticky nav, parallax bg-text, ticker.
+   Aaruni Multispeciality Hospital — Kinetic Light Build
+   Cursor dot + glow, scroll bar, clip-path reveals,
+   counter animation, [data-tilt], magnetic buttons,
+   FAQ accordion, modal, appointment form, sticky nav,
+   hero watermark parallax, spec chips, service card modal.
    ========================================================= */
 (function () {
   "use strict";
@@ -23,14 +23,12 @@
 
   if (dot && glow && !prefersReduced) {
     document.addEventListener("pointermove", e => {
-      // dot follows instantly
       dot.style.left = e.clientX + "px";
       dot.style.top  = e.clientY + "px";
       targetX = e.clientX;
       targetY = e.clientY;
     }, { passive: true });
 
-    // glow lags behind via RAF lerp
     function animateGlow() {
       glowX += (targetX - glowX) * 0.08;
       glowY += (targetY - glowY) * 0.08;
@@ -40,7 +38,6 @@
     }
     animateGlow();
 
-    // hide dot on mouse leave, show on enter
     document.addEventListener("mouseleave", () => { dot.style.opacity = "0"; });
     document.addEventListener("mouseenter", () => { dot.style.opacity = "1"; });
   }
@@ -81,101 +78,6 @@
     });
   }
 
-  /* ── Particle canvas — 80 dots, subtle, performant ─────── */
-  (function initParticles() {
-    if (prefersReduced) return;
-    const canvas = document.getElementById("particles");
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    let W, H, particles = [];
-    let mouseX = -9999, mouseY = -9999;
-
-    function resize() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-    }
-    resize();
-
-    let resizeTimer;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(resize, 100);
-    }, { passive: true });
-
-    window.addEventListener("pointermove", e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    }, { passive: true });
-
-    const COUNT = 80;
-
-    function randomParticle() {
-      return {
-        x:     Math.random() * (W || 800),
-        y:     Math.random() * (H || 600),
-        vx:    (Math.random() - .5) * .4,
-        vy:    (Math.random() - .5) * .4,
-        size:  Math.random() * 1.6 + .5,
-        alpha: Math.random() * .35 + .08,
-        pulse: Math.random() * Math.PI * 2,
-        color: Math.random() > .5 ? "#0052ff" : "#4d8bff",
-      };
-    }
-    for (let i = 0; i < COUNT; i++) particles.push(randomParticle());
-
-    function tick() {
-      ctx.clearRect(0, 0, W, H);
-      const REPEL = 100, FORCE = 2;
-
-      particles.forEach(p => {
-        const dx = p.x - mouseX, dy = p.y - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < REPEL && dist > 0) {
-          const f = (REPEL - dist) / REPEL * FORCE;
-          p.vx += (dx / dist) * f * .05;
-          p.vy += (dy / dist) * f * .05;
-        }
-        p.vx *= .99; p.vy *= .99;
-        p.x += p.vx; p.y += p.vy;
-        p.pulse += .012;
-
-        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-        if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
-
-        const a = p.alpha * (.7 + .3 * Math.sin(p.pulse));
-        ctx.save();
-        ctx.globalAlpha = a;
-        ctx.fillStyle = p.color;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      });
-
-      // connecting lines
-      for (let i = 0; i < COUNT; i++) {
-        for (let j = i + 1; j < COUNT; j++) {
-          const ddx = particles[i].x - particles[j].x;
-          const ddy = particles[i].y - particles[j].y;
-          const d   = Math.sqrt(ddx * ddx + ddy * ddy);
-          if (d < 100) {
-            ctx.save();
-            ctx.globalAlpha = .08 * (1 - d / 100);
-            ctx.strokeStyle = "#0052ff";
-            ctx.lineWidth = .5;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-            ctx.restore();
-          }
-        }
-      }
-      requestAnimationFrame(tick);
-    }
-    tick();
-  })();
-
   /* ── Clip-path scroll reveal (IntersectionObserver) ────── */
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -184,7 +86,7 @@
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.06 });
   document.querySelectorAll(".clip-reveal").forEach(el => io.observe(el));
 
   /* ── Animated counters ──────────────────────────────────── */
@@ -211,31 +113,15 @@
   }, { threshold: .3 });
   document.querySelectorAll("[data-count]").forEach(el => counterIO.observe(el));
 
-  /* ── Spec list accordion ────────────────────────────────── */
-  document.querySelectorAll(".spec-item").forEach(item => {
-    function toggle() {
-      const isOpen = item.getAttribute("aria-expanded") === "true";
-      // close all
-      document.querySelectorAll(".spec-item[aria-expanded='true']").forEach(other => {
-        if (other !== item) other.setAttribute("aria-expanded", "false");
-      });
-      item.setAttribute("aria-expanded", !isOpen);
-    }
-    item.addEventListener("click", toggle);
-    item.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
-    });
-  });
-
   /* ── 3D Tilt on [data-tilt] ─────────────────────────────── */
   if (!prefersReduced) {
     document.querySelectorAll("[data-tilt]").forEach(el => {
       el.style.willChange = "transform";
       el.addEventListener("pointermove", e => {
         const r  = el.getBoundingClientRect();
-        const rx = ((e.clientY - r.top  - r.height / 2) / (r.height / 2)) * -6;
-        const ry = ((e.clientX - r.left - r.width  / 2) / (r.width  / 2)) *  6;
-        el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(8px)`;
+        const rx = ((e.clientY - r.top  - r.height / 2) / (r.height / 2)) * -5;
+        const ry = ((e.clientX - r.left - r.width  / 2) / (r.width  / 2)) *  5;
+        el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
       });
       el.addEventListener("pointerleave", () => { el.style.transform = ""; });
     });
@@ -243,11 +129,11 @@
 
   /* ── Magnetic buttons ───────────────────────────────────── */
   if (!prefersReduced) {
-    document.querySelectorAll(".btn--magnetic, .btn--primary").forEach(btn => {
+    document.querySelectorAll(".btn--magnetic").forEach(btn => {
       btn.addEventListener("pointermove", e => {
         const r  = btn.getBoundingClientRect();
-        const dx = (e.clientX - r.left - r.width  / 2) * .22;
-        const dy = (e.clientY - r.top  - r.height / 2) * .22;
+        const dx = (e.clientX - r.left - r.width  / 2) * .20;
+        const dy = (e.clientY - r.top  - r.height / 2) * .20;
         btn.style.transform = `translate(${dx}px,${dy}px)`;
       });
       btn.addEventListener("pointerleave", () => { btn.style.transform = ""; });
@@ -273,17 +159,13 @@
     });
   });
 
-  /* ── Parallax: hero bg text on scroll ───────────────────── */
+  /* ── Hero watermark parallax ────────────────────────────── */
   if (!prefersReduced) {
-    const heroBg = document.querySelector(".hero__bg-text");
-    const pills  = document.querySelectorAll(".hero__pill");
+    const watermark = document.querySelector(".hero__watermark");
     window.addEventListener("scroll", () => {
-      const y = window.scrollY;
-      if (heroBg) heroBg.style.transform = `translate(-50%, calc(-50% + ${y * 0.25}px))`;
-      pills.forEach((p, i) => {
-        const speed = i % 2 === 0 ? -0.12 : 0.1;
-        p.style.transform = `translateY(${y * speed}px)`;
-      });
+      if (watermark) {
+        watermark.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+      }
     }, { passive: true });
   }
 
@@ -292,7 +174,7 @@
     heart: {
       title: "Cardiology",
       sub: "Heart Care & Cardiac Monitoring",
-      icon: `<svg viewBox="0 0 24 24" style="color:#4d8bff"><path d="M12 21s-7-4.35-9.5-8.5C.9 9.6 2.4 6 6 6c2 0 3.2 1.1 4 2.3C10.8 7.1 12 6 14 6c3.6 0 5.1 3.6 3.5 6.5C19 16.65 12 21 12 21z"/></svg>`,
+      icon: `<svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.9 9.6 2.4 6 6 6c2 0 3.2 1.1 4 2.3C10.8 7.1 12 6 14 6c3.6 0 5.1 3.6 3.5 6.5C19 16.65 12 21 12 21z"/></svg>`,
       services: ["ECG & Echo", "24×7 Cardiac Monitoring", "Stress Testing", "Holter Monitor", "Angiography Referral", "Hypertension Management"],
       doctors: [
         { name: "Senior Cardiologist", qual: "MBBS, MD (Cardiology)", img: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=300&q=80" }
@@ -302,7 +184,7 @@
     brain: {
       title: "Neurology",
       sub: "Brain, Spine & Nervous System",
-      icon: `<svg viewBox="0 0 24 24" style="color:#4d8bff"><path d="M12 2a6 6 0 0 0-6 6c0 2 1 3.5 2 5 .8 1.2 1 2 1 4h6c0-2 .2-2.8 1-4 1-1.5 2-3 2-5a6 6 0 0 0-6-6z"/></svg>`,
+      icon: `<svg viewBox="0 0 24 24"><path d="M12 2a6 6 0 0 0-6 6c0 2 1 3.5 2 5 .8 1.2 1 2 1 4h6c0-2 .2-2.8 1-4 1-1.5 2-3 2-5a6 6 0 0 0-6-6z"/></svg>`,
       services: ["MRI & CT Neuroimaging", "EEG", "Epilepsy Management", "Stroke Care", "Headache Clinic", "Nerve Conduction Studies"],
       doctors: [
         { name: "Senior Neurologist", qual: "MBBS, MD (Neurology)", img: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=300&q=80" }
@@ -312,7 +194,7 @@
     spine: {
       title: "Orthopedics & Joint Replacement",
       sub: "Bones, Joints & Spine Surgery",
-      icon: `<svg viewBox="0 0 24 24" style="color:#4d8bff"><path d="M9 2v3H6a1 1 0 0 0-1 1v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a1 1 0 0 0-1-1h-3V2z"/></svg>`,
+      icon: `<svg viewBox="0 0 24 24"><path d="M9 2v3H6a1 1 0 0 0-1 1v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a1 1 0 0 0-1-1h-3V2z"/></svg>`,
       services: ["Joint Replacement (Knee/Hip)", "Spine Surgery", "Fracture Management", "Sports Injuries", "Arthroscopy", "Reconstructive Surgery"],
       doctors: [
         { name: "Dr. Sunil Poonia", qual: "MBBS, MS (Orthopedics) — Founder", img: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=300&q=80" }
@@ -322,7 +204,7 @@
     kidney: {
       title: "Urology",
       sub: "Kidney, Bladder & Urinary Tract",
-      icon: `<svg viewBox="0 0 24 24" style="color:#4d8bff"><path d="M12 2a8 8 0 0 0-8 8c0 6 8 12 8 12s8-6 8-12a8 8 0 0 0-8-8zm0 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/></svg>`,
+      icon: `<svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 6 8 12 8 12s8-6 8-12a8 8 0 0 0-8-8zm0 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/></svg>`,
       services: ["Kidney Stone Treatment", "Prostate Care", "Cystoscopy", "TURP", "Laparoscopic Urology", "Bladder Disorders"],
       doctors: [
         { name: "Senior Urologist", qual: "MBBS, MS (Urology)", img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=300&q=80" }
@@ -332,7 +214,7 @@
     embryo: {
       title: "Gynaecology & Obstetrics",
       sub: "Women's Health & Maternity Care",
-      icon: `<svg viewBox="0 0 24 24" style="color:#c084fc"><path d="M12 2C8.1 2 5 5.1 5 9c0 3.5 2.4 6.4 5.6 7.2V22h2.8v-5.8C16.6 15.4 19 12.5 19 9c0-3.9-3.1-7-7-7z"/></svg>`,
+      icon: `<svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 3.5 2.4 6.4 5.6 7.2V22h2.8v-5.8C16.6 15.4 19 12.5 19 9c0-3.9-3.1-7-7-7z"/></svg>`,
       services: ["Antenatal Care", "Safe Delivery", "High-Risk Pregnancy", "Laparoscopic Gynaecology", "NICU", "Fertility Counselling"],
       doctors: [
         { name: "Senior Gynaecologist", qual: "MBBS, MS (Obs & Gynae)", img: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=300&q=80" }
@@ -366,13 +248,13 @@
           <p>${d.sub}</p>
         </div>
       </div>
-      <p style="color:var(--muted);font-size:.9rem;line-height:1.75;margin-bottom:8px">${d.desc}</p>
+      <p style="color:#666;font-size:.88rem;line-height:1.75;margin-bottom:8px">${d.desc}</p>
       <div class="modal__section-title">Our Doctors</div>
       <div class="modal__doctor-grid">${doctorsHtml}</div>
       <div class="modal__section-title">Services We Offer</div>
       <div class="modal__services">${servicesHtml}</div>
-      <div style="margin-top:26px">
-        <a href="#appointment" class="btn btn--primary" onclick="closeModal()">Book Appointment in ${d.title}</a>
+      <div style="margin-top:24px">
+        <a href="#appointment" class="btn btn--dark" onclick="closeModal()">Book Appointment in ${d.title} →</a>
       </div>`;
 
     modal.removeAttribute("hidden");
@@ -391,12 +273,23 @@
   }
   window.closeModal = closeModal;
 
-  // Spec items open modal when clicked
-  document.querySelectorAll(".spec-item[data-key]").forEach(el => {
+  /* Service cards open modal */
+  document.querySelectorAll(".scard[data-key]").forEach(el => {
     el.addEventListener("click", () => openModal(el.dataset.key));
+    el.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(el.dataset.key); }
+    });
   });
 
-  // Doctor cards open modal
+  /* Spec chips open modal */
+  document.querySelectorAll(".spec-chip[data-key]").forEach(el => {
+    el.addEventListener("click", () => openModal(el.dataset.key));
+    el.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(el.dataset.key); }
+    });
+  });
+
+  /* Doctor cards open modal */
   document.querySelectorAll(".doc-card[data-key]").forEach(el => {
     el.addEventListener("click", () => openModal(el.dataset.key));
   });
@@ -425,7 +318,7 @@
         formNote.textContent = "Thank you! Our team will call you back shortly.";
         formNote.className   = "form-note";
         form.reset();
-        btn.textContent = "Request Appointment";
+        btn.textContent = "Request Appointment →";
         btn.disabled    = false;
       }, 1200);
     });
