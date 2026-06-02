@@ -1,43 +1,40 @@
 # Aaruni Multispeciality Hospital — Website
 
-A single-page hospital website for **Aaruni Multispeciality Hospital, Jhunjhunu**,
-built in a modern *kinetic studio* visual style (animated oversized typography,
-full-screen marquee hero, scroll reveals, custom cursor) and recoloured into a
-clean **medical teal + mint** theme.
+A modern, clean healthcare website for **Aaruni Multispeciality Hospital, Jhunjhunu**
+— Dribbble-inspired UI with a fresh medical **teal/green** theme: soft cards,
+rounded corners, friendly typography and subtle scroll motion.
 
 ## View it
 
-It's plain HTML/CSS/JS — no build step. Just open `index.html`, or serve locally:
+Plain HTML/CSS/JS, no build step. Open `index.html`, or serve locally:
 
 ```bash
-python3 -m http.server 8000
-# then visit http://localhost:8000
+python3 -m http.server 8000   # → http://localhost:8000
 ```
 
 ## Structure
 
 ```
-index.html            # all markup / sections
-assets/css/styles.css # theme tokens + all styling
-assets/js/main.js     # preloader, cursor, reveals, counters, menu, form
+index.html             # all markup / sections
+assets/css/clinic.css  # design system + all styling
+assets/js/clinic.js    # nav, scroll reveals, counters, form, back-to-top
 ```
 
 ## Sections
 
-Hero → marquee → About (+ animated stats) → Specialties (10 departments) →
-Facilities (bento grid) → How we care (process) → Doctors → Patient stories →
-Book Appointment (form + contact) → Footer.
+Top bar → sticky header → hero (with floating cards) → highlights strip →
+specialties (10 departments) → why Aaruni (+ animated stats) → facilities →
+how it works (3 steps) → doctors → patient stories → appointment form + contact → footer.
 
-## Content & contact
+## Content
 
 Hospital details (specialties, facilities, NABH accreditation, address, phone,
-email) are drawn from Aaruni Multispeciality Hospital, Jhunjhunu, Rajasthan.
-The appointment form is front-end only (no backend); submissions show a
-confirmation message and are not sent anywhere.
+email) reflect Aaruni Multispeciality Hospital, Jhunjhunu, Rajasthan. The
+appointment form is front-end only (shows a confirmation; nothing is sent).
+Doctor names and testimonials are representative placeholders — swap in real
+staff (with consent/photos) before going live.
 
 ## Notes
 
-- Fully responsive, with a `prefers-reduced-motion` fallback that disables animation.
-- Fonts: **Anton** (display) + **Space Grotesk** (body) via Google Fonts.
-- Doctor names/photos and testimonials are representative placeholders — swap in
-  real staff and patient consent before going live.
+- Fully responsive, with a `prefers-reduced-motion` fallback.
+- Font: **Plus Jakarta Sans** (Google Fonts). Icons are inline SVG.
