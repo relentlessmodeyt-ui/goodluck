@@ -127,25 +127,38 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   overflow:hidden;text-align:center;padding:120px 24px 90px}
 .hero__scene{position:absolute;inset:0;z-index:0;pointer-events:none}
 .par{position:absolute;inset:0;pointer-events:none;will-change:transform}
-.planet{position:absolute;left:50%;top:-46%;width:min(1180px,150vw);aspect-ratio:1;transform:translateX(-50%);
-  border-radius:50%;background:
-    radial-gradient(40% 36% at 38% 30%,rgba(201,139,255,.55),transparent 60%),
-    radial-gradient(60% 60% at 70% 64%,rgba(115,34,216,.5),transparent 70%),
-    radial-gradient(circle at 50% 50%,#231042 0,#150a2b 48%,#0a0518 72%,transparent 78%);
-  box-shadow:inset -40px -30px 120px rgba(0,0,0,.7),inset 60px 40px 140px rgba(166,77,255,.25),0 0 140px rgba(115,34,216,.35);
-  animation:spin 120s linear infinite}
-.planet::after{content:"";position:absolute;inset:0;border-radius:50%;
-  background:radial-gradient(closest-side,transparent 70%,rgba(166,77,255,.35) 88%,transparent 92%);mix-blend-mode:screen}
-@keyframes spin{to{transform:translateX(-50%) rotate(360deg)}}
-.planet__glow{position:absolute;left:50%;top:6%;width:760px;height:340px;transform:translateX(-50%);
-  background:radial-gradient(ellipse at center,rgba(166,77,255,.4),transparent 70%);filter:blur(20px)}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(125% 85% at 50% 38%,transparent 54%,rgba(7,4,15,.6) 100%)}
+.hero__haze{position:absolute;left:50%;bottom:-50px;width:920px;max-width:124vw;height:400px;transform:translateX(-50%);
+  z-index:1;pointer-events:none;filter:blur(34px);
+  background:radial-gradient(ellipse at 50% 100%,rgba(150,70,255,.5),rgba(120,40,220,.16) 46%,transparent 72%)}
+.planet{position:absolute;left:50%;top:-8%;width:min(1240px,148vw);aspect-ratio:1;transform:translateX(-50%);
+  border-radius:50%;overflow:hidden;background:
+    radial-gradient(46% 40% at 50% 13%,rgba(241,226,255,.92),rgba(176,108,255,.28) 42%,transparent 60%),
+    radial-gradient(38% 36% at 30% 34%,rgba(150,80,230,.32),transparent 60%),
+    radial-gradient(55% 50% at 72% 66%,rgba(96,30,170,.42),transparent 70%),
+    radial-gradient(circle at 50% 45%,#281450 0,#190d38 46%,#0d0726 70%,#070313 86%);
+  box-shadow:inset 0 46px 120px -34px rgba(241,226,255,.6),inset -34px -58px 150px -18px rgba(0,0,0,.92),
+    inset 60px 30px 130px -50px rgba(166,77,255,.5),0 0 190px rgba(115,34,216,.5)}
+.planet::before{content:"";position:absolute;inset:-3%;border-radius:50%;mix-blend-mode:overlay;opacity:.32;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.018' numOctaves='3' seed='9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E") center/cover;
+  animation:planetTex 180s linear infinite}
+.planet::after{content:"";position:absolute;inset:0;border-radius:50%;mix-blend-mode:screen;
+  background:radial-gradient(closest-side,transparent 67%,rgba(202,152,255,.42) 84%,transparent 90%)}
+@keyframes planetTex{to{transform:rotate(360deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.planet__glow{position:absolute;left:50%;top:1%;width:840px;max-width:92vw;height:360px;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center,rgba(176,108,255,.42),transparent 70%);filter:blur(26px);
+  animation:breath 9s ease-in-out infinite}
+@keyframes breath{0%,100%{opacity:.65}50%{opacity:1}}
 
-.organ{position:absolute;width:min(260px,30vw);filter:drop-shadow(0 0 26px rgba(166,77,255,.55));will-change:transform}
+.organ{position:absolute;width:min(284px,31vw);filter:drop-shadow(0 0 26px rgba(166,77,255,.55));will-change:transform}
 .organ__svg{width:100%;height:auto;overflow:visible}
-.organ--heart{left:3%;bottom:9%;animation:beat 1.6s ease-in-out infinite}
-.organ--brain{right:3%;top:34%;animation:floaty 6s ease-in-out infinite}
+.organ--heart{left:2.5%;bottom:8%;animation:beat 1.5s ease-in-out infinite,organGlow 3.2s ease-in-out infinite}
+.organ--brain{right:2.5%;top:32%;animation:floaty 6s ease-in-out infinite,organGlow 4.2s ease-in-out infinite}
 @keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.07)}28%{transform:scale(1)}42%{transform:scale(1.05)}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@keyframes organGlow{0%,100%{filter:drop-shadow(0 0 22px rgba(166,77,255,.5))}50%{filter:drop-shadow(0 0 44px rgba(202,152,255,.9))}}
 .organ__ecg{stroke-dasharray:340;stroke-dashoffset:340;animation:ecg 2.6s linear infinite}
 @keyframes ecg{to{stroke-dashoffset:-340}}
 .brain__node{animation:nodeBlink 2.4s ease-in-out infinite}
@@ -158,6 +171,9 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 @keyframes twinkle{0%,100%{opacity:0;transform:scale(.5) rotate(0)}50%{opacity:.95;transform:scale(1) rotate(45deg)}}
 
 .hero__content{position:relative;z-index:2;max-width:960px;display:flex;flex-direction:column;align-items:center}
+.hero__content::before{content:"";position:absolute;left:50%;top:50%;width:130%;height:160%;transform:translate(-50%,-50%);
+  z-index:-1;pointer-events:none;filter:blur(26px);
+  background:radial-gradient(ellipse at center,rgba(7,4,15,.55),rgba(7,4,15,.2) 45%,transparent 66%)}
 .hero__tag{font-family:var(--display);font-size:clamp(13px,1.4vw,16px);color:var(--violet-bright);
   letter-spacing:.06em;margin-bottom:18px;text-shadow:0 0 20px rgba(166,77,255,.5)}
 .hero__title{font-family:var(--display);font-weight:700;font-size:clamp(34px,6.4vw,86px);line-height:.98;
@@ -272,7 +288,7 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   background:radial-gradient(circle at 50% 40%,rgba(115,34,216,.4),rgba(13,8,32,.6))}
 .about__bigic{width:44%;fill:none;stroke:var(--violet-bright);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;
   filter:drop-shadow(0 0 16px rgba(166,77,255,.6));position:relative;z-index:2}
-.about__ring{position:absolute;width:62%;aspect-ratio:1;border-radius:50%;border:1px solid var(--line-2);
+.about__ring{position:absolute;inset:0;margin:auto;width:62%;aspect-ratio:1;border-radius:50%;border:1px solid var(--line-2);
   box-shadow:0 0 40px rgba(166,77,255,.3),inset 0 0 40px rgba(166,77,255,.2);animation:spin 30s linear infinite}
 .about__ring::after{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;
   transform:translateX(-50%);background:var(--violet-bright);box-shadow:0 0 14px var(--violet)}
