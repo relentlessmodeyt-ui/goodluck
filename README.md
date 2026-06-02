@@ -1,8 +1,9 @@
-# Aaruni Multispeciality Hospital — Website
+# Aaruni Multi Speciality Hospital — Website
 
-A modern, clean healthcare website for **Aaruni Multispeciality Hospital, Jhunjhunu**
-— Dribbble-inspired UI with a fresh medical **teal/green** theme: soft cards,
-rounded corners, friendly typography and subtle scroll motion.
+A premium, **dark-purple "cosmic" healthcare website** for **Aaruni Multi Speciality
+Hospital, Jhunjhunu**. Two-color theme (deep violet-black + neon violet), a replicated
+hero with a glowing planet, neon **heart** & **brain**, twinkling sparkles, and motion
+throughout — 3D depth, parallax, glass, glow and cinematic scroll reveals.
 
 ## View it
 
@@ -16,25 +17,40 @@ python3 -m http.server 8000   # → http://localhost:8000
 
 ```
 index.html             # all markup / sections
-assets/css/clinic.css  # design system + all styling
-assets/js/clinic.js    # nav, scroll reveals, counters, form, back-to-top
+assets/css/clinic.css  # design system + all styling (two-color violet theme)
+assets/js/clinic.js    # motion engine, parallax, reveals, tilt, counters, form
 ```
+
+## Motion stack
+
+Loaded from CDN, all **optional & guarded** (the site degrades gracefully and
+respects `prefers-reduced-motion`):
+
+- **GSAP + ScrollTrigger** — scroll-reveal animations
+- **Lenis** — smooth scrolling
+- Custom vanilla JS — hero scroll + mouse **parallax** (on wrapper layers so the
+  CSS keyframe animations never conflict), 3D **tilt** cards, sparkle field,
+  count-up stats.
 
 ## Sections
 
-Top bar → sticky header → hero (with floating cards) → highlights strip →
-specialties (10 departments) → why Aaruni (+ animated stats) → facilities →
-how it works (3 steps) → doctors → patient stories → appointment form + contact → footer.
+Sticky nav → cosmic **hero** (planet · neon heart & brain · sparkles) → highlights
+strip → **Hospital Specialities** (cards hanging from a rail, gentle sway) →
+**Special Cure** (50/50 hover-to-flip cards with animated icons — cardiology's
+heartbeat, neurology's brain) → Why Aaruni (+ animated stats) → facilities (3D tilt)
+→ how it works → doctors (no photos) → patient stories → appointment form + contact → footer.
 
 ## Content
 
-Hospital details (specialties, facilities, NABH accreditation, address, phone,
-email) reflect Aaruni Multispeciality Hospital, Jhunjhunu, Rajasthan. The
-appointment form is front-end only (shows a confirmation; nothing is sent).
-Doctor names and testimonials are representative placeholders — swap in real
-staff (with consent/photos) before going live.
+Hospital details reflect Aaruni Multi Speciality Hospital, Jhunjhunu, Rajasthan.
+The appointment form is front-end only (shows a confirmation; nothing is sent).
+Doctor names and testimonials are representative placeholders — swap in real staff
+before going live.
 
 ## Notes
 
-- Fully responsive, with a `prefers-reduced-motion` fallback.
-- Font: **Plus Jakarta Sans** (Google Fonts). Icons are inline SVG.
+- Fully responsive; touch devices get **tap-to-flip** on the Special Cure cards.
+- Fonts: **Space Grotesk** (display) + **Plus Jakarta Sans** (body), via Google Fonts.
+- Icons and the hero heart/brain are inline SVG (no image assets required).
+- **Deploy:** the GitHub Pages workflow publishes on push to `main`. This branch is a
+  safe preview — merge it into `main` to go live.
