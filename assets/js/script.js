@@ -1,5 +1,9 @@
 'use strict';
 
+/* ═══════════════════════════════════════════════════════════════
+   AARUNI MULTISPECIALITY HOSPITAL — CINEMATIC JS
+   ═══════════════════════════════════════════════════════════════ */
+
 /* ── DEPTS DATA ── */
 const DEPTS = {
   heart: {
@@ -12,7 +16,7 @@ const DEPTS = {
     title: 'Neurology',
     sub: 'Brain & Nervous System Care',
     desc: 'Advanced neurological care including MRI and CT neuroimaging, epilepsy management, stroke treatment and headache clinic by experienced neurologists.',
-    services: ['MRI & CT Neuroimaging', 'Epilepsy Management', 'Stroke Care & Rehabilitation', 'Headache Clinic', 'EEG', 'Parkinson\'s Management', 'Nerve Conduction Studies']
+    services: ['MRI & CT Neuroimaging', 'Epilepsy Management', 'Stroke Care & Rehabilitation', 'Headache Clinic', 'EEG', "Parkinson's Management", 'Nerve Conduction Studies']
   },
   spine: {
     title: 'Orthopedics & Joint Replacement',
@@ -28,387 +32,516 @@ const DEPTS = {
   },
   embryo: {
     title: 'Gynaecology & Obstetrics',
-    sub: 'Women\'s Health & Maternity Care',
-    desc: 'Comprehensive women\'s health services from antenatal care to safe delivery with NICU support, and laparoscopic gynaecological procedures.',
+    sub: "Women's Health & Maternity Care",
+    desc: "Comprehensive women's health services from antenatal care to safe delivery with NICU support, and laparoscopic gynaecological procedures.",
     services: ['Antenatal & Postnatal Care', 'Normal & Caesarean Delivery', 'NICU Support', 'Laparoscopic Gynaecology', 'High-Risk Pregnancy', 'Menstrual Disorders', 'Fertility Consultation']
   }
 };
 
-/* ── SMOOTH SCROLL ── */
-let targetY = 0, currentY = 0;
-const smoothWrap = document.getElementById('smoothWrap');
+/* ── REDUCED MOTION CHECK ── */
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function setDocHeight() {
-  if (smoothWrap) document.body.style.height = smoothWrap.scrollHeight + 'px';
+/* ══════════════════════════════════════════════
+   SMOOTH SCROLL (lerp RAF)
+══════════════════════════════════════════════ */
+let currentY   = 0;
+let targetY    = 0;
+let totalHeight = 0;
+const LERP     = 0.075;
+const wrap     = document.getElementById('smoothWrap');
+
+function calcHeight() {
+  totalHeight = wrap ? wrap.getBoundingClientRect().height - window.innerHeight : document.body.scrollHeight - window.innerHeight;
 }
-setDocHeight();
-window.addEventListener('resize', setDocHeight);
 
-window.addEventListener('scroll', () => {
-  targetY = window.scrollY;
-});
-
-/* ── CURSOR ── */
-const dot = document.getElementById('cursorDot');
-const trail = document.getElementById('cursorTrail');
-let mx = 0, my = 0, tx = 0, ty = 0;
-
-document.addEventListener('pointermove', e => {
-  mx = e.clientX;
-  my = e.clientY;
-  if (dot) {
-    dot.style.left = mx + 'px';
-    dot.style.top = my + 'px';
-  }
-});
-
-document.querySelectorAll('a, button, [data-tilt], .spec-card, .doctor-item, .faq__btn').forEach(el => {
-  el.addEventListener('pointerenter', () => { if (trail) trail.classList.add('hovering'); });
-  el.addEventListener('pointerleave', () => { if (trail) trail.classList.remove('hovering'); });
-});
-
-/* ── PARTICLES ── */
-const canvas = document.getElementById('particles');
-const ctx = canvas ? canvas.getContext('2d') : null;
-let W = 0, H = 0, particles = [], crosses = [];
-
-function resizeCanvas() {
-  if (!canvas) return;
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
+if (!prefersReduced && wrap) {
+  calcHeight();
+  window.addEventListener('resize', calcHeight);
+  window.addEventListener('wheel', e => {
+    targetY = Math.max(0, Math.min(totalHeight, targetY + e.deltaY));
+  }, { passive: true });
+  window.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+  let touchStartY = 0;
+  window.addEventListener('touchmove', e => {
+    const dy = touchStartY - e.touches[0].clientY;
+    targetY = Math.max(0, Math.min(totalHeight, targetY + dy));
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
 }
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
 
-class Particle {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * W;
-    this.y = Math.random() * H;
-    this.vx = (Math.random() - .5) * .4;
-    this.vy = (Math.random() - .5) * .4;
-    this.r = Math.random() * 1.5 + .5;
-    this.color = Math.random() > .5 ? 'rgba(0,212,255,' : 'rgba(112,0,255,';
-    this.alpha = Math.random() * .5 + .2;
-  }
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    const dx = this.x - mx;
-    const dy = this.y - my;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < 80) {
-      this.x += dx / dist * 1.5;
-      this.y += dy / dist * 1.5;
+/* ── Nav anchor clicks ── */
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const id = link.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    if (!prefersReduced && wrap) {
+      const rect = el.getBoundingClientRect();
+      targetY = Math.max(0, Math.min(totalHeight, currentY + rect.top - 80));
+    } else {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
-    if (this.x < 0 || this.x > W) this.vx *= -1;
-    if (this.y < 0 || this.y > H) this.vy *= -1;
-  }
-  draw() {
-    if (!ctx) return;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    ctx.fillStyle = this.color + this.alpha + ')';
-    ctx.fill();
-  }
-}
+  });
+});
 
-class Cross {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * W;
-    this.y = Math.random() * H;
-    this.vx = (Math.random() - .5) * .2;
-    this.vy = (Math.random() - .5) * .2;
-    this.size = Math.random() * 6 + 4;
-    this.alpha = Math.random() * .3 + .05;
-    this.rotation = Math.random() * Math.PI;
-  }
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.rotation += .005;
-    if (this.x < 0 || this.x > W) this.vx *= -1;
-    if (this.y < 0 || this.y > H) this.vy *= -1;
-  }
-  draw() {
-    if (!ctx) return;
-    ctx.save();
-    ctx.translate(this.x, this.y);
-    ctx.rotate(this.rotation);
-    ctx.strokeStyle = 'rgba(0,212,255,' + this.alpha + ')';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(-this.size, 0); ctx.lineTo(this.size, 0);
-    ctx.moveTo(0, -this.size); ctx.lineTo(0, this.size);
-    ctx.stroke();
-    ctx.restore();
-  }
-}
+/* ══════════════════════════════════════════════
+   DUAL CURSOR
+══════════════════════════════════════════════ */
+const cursorDot  = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
+let mouseX = -200, mouseY = -200;
+let ringX  = -200, ringY  = -200;
 
-if (ctx) {
-  for (let i = 0; i < 80; i++) particles.push(new Particle());
-  for (let i = 0; i < 15; i++) crosses.push(new Cross());
-}
+if (!prefersReduced) {
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
 
-function drawConnections() {
-  if (!ctx) return;
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i + 1; j < particles.length; j++) {
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const d = Math.sqrt(dx * dx + dy * dy);
-      if (d < 100) {
-        ctx.beginPath();
-        ctx.strokeStyle = 'rgba(0,212,255,' + (.08 * (1 - d / 100)) + ')';
-        ctx.lineWidth = .5;
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.stroke();
-      }
-    }
-  }
-}
-
-/* ── 3D TILT ── */
-function initTilt() {
-  document.querySelectorAll('[data-tilt]').forEach(card => {
-    card.addEventListener('pointermove', e => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - .5;
-      const y = (e.clientY - r.top) / r.height - .5;
-      card.style.transform = `perspective(600px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) scale(1.02)`;
-    });
-    card.addEventListener('pointerleave', () => {
-      card.style.transform = 'perspective(600px) rotateY(0) rotateX(0) scale(1)';
-    });
+  const hoverTargets = 'a, button, .spec-card, .doc-row, .faq-q, input, select, textarea, .btn, .fab-emergency';
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest(hoverTargets)) document.body.classList.add('cursor-hover');
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest(hoverTargets)) document.body.classList.remove('cursor-hover');
   });
 }
-initTilt();
 
-/* ── MAGNETIC BUTTONS ── */
+/* ══════════════════════════════════════════════
+   MAGNETIC BUTTONS
+══════════════════════════════════════════════ */
 function initMagnetic() {
   document.querySelectorAll('.btn--magnetic').forEach(btn => {
-    btn.addEventListener('pointermove', e => {
-      const r = btn.getBoundingClientRect();
-      const x = (e.clientX - (r.left + r.width / 2)) * .25;
-      const y = (e.clientY - (r.top + r.height / 2)) * .25;
-      btn.style.transform = `translate(${x}px,${y}px)`;
+    btn.addEventListener('mousemove', e => {
+      const r   = btn.getBoundingClientRect();
+      const dx  = e.clientX - (r.left + r.width  / 2);
+      const dy  = e.clientY - (r.top  + r.height / 2);
+      btn.style.transform = `translate(${dx * 0.28}px, ${dy * 0.28}px)`;
     });
-    btn.addEventListener('pointerleave', () => {
+    btn.addEventListener('mouseleave', () => {
       btn.style.transform = '';
     });
   });
 }
 initMagnetic();
 
-/* ── NAV SCROLL STATE ── */
-const nav = document.getElementById('nav');
-const scrollBar = document.getElementById('scrollBar');
+/* ══════════════════════════════════════════════
+   PARTICLE CANVAS
+══════════════════════════════════════════════ */
+const canvas  = document.getElementById('particles');
+const ctx     = canvas.getContext('2d');
+let W, H;
+let mouseParticleX = -999, mouseParticleY = -999;
 
-/* ── MODAL ── */
-const modal = document.getElementById('modal');
-const modalOverlay = document.getElementById('modalOverlay');
-const modalClose = document.getElementById('modalClose');
+function resizeCanvas() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+if (!prefersReduced) {
+  document.addEventListener('mousemove', e => {
+    mouseParticleX = e.clientX;
+    mouseParticleY = e.clientY;
+  });
+}
+
+/* Particles */
+const CYAN_C   = 'rgba(0,212,255,';
+const VIOLET_C = 'rgba(108,0,255,';
+
+const particles = Array.from({ length: 60 }, () => ({
+  x: Math.random() * window.innerWidth,
+  y: Math.random() * window.innerHeight,
+  vx: (Math.random() - .5) * .4,
+  vy: (Math.random() - .5) * .4,
+  r: Math.random() * 2 + 1,
+  color: Math.random() > .5 ? CYAN_C : VIOLET_C,
+  alpha: Math.random() * .5 + .2
+}));
+
+/* Medical crosses */
+const crosses = Array.from({ length: 12 }, () => ({
+  x: Math.random() * window.innerWidth,
+  y: Math.random() * window.innerHeight,
+  vx: (Math.random() - .5) * .25,
+  vy: (Math.random() - .5) * .25,
+  size: Math.random() * 8 + 6,
+  alpha: Math.random() * .18 + .06,
+  rot: Math.random() * Math.PI * 2,
+  rotV: (Math.random() - .5) * .004
+}));
+
+function drawCross(x, y, size, alpha, rot) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(rot);
+  ctx.globalAlpha = alpha;
+  ctx.strokeStyle = CYAN_C + '1)';
+  ctx.lineWidth   = 1.5;
+  ctx.lineCap     = 'round';
+  ctx.beginPath();
+  ctx.moveTo(-size / 2, 0);
+  ctx.lineTo(size / 2, 0);
+  ctx.moveTo(0, -size / 2);
+  ctx.lineTo(0, size / 2);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function updateParticles() {
+  const REPULSE_R = 90;
+  const CONNECT_R = 110;
+
+  particles.forEach(p => {
+    /* repulsion */
+    const dx = p.x - mouseParticleX;
+    const dy = p.y - mouseParticleY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < REPULSE_R) {
+      const force = (REPULSE_R - dist) / REPULSE_R;
+      p.vx += dx / dist * force * 0.6;
+      p.vy += dy / dist * force * 0.6;
+    }
+    /* damping */
+    p.vx *= 0.97;
+    p.vy *= 0.97;
+    /* move */
+    p.x += p.vx;
+    p.y += p.vy;
+    /* wrap */
+    if (p.x < 0)  p.x = W;
+    if (p.x > W)  p.x = 0;
+    if (p.y < 0)  p.y = H;
+    if (p.y > H)  p.y = 0;
+  });
+
+  /* draw connecting lines */
+  ctx.globalAlpha = 1;
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx   = particles[i].x - particles[j].x;
+      const dy   = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < CONNECT_R) {
+        ctx.beginPath();
+        ctx.strokeStyle = CYAN_C + (0.1 * (1 - dist / CONNECT_R)) + ')';
+        ctx.lineWidth   = 0.6;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  /* draw particles */
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.globalAlpha = p.alpha;
+    ctx.fillStyle   = p.color + '1)';
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  /* update & draw crosses */
+  crosses.forEach(c => {
+    c.x   += c.vx;
+    c.y   += c.vy;
+    c.rot += c.rotV;
+    if (c.x < -20)  c.x = W + 20;
+    if (c.x > W+20) c.x = -20;
+    if (c.y < -20)  c.y = H + 20;
+    if (c.y > H+20) c.y = -20;
+    drawCross(c.x, c.y, c.size, c.alpha, c.rot);
+  });
+
+  ctx.globalAlpha = 1;
+}
+
+/* ══════════════════════════════════════════════
+   TEXT SCRAMBLE
+══════════════════════════════════════════════ */
+const SCRAMBLE_CHARS = '!@#$%^&*ABCDEFabcdef0123456789';
+
+function scrambleText(el, finalText, duration) {
+  if (prefersReduced) { el.textContent = finalText; return; }
+  const startTime = performance.now();
+  let frame;
+
+  function update(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const revealedLen = Math.floor(progress * finalText.length);
+
+    let result = '';
+    for (let i = 0; i < finalText.length; i++) {
+      if (finalText[i] === ' ' || finalText[i] === '\n') {
+        result += finalText[i];
+      } else if (i < revealedLen) {
+        result += finalText[i];
+      } else {
+        result += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+      }
+    }
+    el.textContent = result;
+
+    if (progress < 1) {
+      frame = requestAnimationFrame(update);
+    } else {
+      el.textContent = finalText;
+    }
+  }
+  frame = requestAnimationFrame(update);
+}
+
+/* ══════════════════════════════════════════════
+   COUNTERS
+══════════════════════════════════════════════ */
+const countedSet = new Set();
+
+function animateCounter(el) {
+  const target = parseInt(el.dataset.count, 10);
+  if (isNaN(target) || countedSet.has(el)) return;
+  countedSet.add(el);
+  if (prefersReduced) { el.textContent = target.toLocaleString(); return; }
+
+  const dur  = 2000;
+  const start = performance.now();
+  const startVal = 0;
+
+  function step(now) {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    const val = Math.floor(startVal + (target - startVal) * ease);
+    el.textContent = val >= 1000 ? (val / 1000).toFixed(val >= 10000 ? 0 : 0) + 'K' : val.toString();
+    if (p < 1) requestAnimationFrame(step);
+    else el.textContent = target >= 1000 ? Math.round(target / 1000) + 'K' : target.toString();
+  }
+  requestAnimationFrame(step);
+}
+
+/* ══════════════════════════════════════════════
+   MODAL
+══════════════════════════════════════════════ */
+const backdrop  = document.getElementById('modalBackdrop');
+const modalBox  = document.getElementById('modalBox');
 const modalBody = document.getElementById('modalBody');
+const modalClose = document.getElementById('modalClose');
 
 function openModal(key) {
   const d = DEPTS[key];
-  if (!d || !modal || !modalBody) return;
+  if (!d) return;
   modalBody.innerHTML = `
-    <h2 class="modal-title">${d.title}</h2>
+    <h2>${d.title}</h2>
     <p class="modal-sub">${d.sub}</p>
-    <p class="modal-desc">${d.desc}</p>
-    <div class="modal-services">
-      <h4>Services</h4>
-      <ul>${d.services.map(s => `<li>${s}</li>`).join('')}</ul>
-    </div>
-    <a href="#appointment" class="btn btn--cyan btn--magnetic" style="margin-top:2rem;display:inline-flex" onclick="closeModal()">Book Appointment →</a>
+    <p>${d.desc}</p>
+    <h4>Services &amp; Treatments</h4>
+    <ul class="modal-services">${d.services.map(s => `<li>${s}</li>`).join('')}</ul>
   `;
-  modal.hidden = false;
+  backdrop.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
-  if (modal) modal.hidden = true;
+  backdrop.classList.remove('open');
   document.body.style.overflow = '';
 }
 
-if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
 if (modalClose) modalClose.addEventListener('click', closeModal);
+if (backdrop)   backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-document.querySelectorAll('[data-key]').forEach(el => {
-  el.addEventListener('click', () => openModal(el.dataset.key));
-  el.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      openModal(el.dataset.key);
-    }
-  });
+document.querySelectorAll('.spec-card[data-key]').forEach(card => {
+  card.addEventListener('click', () => openModal(card.dataset.key));
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openModal(card.dataset.key); });
 });
 
-/* ── FAQ ── */
-document.querySelectorAll('.faq__btn').forEach(btn => {
+/* ══════════════════════════════════════════════
+   FAQ ACCORDION
+══════════════════════════════════════════════ */
+document.querySelectorAll('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    document.querySelectorAll('.faq__btn').forEach(b => {
-      b.setAttribute('aria-expanded', 'false');
-      const body = b.nextElementSibling;
-      if (body) body.style.maxHeight = '0';
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
     });
-    if (!expanded) {
+    if (!isOpen) {
+      item.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');
-      const body = btn.nextElementSibling;
-      if (body) body.style.maxHeight = body.scrollHeight + 'px';
     }
   });
 });
 
-/* ── FORM ── */
+/* ══════════════════════════════════════════════
+   APPOINTMENT FORM
+══════════════════════════════════════════════ */
 const apptForm = document.getElementById('apptForm');
-const formNote = document.getElementById('formNote');
-
 if (apptForm) {
   apptForm.addEventListener('submit', e => {
     e.preventDefault();
-    const name = apptForm.name.value.trim();
-    const phone = apptForm.phone.value.trim();
-    if (!name) { showNote('Please enter your full name.', 'error'); return; }
-    if (!phone || !/^[\d\s\+\-]{7,15}$/.test(phone)) {
-      showNote('Please enter a valid phone number.', 'error');
-      return;
+    const nameEl  = document.getElementById('apptName');
+    const phoneEl = document.getElementById('apptPhone');
+    let valid = true;
+
+    const nameGrp  = nameEl.closest('.form-group');
+    const phoneGrp = phoneEl.closest('.form-group');
+
+    nameGrp.classList.remove('error');
+    phoneGrp.classList.remove('error');
+
+    if (!nameEl.value.trim() || nameEl.value.trim().length < 2) {
+      nameGrp.classList.add('error');
+      valid = false;
     }
-    showNote('Thank you! We will call you shortly to confirm your appointment.', 'success');
-    apptForm.reset();
+    const phoneVal = phoneEl.value.replace(/\D/g, '');
+    if (phoneVal.length < 10) {
+      phoneGrp.classList.add('error');
+      valid = false;
+    }
+
+    if (valid) {
+      const success = document.getElementById('formSuccess');
+      if (success) success.classList.add('show');
+      apptForm.reset();
+      setTimeout(() => success.classList.remove('show'), 6000);
+    }
   });
 }
 
-function showNote(msg, type) {
-  if (!formNote) return;
-  formNote.textContent = msg;
-  formNote.className = 'form-note ' + type;
-  setTimeout(() => {
-    formNote.textContent = '';
-    formNote.className = 'form-note';
-  }, 5000);
+/* ══════════════════════════════════════════════
+   3D TILT on spec cards
+══════════════════════════════════════════════ */
+document.querySelectorAll('[data-tilt]').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    if (prefersReduced) return;
+    const r  = card.getBoundingClientRect();
+    const cx = r.left + r.width  / 2;
+    const cy = r.top  + r.height / 2;
+    const dx = (e.clientX - cx) / (r.width  / 2);
+    const dy = (e.clientY - cy) / (r.height / 2);
+    const tiltX =  dy * 15;
+    const tiltY = -dx * 15;
+    card.style.transform = `perspective(900px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.03,1.03,1.03)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+/* ══════════════════════════════════════════════
+   MAIN RAF LOOP
+══════════════════════════════════════════════ */
+let navEl = document.getElementById('nav');
+const progressBar = document.getElementById('scrollProgress');
+const heroWatermark = document.getElementById('heroWatermark');
+const heroGlows = document.querySelectorAll('.hero__glow');
+const heroOrb   = document.getElementById('heroOrb');
+
+// Scramble hero title on first load
+const heroTitleEl = document.getElementById('heroTitle');
+let titleScrambled = false;
+
+function getScrollFraction() {
+  return totalHeight > 0 ? currentY / totalHeight : 0;
 }
 
-/* ── COUNTERS ── */
-function animateCounter(el) {
-  if (el.dataset.counted) return;
-  el.dataset.counted = '1';
-  const target = +el.dataset.count;
-  if (!target) return;
-  const dur = 2000;
-  const step = 16;
-  let current = 0;
-  const inc = target / (dur / step);
-  const id = setInterval(() => {
-    current = Math.min(current + inc, target);
-    if (target >= 1000) {
-      el.textContent = (current / 1000).toFixed(1).replace(/\.0$/, '') + 'K+';
-    } else {
-      el.textContent = Math.floor(current) + '+';
+function rafLoop(time) {
+  /* ── Lerp smooth scroll ── */
+  if (!prefersReduced && wrap) {
+    currentY += (targetY - currentY) * LERP;
+    if (Math.abs(currentY - targetY) < 0.1) currentY = targetY;
+    wrap.style.transform = `translateY(${-currentY}px)`;
+  }
+
+  /* ── Dual cursor ── */
+  if (!prefersReduced) {
+    if (cursorDot) {
+      cursorDot.style.left = mouseX + 'px';
+      cursorDot.style.top  = mouseY + 'px';
     }
-    if (current >= target) clearInterval(id);
-  }, step);
-}
+    if (cursorRing) {
+      ringX += (mouseX - ringX) * 0.14;
+      ringY += (mouseY - ringY) * 0.14;
+      cursorRing.style.left = ringX + 'px';
+      cursorRing.style.top  = ringY + 'px';
+    }
+  }
 
-/* ── YEAR ── */
-const yr = document.getElementById('yr');
-if (yr) yr.textContent = new Date().getFullYear();
+  /* ── Scroll progress bar ── */
+  if (progressBar) {
+    progressBar.style.width = (getScrollFraction() * 100) + '%';
+  }
 
-/* ── REVEAL ── */
-function checkReveals() {
+  /* ── Nav frosted glass ── */
+  if (navEl) {
+    if (currentY > 60) navEl.classList.add('scrolled');
+    else               navEl.classList.remove('scrolled');
+  }
+
+  /* ── Parallax ── */
+  if (!prefersReduced) {
+    if (heroWatermark) {
+      heroWatermark.style.transform = `translate(-50%, calc(-50% + ${currentY * 0.3}px))`;
+    }
+    if (heroOrb) {
+      heroOrb.style.transform = `translateY(calc(-50% + ${currentY * 0.18}px))`;
+    }
+    heroGlows.forEach((g, i) => {
+      const factor = i === 0 ? 0.5 : i === 1 ? 0.35 : 0.25;
+      g.style.transform = `translateY(${currentY * factor}px)`;
+    });
+  }
+
+  /* ── Reveal elements ── */
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
     const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * .9 && rect.bottom > 0) {
+    const adjustedTop = rect.top + (prefersReduced ? 0 : 0); // already relative to viewport via fixed layout
+    if (adjustedTop < window.innerHeight * 0.88) {
       el.classList.add('visible');
+      /* Trigger counter if stat-item */
+      const counter = el.querySelector('[data-count]');
+      if (counter) animateCounter(counter);
     }
   });
-}
 
-function checkCounters() {
-  document.querySelectorAll('.visible [data-count]:not([data-counted])').forEach(el => {
-    animateCounter(el);
-  });
-}
-
-/* ── RAF MAIN LOOP ── */
-let prevScrollY = -1;
-
-function raf() {
-  // smooth scroll lerp
-  currentY += (targetY - currentY) * 0.08;
-  if (smoothWrap) smoothWrap.style.transform = `translateY(${-currentY}px)`;
-
-  // scroll progress bar
-  const docHeight = document.body.scrollHeight - window.innerHeight;
-  const prog = docHeight > 0 ? (targetY / docHeight) * 100 : 0;
-  if (scrollBar) scrollBar.style.width = prog + '%';
-
-  // nav state
-  if (nav) {
-    if (currentY > 60) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
+  /* ── Scramble hero title (once) ── */
+  if (!titleScrambled && heroTitleEl) {
+    const rect = heroTitleEl.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      titleScrambled = true;
+      const plain = 'We live in the\nheart of Jhunjhunu';
+      scrambleText({ set textContent(v) { heroTitleEl.childNodes[0].textContent = v.split('\n')[0]; const em = heroTitleEl.querySelector('em'); if (em) em.textContent = v.split('\n')[1] || ''; } }, plain, 1500);
+    }
   }
 
-  // cursor trail lerp
-  tx += (mx - tx) * 0.12;
-  ty += (my - ty) * 0.12;
-  if (trail) {
-    trail.style.left = tx + 'px';
-    trail.style.top = ty + 'px';
-  }
-
-  // particles
-  if (ctx) {
+  /* ── Particles ── */
+  if (!prefersReduced) {
     ctx.clearRect(0, 0, W, H);
-    particles.forEach(p => { p.update(); p.draw(); });
-    crosses.forEach(c => { c.update(); c.draw(); });
-    drawConnections();
+    updateParticles();
   }
 
-  // reveals (check when scroll position changes)
-  if (Math.abs(currentY - prevScrollY) > 0.5) {
-    checkReveals();
-    checkCounters();
-    prevScrollY = currentY;
-  }
-
-  requestAnimationFrame(raf);
+  requestAnimationFrame(rafLoop);
 }
 
-// Initial reveal check
-setTimeout(() => {
-  checkReveals();
-  checkCounters();
-  // Recalculate doc height after fonts load
-  setDocHeight();
-}, 200);
-
-// Fallback: ensure nothing stays hidden after 1.5s
+/* ── Fallback: force-reveal after 1500ms ── */
 setTimeout(() => {
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
     el.classList.add('visible');
+    const counter = el.querySelector('[data-count]');
+    if (counter) animateCounter(counter);
   });
-  checkCounters();
 }, 1500);
 
-requestAnimationFrame(raf);
+/* ── Start ── */
+requestAnimationFrame(rafLoop);
 
-/* ── SMOOTH ANCHOR SCROLL ── */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const id = a.getAttribute('href').slice(1);
-    if (!id) return;
-    const target = document.getElementById(id);
-    if (!target) return;
-    e.preventDefault();
-    // Calculate target position relative to smoothWrap
-    const targetTop = target.getBoundingClientRect().top + currentY - 80;
-    targetY = Math.max(0, targetTop);
-    window.scrollTo(0, targetY);
-  });
+/* ── Recalculate height on image/font load ── */
+window.addEventListener('load', () => {
+  calcHeight();
+  /* Hero stat counters animate immediately */
+  document.querySelectorAll('.stat-item.visible [data-count]').forEach(animateCounter);
 });
+window.addEventListener('resize', calcHeight);

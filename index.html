@@ -4,19 +4,30 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aaruni Multispeciality Hospital — Jhunjhunu</title>
-  <meta name="description" content="Aaruni Multispeciality Hospital — NABH Accredited hospital in Jhunjhunu, Rajasthan. Expert care in Cardiology, Neurology, Orthopedics, Urology and Gynaecology. 24x7 Emergency."/>
+  <meta name="description" content="Aaruni Multispeciality Hospital — NABH Accredited hospital in Jhunjhunu, Rajasthan. Expert care in Cardiology, Neurology, Orthopedics, Urology and Gynaecology. 24×7 Emergency."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/style.css"/>
 </head>
 <body>
-  <!-- dual cursor -->
+
+  <!-- Dual cursor -->
   <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-trail" id="cursorTrail"></div>
-  <!-- scroll progress bar -->
-  <div class="scroll-bar" id="scrollBar"></div>
-  <!-- canvas particles -->
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Particle canvas -->
   <canvas id="particles"></canvas>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" id="modalBox">
+      <button class="modal__close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal__body" id="modalBody"></div>
+    </div>
+  </div>
 
   <div id="smoothWrap">
 
@@ -24,9 +35,9 @@
     <nav class="nav" id="nav">
       <a href="#home" class="brand">
         <div class="brand__mark">
-          <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-            <rect x="7" y="1" width="4" height="16" rx="2"/>
-            <rect x="1" y="7" width="16" height="4" rx="2"/>
+          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="7" y="1" width="4" height="16" rx="2" fill="currentColor"/>
+            <rect x="1" y="7" width="16" height="4" rx="2" fill="currentColor"/>
           </svg>
         </div>
         <span class="brand__name">Aaruni</span>
@@ -35,767 +46,696 @@
         <li><a href="#about">About</a></li>
         <li><a href="#services">Specialities</a></li>
         <li><a href="#doctors">Doctors</a></li>
+        <li><a href="#faq">FAQ</a></li>
         <li><a href="#appointment">Appointment</a></li>
       </ul>
-      <a href="tel:+919587875550" class="nav__cta">Emergency: +91 95878 75550</a>
+      <a href="tel:+919587875550" class="nav__cta btn--magnetic">Emergency: +91 95878 75550</a>
     </nav>
 
     <main>
 
-      <!-- HERO -->
+      <!-- ═══════════════ HERO ═══════════════ -->
       <section class="hero" id="home">
         <div class="hero__bg">
-          <div class="hero__glow-1"></div>
-          <div class="hero__glow-2"></div>
+          <div class="hero__glow hero__glow--1"></div>
+          <div class="hero__glow hero__glow--2"></div>
+          <div class="hero__glow hero__glow--3"></div>
         </div>
-        <div class="hero__watermark">AARUNI</div>
+        <div class="hero__watermark" id="heroWatermark">AARUNI</div>
+
         <div class="hero__content">
-          <div class="hero__eyebrow">
-            <span>NABH Accredited</span>
-            <span>Est. 2020</span>
-            <span>24×7 Emergency</span>
+          <div class="hero__eyebrow reveal">
+            <span class="chip">NABH Accredited</span>
+            <span class="chip">Est. 2020</span>
+            <span class="chip chip--pink">24×7 Emergency</span>
           </div>
-          <h1 class="hero__title reveal">
+
+          <h1 class="hero__title reveal" id="heroTitle">
             We live in the<br/>
             <em>heart of Jhunjhunu</em>
           </h1>
+
           <p class="hero__sub reveal" data-delay="1">
             Aaruni Multispeciality Hospital — bringing world-class healthcare to Rajasthan's heartland. Expert specialists, cutting-edge diagnostics, compassionate care around the clock.
           </p>
+
           <div class="hero__ctas reveal" data-delay="2">
             <a href="#appointment" class="btn btn--cyan btn--lg btn--magnetic">Book Appointment →</a>
             <a href="#services" class="btn btn--outline btn--lg">Explore Specialities</a>
           </div>
+
           <div class="hero__stats reveal" data-delay="3">
-            <div class="hero__stat">
+            <div class="hero__stat glass-card">
               <strong>15K+</strong>
               <span>Patients Treated</span>
             </div>
-            <div class="hero__stat">
+            <div class="hero__stat glass-card">
               <strong>25+</strong>
               <span>Expert Doctors</span>
             </div>
-            <div class="hero__stat">
+            <div class="hero__stat glass-card">
               <strong>10+</strong>
               <span>Specialities</span>
             </div>
-            <div class="hero__stat">
+            <div class="hero__stat glass-card">
               <strong>24×7</strong>
               <span>Emergency Care</span>
             </div>
           </div>
         </div>
+
+        <!-- Rotating orb -->
+        <div class="hero__orb" id="heroOrb">
+          <div class="orb__inner"></div>
+          <div class="orb__ring orb__ring--1"></div>
+          <div class="orb__ring orb__ring--2"></div>
+          <div class="orb__ring orb__ring--3"></div>
+        </div>
       </section>
 
-      <!-- TICKER -->
-      <div class="ticker">
+      <!-- ═══════════════ TICKER ═══════════════ -->
+      <div class="ticker" aria-hidden="true">
         <div class="ticker__track">
-          <span>Cardiology</span><span class="ticker-dot">✦</span>
-          <span>Neurology</span><span class="ticker-dot">✦</span>
-          <span>Orthopedics</span><span class="ticker-dot">✦</span>
-          <span>Urology</span><span class="ticker-dot">✦</span>
-          <span>Gynaecology</span><span class="ticker-dot">✦</span>
-          <span>General Surgery</span><span class="ticker-dot">✦</span>
-          <span>Paediatrics</span><span class="ticker-dot">✦</span>
-          <span>Laparoscopy</span><span class="ticker-dot">✦</span>
-          <span>Radiology</span><span class="ticker-dot">✦</span>
-          <span>Physiotherapy</span><span class="ticker-dot">✦</span>
-          <span>NABH Accredited</span><span class="ticker-dot">✦</span>
-          <span>Jhunjhunu, Rajasthan</span><span class="ticker-dot">✦</span>
-          <span>Cardiology</span><span class="ticker-dot">✦</span>
-          <span>Neurology</span><span class="ticker-dot">✦</span>
-          <span>Orthopedics</span><span class="ticker-dot">✦</span>
-          <span>Urology</span><span class="ticker-dot">✦</span>
-          <span>Gynaecology</span><span class="ticker-dot">✦</span>
-          <span>General Surgery</span><span class="ticker-dot">✦</span>
-          <span>Paediatrics</span><span class="ticker-dot">✦</span>
-          <span>Laparoscopy</span><span class="ticker-dot">✦</span>
-          <span>Radiology</span><span class="ticker-dot">✦</span>
-          <span>Physiotherapy</span><span class="ticker-dot">✦</span>
-          <span>NABH Accredited</span><span class="ticker-dot">✦</span>
-          <span>Jhunjhunu, Rajasthan</span><span class="ticker-dot">✦</span>
+          <span>Cardiology</span><span class="ticker-sep">✦</span>
+          <span>Neurology</span><span class="ticker-sep">✦</span>
+          <span>Orthopedics</span><span class="ticker-sep">✦</span>
+          <span>Urology</span><span class="ticker-sep">✦</span>
+          <span>Gynaecology &amp; Obstetrics</span><span class="ticker-sep">✦</span>
+          <span>General Surgery</span><span class="ticker-sep">✦</span>
+          <span>Paediatrics</span><span class="ticker-sep">✦</span>
+          <span>Laparoscopy</span><span class="ticker-sep">✦</span>
+          <span>Radiology</span><span class="ticker-sep">✦</span>
+          <span>Physiotherapy</span><span class="ticker-sep">✦</span>
+          <span>NABH Accredited</span><span class="ticker-sep">✦</span>
+          <span>Jhunjhunu, Rajasthan</span><span class="ticker-sep">✦</span>
+          <span>Cardiology</span><span class="ticker-sep">✦</span>
+          <span>Neurology</span><span class="ticker-sep">✦</span>
+          <span>Orthopedics</span><span class="ticker-sep">✦</span>
+          <span>Urology</span><span class="ticker-sep">✦</span>
+          <span>Gynaecology &amp; Obstetrics</span><span class="ticker-sep">✦</span>
+          <span>General Surgery</span><span class="ticker-sep">✦</span>
+          <span>Paediatrics</span><span class="ticker-sep">✦</span>
+          <span>Laparoscopy</span><span class="ticker-sep">✦</span>
+          <span>Radiology</span><span class="ticker-sep">✦</span>
+          <span>Physiotherapy</span><span class="ticker-sep">✦</span>
+          <span>NABH Accredited</span><span class="ticker-sep">✦</span>
+          <span>Jhunjhunu, Rajasthan</span><span class="ticker-sep">✦</span>
         </div>
       </div>
 
-      <!-- SPECIALITIES 3D GRID -->
-      <section class="section spec-3d" id="services">
-        <div class="spec-3d__bg-text">SPECIALITIES</div>
+      <!-- ═══════════════ SPECIALITIES ═══════════════ -->
+      <section class="section spec" id="services">
+        <div class="spec__bg-text" aria-hidden="true">SPECIALITIES</div>
         <div class="container">
           <div class="s-head reveal">
             <span class="eyebrow">Our Specialities</span>
             <h2 class="s-title">Expert care across<br/><em>every system</em></h2>
           </div>
+
           <div class="spec-grid">
 
             <!-- Cardiology -->
             <div class="spec-card reveal" data-tilt data-key="heart" tabindex="0" role="button" aria-label="Cardiology — click to learn more">
               <div class="spec-card__glow"></div>
               <div class="spec-card__visual">
-                <svg class="organ-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="organ-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
-                    <linearGradient id="heartGrad" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#00d4ff"/>
-                      <stop offset="100%" stop-color="#ff4d6d"/>
-                    </linearGradient>
-                    <filter id="heartGlow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    <filter id="hGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="3" result="cb"/>
+                      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
                     </filter>
+                    <linearGradient id="hGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#00d4ff"/>
+                      <stop offset="100%" stop-color="#ff4d8d"/>
+                    </linearGradient>
                   </defs>
-                  <path d="M40 65 C40 65 10 46 10 27 C10 18 18 12 27 14 C32 15 37 19 40 23 C43 19 48 15 53 14 C62 12 70 18 70 27 C70 46 40 65 40 65 Z" stroke="url(#heartGrad)" stroke-width="2" fill="rgba(0,212,255,0.08)" filter="url(#heartGlow)"/>
-                  <circle class="heart-spark" cx="40" cy="36" r="3" fill="#00d4ff"/>
-                  <polyline class="ecg-line" points="10,47 18,47 22,39 26,55 30,39 34,49 38,47 70,47" stroke="#00d4ff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <!-- Anatomical heart -->
+                  <path class="svg-path" d="M50 80 C50 80 15 57 15 34 C15 22 24 15 34 18 C39 19 45 24 50 29 C55 24 61 19 66 18 C76 15 85 22 85 34 C85 57 50 80 50 80 Z" stroke="url(#hGrad)" stroke-width="2.5" fill="rgba(0,212,255,0.06)" filter="url(#hGlow)"/>
+                  <!-- Aorta -->
+                  <path class="svg-path" d="M50 29 C50 20 55 14 62 12 C68 10 74 14 72 20" stroke="#00d4ff" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                  <!-- Left ventricle ridge -->
+                  <path class="svg-path" d="M35 38 C35 42 38 50 42 55 C44 58 47 62 50 65" stroke="rgba(0,212,255,0.5)" stroke-width="1.5" fill="none"/>
+                  <!-- Right ventricle -->
+                  <path class="svg-path" d="M55 38 C58 42 62 48 60 55" stroke="rgba(255,77,141,0.5)" stroke-width="1.5" fill="none"/>
+                  <!-- ECG line -->
+                  <polyline class="svg-path ecg-line" points="8,60 18,60 23,48 28,72 33,48 38,62 44,60 92,60" stroke="#00d4ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  <!-- Pulse dot -->
+                  <circle cx="50" cy="46" r="3.5" fill="rgba(0,212,255,0.3)" stroke="#00d4ff" stroke-width="1.5"/>
+                  <circle cx="50" cy="46" r="1.5" fill="#00d4ff"/>
                 </svg>
               </div>
               <span class="spec-card__num">01</span>
               <h3>Cardiology</h3>
               <p>Comprehensive heart care with 24×7 cardiac monitoring, advanced diagnostics and evidence-based treatment for all cardiac conditions.</p>
-              <div class="spec-card__hover-reveal"><span>Learn more →</span></div>
+              <div class="spec-card__arrow">Learn more →</div>
             </div>
 
             <!-- Neurology -->
             <div class="spec-card spec-card--violet reveal" data-delay="1" data-tilt data-key="brain" tabindex="0" role="button" aria-label="Neurology — click to learn more">
               <div class="spec-card__glow spec-card__glow--violet"></div>
               <div class="spec-card__visual">
-                <svg class="organ-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="organ-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
-                    <filter id="brainGlow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    <filter id="bGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="3" result="cb"/>
+                      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
                     </filter>
                   </defs>
-                  <path d="M40 15 C32 15 24 20 22 28 C18 28 14 32 15 37 C13 40 14 45 18 47 C18 54 24 60 32 60 L40 60 L48 60 C56 60 62 54 62 47 C66 45 67 40 65 37 C66 32 62 28 58 28 C56 20 48 15 40 15 Z" stroke="#a855f7" stroke-width="2" fill="rgba(112,0,255,0.1)" filter="url(#brainGlow)"/>
-                  <path d="M40 15 L40 60" stroke="rgba(168,85,247,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
-                  <circle class="neural-spark" cx="28" cy="35" r="2" fill="#a855f7"/>
-                  <circle class="neural-spark" cx="52" cy="35" r="2" fill="#a855f7" style="animation-delay:.4s"/>
-                  <circle class="neural-spark" cx="35" cy="48" r="1.5" fill="#00d4ff" style="animation-delay:.8s"/>
-                  <line x1="28" y1="35" x2="52" y2="35" stroke="rgba(168,85,247,0.4)" stroke-width="1"/>
-                  <line x1="28" y1="35" x2="35" y2="48" stroke="rgba(168,85,247,0.3)" stroke-width="1"/>
-                  <line x1="52" y1="35" x2="35" y2="48" stroke="rgba(168,85,247,0.3)" stroke-width="1"/>
+                  <!-- Left hemisphere -->
+                  <path class="svg-path" d="M50 18 C42 18 34 22 30 28 C26 29 20 34 20 41 C18 45 18 52 22 56 C22 65 29 74 39 75 L50 75" stroke="#a855f7" stroke-width="2.5" fill="rgba(108,0,255,0.08)" filter="url(#bGlow)"/>
+                  <!-- Right hemisphere -->
+                  <path class="svg-path" d="M50 18 C58 18 66 22 70 28 C74 29 80 34 80 41 C82 45 82 52 78 56 C78 65 71 74 61 75 L50 75" stroke="#a855f7" stroke-width="2.5" fill="rgba(108,0,255,0.08)" filter="url(#bGlow)"/>
+                  <!-- Corpus callosum divider -->
+                  <line class="svg-path" x1="50" y1="20" x2="50" y2="75" stroke="rgba(168,85,247,0.25)" stroke-width="1" stroke-dasharray="4 3"/>
+                  <!-- Cerebral ridges left -->
+                  <path class="svg-path" d="M28 38 C28 34 33 30 38 32" stroke="rgba(168,85,247,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <path class="svg-path" d="M24 46 C24 41 30 38 36 40" stroke="rgba(168,85,247,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <path class="svg-path" d="M27 55 C27 50 33 47 39 49" stroke="rgba(168,85,247,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <!-- Cerebral ridges right -->
+                  <path class="svg-path" d="M72 38 C72 34 67 30 62 32" stroke="rgba(168,85,247,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <path class="svg-path" d="M76 46 C76 41 70 38 64 40" stroke="rgba(168,85,247,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <path class="svg-path" d="M73 55 C73 50 67 47 61 49" stroke="rgba(168,85,247,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <!-- Neural sparks -->
+                  <circle cx="34" cy="44" r="2.5" fill="#a855f7"/>
+                  <circle cx="66" cy="44" r="2.5" fill="#a855f7"/>
+                  <circle cx="50" cy="58" r="2" fill="#00d4ff"/>
+                  <!-- Neural connections -->
+                  <line x1="34" y1="44" x2="66" y2="44" stroke="rgba(168,85,247,0.35)" stroke-width="1"/>
+                  <line x1="34" y1="44" x2="50" y2="58" stroke="rgba(168,85,247,0.25)" stroke-width="1"/>
+                  <line x1="66" y1="44" x2="50" y2="58" stroke="rgba(168,85,247,0.25)" stroke-width="1"/>
+                  <!-- Brainstem -->
+                  <path class="svg-path" d="M44 75 L44 85 Q50 88 56 85 L56 75" stroke="#a855f7" stroke-width="2" fill="none" stroke-linecap="round"/>
                 </svg>
               </div>
               <span class="spec-card__num">02</span>
               <h3>Neurology</h3>
               <p>Advanced brain and nervous system care — MRI neuroimaging, epilepsy management, stroke treatment and headache clinic.</p>
-              <div class="spec-card__hover-reveal"><span>Learn more →</span></div>
+              <div class="spec-card__arrow">Learn more →</div>
             </div>
 
             <!-- Orthopedics -->
             <div class="spec-card reveal" data-delay="2" data-tilt data-key="spine" tabindex="0" role="button" aria-label="Orthopedics — click to learn more">
               <div class="spec-card__glow"></div>
               <div class="spec-card__visual">
-                <svg class="organ-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="organ-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
-                    <filter id="spineGlow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    <filter id="sGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="3" result="cb"/>
+                      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
                     </filter>
                   </defs>
-                  <rect x="30" y="12" width="20" height="8" rx="3" stroke="#00d4ff" stroke-width="1.5" fill="rgba(0,212,255,0.08)" filter="url(#spineGlow)"/>
-                  <rect x="30" y="24" width="20" height="8" rx="3" stroke="#00d4ff" stroke-width="1.5" fill="rgba(0,212,255,0.08)" filter="url(#spineGlow)"/>
-                  <rect x="30" y="36" width="20" height="8" rx="3" stroke="#00d4ff" stroke-width="1.5" fill="rgba(0,212,255,0.08)" filter="url(#spineGlow)"/>
-                  <rect x="30" y="48" width="20" height="8" rx="3" stroke="#00d4ff" stroke-width="1.5" fill="rgba(0,212,255,0.08)" filter="url(#spineGlow)"/>
-                  <rect x="30" y="60" width="20" height="8" rx="3" stroke="#00d4ff" stroke-width="1.5" fill="rgba(0,212,255,0.08)" filter="url(#spineGlow)"/>
-                  <line x1="40" y1="12" x2="40" y2="68" stroke="rgba(0,212,255,0.4)" stroke-width="2" stroke-dasharray="3 2"/>
-                  <line x1="30" y1="16" x2="22" y2="16" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
-                  <line x1="50" y1="16" x2="58" y2="16" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
-                  <line x1="30" y1="28" x2="22" y2="28" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
-                  <line x1="50" y1="28" x2="58" y2="28" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
-                  <line x1="30" y1="40" x2="22" y2="40" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
-                  <line x1="50" y1="40" x2="58" y2="40" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
+                  <!-- Vertebral column center line -->
+                  <line class="svg-path" x1="50" y1="8" x2="50" y2="92" stroke="rgba(0,212,255,0.3)" stroke-width="2" stroke-dasharray="4 3"/>
+                  <!-- Vertebra 1 -->
+                  <rect class="svg-path" x="36" y="10" width="28" height="11" rx="4" stroke="#00d4ff" stroke-width="2" fill="rgba(0,212,255,0.07)" filter="url(#sGlow)"/>
+                  <!-- Vertebra 2 -->
+                  <rect class="svg-path" x="36" y="26" width="28" height="11" rx="4" stroke="#00d4ff" stroke-width="2" fill="rgba(0,212,255,0.07)" filter="url(#sGlow)"/>
+                  <!-- Vertebra 3 -->
+                  <rect class="svg-path" x="36" y="42" width="28" height="11" rx="4" stroke="#00d4ff" stroke-width="2" fill="rgba(0,212,255,0.07)" filter="url(#sGlow)"/>
+                  <!-- Vertebra 4 -->
+                  <rect class="svg-path" x="36" y="58" width="28" height="11" rx="4" stroke="#00d4ff" stroke-width="2" fill="rgba(0,212,255,0.07)" filter="url(#sGlow)"/>
+                  <!-- Vertebra 5 -->
+                  <rect class="svg-path" x="36" y="74" width="28" height="11" rx="4" stroke="#00d4ff" stroke-width="2" fill="rgba(0,212,255,0.07)" filter="url(#sGlow)"/>
+                  <!-- Lateral wings -->
+                  <line class="svg-path" x1="36" y1="15.5" x2="24" y2="15.5" stroke="#00d4ff" stroke-width="2" stroke-linecap="round"/>
+                  <line class="svg-path" x1="64" y1="15.5" x2="76" y2="15.5" stroke="#00d4ff" stroke-width="2" stroke-linecap="round"/>
+                  <line class="svg-path" x1="36" y1="31.5" x2="24" y2="31.5" stroke="#00d4ff" stroke-width="2" stroke-linecap="round"/>
+                  <line class="svg-path" x1="64" y1="31.5" x2="76" y2="31.5" stroke="#00d4ff" stroke-width="2" stroke-linecap="round"/>
+                  <line class="svg-path" x1="36" y1="47.5" x2="24" y2="47.5" stroke="#00d4ff" stroke-width="2" stroke-linecap="round"/>
+                  <line class="svg-path" x1="64" y1="47.5" x2="76" y2="47.5" stroke="#00d4ff" stroke-width="2" stroke-linecap="round"/>
+                  <line class="svg-path" x1="36" y1="63.5" x2="26" y2="63.5" stroke="#00d4ff" stroke-width="2" stroke-linecap="round"/>
+                  <line class="svg-path" x1="64" y1="63.5" x2="74" y2="63.5" stroke="#00d4ff" stroke-width="2" stroke-linecap="round"/>
+                  <!-- Discs -->
+                  <line x1="38" y1="21" x2="62" y2="21" stroke="rgba(0,212,255,0.4)" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="38" y1="37" x2="62" y2="37" stroke="rgba(0,212,255,0.4)" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="38" y1="53" x2="62" y2="53" stroke="rgba(0,212,255,0.4)" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="38" y1="69" x2="62" y2="69" stroke="rgba(0,212,255,0.4)" stroke-width="3" stroke-linecap="round"/>
                 </svg>
               </div>
               <span class="spec-card__num">03</span>
               <h3>Orthopedics &amp; Joint Replacement</h3>
               <p>Founded by Dr. Sunil Poonia (MS Orthopedics) — full spectrum musculoskeletal care from sports injuries to complex joint replacement.</p>
-              <div class="spec-card__hover-reveal"><span>Learn more →</span></div>
+              <div class="spec-card__arrow">Learn more →</div>
             </div>
 
             <!-- Urology -->
             <div class="spec-card spec-card--violet reveal" data-delay="1" data-tilt data-key="kidney" tabindex="0" role="button" aria-label="Urology — click to learn more">
               <div class="spec-card__glow spec-card__glow--violet"></div>
               <div class="spec-card__visual">
-                <svg class="organ-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="organ-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
-                    <filter id="kidneyGlow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-                      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    <filter id="kGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="3" result="cb"/>
+                      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
                     </filter>
                   </defs>
-                  <path d="M24 20 C16 20 12 28 12 36 C12 44 16 52 24 54 C28 55 32 52 32 48 C34 44 33 36 32 32 C31 26 28 19 24 20 Z" stroke="#a855f7" stroke-width="2" fill="rgba(112,0,255,0.12)" filter="url(#kidneyGlow)"/>
-                  <path d="M56 20 C64 20 68 28 68 36 C68 44 64 52 56 54 C52 55 48 52 48 48 C46 44 47 36 48 32 C49 26 52 19 56 20 Z" stroke="#a855f7" stroke-width="2" fill="rgba(112,0,255,0.12)" filter="url(#kidneyGlow)"/>
-                  <path d="M32 40 Q40 44 48 40" stroke="rgba(168,85,247,0.5)" stroke-width="1.5" fill="none"/>
-                  <circle class="star-float" cx="40" cy="44" r="2.5" fill="#a855f7"/>
+                  <!-- Left kidney -->
+                  <path class="svg-path" d="M30 22 C20 22 14 32 14 42 C14 52 20 63 30 66 C35 68 40 64 40 58 C42 53 41 42 40 37 C39 30 35 21 30 22 Z" stroke="#a855f7" stroke-width="2.5" fill="rgba(108,0,255,0.1)" filter="url(#kGlow)"/>
+                  <!-- Left kidney hilum -->
+                  <path class="svg-path" d="M37 36 C35 40 35 48 37 52" stroke="rgba(168,85,247,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <!-- Left ureter -->
+                  <path class="svg-path" d="M38 56 Q42 62 42 70 L44 80" stroke="rgba(168,85,247,0.5)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <!-- Right kidney -->
+                  <path class="svg-path" d="M70 22 C80 22 86 32 86 42 C86 52 80 63 70 66 C65 68 60 64 60 58 C58 53 59 42 60 37 C61 30 65 21 70 22 Z" stroke="#a855f7" stroke-width="2.5" fill="rgba(108,0,255,0.1)" filter="url(#kGlow)"/>
+                  <!-- Right kidney hilum -->
+                  <path class="svg-path" d="M63 36 C65 40 65 48 63 52" stroke="rgba(168,85,247,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <!-- Right ureter -->
+                  <path class="svg-path" d="M62 56 Q58 62 58 70 L56 80" stroke="rgba(168,85,247,0.5)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <!-- Bladder -->
+                  <path class="svg-path" d="M38 80 Q50 90 62 80 Q66 75 64 70 Q58 66 50 66 Q42 66 36 70 Q34 75 38 80 Z" stroke="#a855f7" stroke-width="2" fill="rgba(108,0,255,0.08)"/>
+                  <!-- Renal arteries -->
+                  <path class="svg-path" d="M40 42 Q50 38 60 42" stroke="rgba(0,212,255,0.5)" stroke-width="1.5" fill="none"/>
+                  <circle cx="50" cy="40" r="2" fill="#00d4ff"/>
                 </svg>
               </div>
               <span class="spec-card__num">04</span>
               <h3>Urology</h3>
-              <p>Expert kidney stone management (PCNL/URS), laparoscopic procedures, prostate care and full urinary tract treatment.</p>
-              <div class="spec-card__hover-reveal"><span>Learn more →</span></div>
+              <p>Expert urology services including kidney stone management, prostate care and minimally invasive laparoscopic procedures.</p>
+              <div class="spec-card__arrow">Learn more →</div>
             </div>
 
             <!-- Gynaecology -->
             <div class="spec-card reveal" data-delay="2" data-tilt data-key="embryo" tabindex="0" role="button" aria-label="Gynaecology — click to learn more">
-              <div class="spec-card__glow"></div>
+              <div class="spec-card__glow spec-card__glow--pink"></div>
               <div class="spec-card__visual">
-                <svg class="organ-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="organ-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
-                    <linearGradient id="gyneGrad" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#00d4ff"/>
-                      <stop offset="100%" stop-color="#a855f7"/>
-                    </linearGradient>
-                    <filter id="gyneGlow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    <filter id="gGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="3" result="cb"/>
+                      <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
                     </filter>
+                    <linearGradient id="gGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#6c00ff"/>
+                      <stop offset="100%" stop-color="#ff0080"/>
+                    </linearGradient>
                   </defs>
-                  <path d="M40 58 C40 58 26 55 24 44 C22 36 26 28 32 26 C32 26 34 18 40 18 C46 18 48 26 48 26 C54 28 58 36 56 44 C54 55 40 58 40 58 Z" stroke="url(#gyneGrad)" stroke-width="2" fill="rgba(0,212,255,0.06)" filter="url(#gyneGlow)"/>
-                  <path d="M32 26 C28 22 20 20 16 24" stroke="url(#gyneGrad)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                  <path d="M48 26 C52 22 60 20 64 24" stroke="url(#gyneGrad)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                  <circle cx="14" cy="26" r="4" stroke="#00d4ff" stroke-width="1.5" fill="rgba(0,212,255,0.1)"/>
-                  <circle cx="66" cy="26" r="4" stroke="#00d4ff" stroke-width="1.5" fill="rgba(0,212,255,0.1)"/>
-                  <circle class="heart-spark" cx="40" cy="40" r="5" stroke="#00d4ff" stroke-width="1" fill="rgba(0,212,255,0.15)" style="animation-name:heartbeat;animation-duration:2s"/>
+                  <!-- Uterus body -->
+                  <path class="svg-path" d="M36 38 C30 38 26 44 26 52 C26 62 32 72 40 74 L50 76 L60 74 C68 72 74 62 74 52 C74 44 70 38 64 38 C60 36 56 34 50 34 C44 34 40 36 36 38 Z" stroke="url(#gGrad)" stroke-width="2.5" fill="rgba(108,0,255,0.08)" filter="url(#gGlow)"/>
+                  <!-- Fallopian tubes -->
+                  <path class="svg-path" d="M36 42 C28 38 18 36 12 38" stroke="url(#gGrad)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <path class="svg-path" d="M64 42 C72 38 82 36 88 38" stroke="url(#gGrad)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <!-- Ovaries -->
+                  <ellipse class="svg-path" cx="12" cy="40" rx="7" ry="5" stroke="#a855f7" stroke-width="2" fill="rgba(108,0,255,0.1)" filter="url(#gGlow)"/>
+                  <ellipse class="svg-path" cx="88" cy="40" rx="7" ry="5" stroke="#a855f7" stroke-width="2" fill="rgba(108,0,255,0.1)" filter="url(#gGlow)"/>
+                  <!-- Fimbriae -->
+                  <path class="svg-path" d="M18 38 C19 34 17 32 16 30" stroke="#a855f7" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <path class="svg-path" d="M18 38 C20 33 20 30 22 28" stroke="#a855f7" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <path class="svg-path" d="M82 38 C81 34 83 32 84 30" stroke="#a855f7" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <path class="svg-path" d="M82 38 C80 33 80 30 78 28" stroke="#a855f7" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <!-- Cervix -->
+                  <path class="svg-path" d="M44 76 L44 86 Q50 90 56 86 L56 76" stroke="url(#gGrad)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <!-- Orbit rings -->
+                  <circle cx="50" cy="54" r="10" stroke="rgba(255,0,128,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
+                  <circle cx="50" cy="54" r="17" stroke="rgba(108,0,255,0.2)" stroke-width="1" stroke-dasharray="5 4"/>
+                  <!-- Embryo dot -->
+                  <circle cx="50" cy="54" r="4" fill="rgba(255,0,128,0.3)" stroke="#ff0080" stroke-width="1.5"/>
+                  <circle cx="50" cy="54" r="2" fill="#ff0080"/>
                 </svg>
               </div>
               <span class="spec-card__num">05</span>
               <h3>Gynaecology &amp; Obstetrics</h3>
-              <p>Women's health from antenatal care to safe delivery with NICU support, and laparoscopic gynaecological procedures.</p>
-              <div class="spec-card__hover-reveal"><span>Learn more →</span></div>
+              <p>Comprehensive women's health services from antenatal care to safe delivery with NICU support, and laparoscopic gynaecological procedures.</p>
+              <div class="spec-card__arrow">Learn more →</div>
             </div>
 
-            <!-- And many more -->
+            <!-- More card -->
             <div class="spec-card spec-card--more reveal" data-delay="3">
-              <div class="spec-card__more-plus">+</div>
-              <h3>And Many More</h3>
-              <p>General Surgery · Paediatrics · Dermatology · ENT · Ophthalmology · Physiotherapy · Radiology &amp; Diagnostics</p>
-              <a href="#appointment" class="btn btn--outline btn--sm" style="margin-top:1rem">Book Consultation</a>
+              <div class="spec-card__visual spec-card__visual--more">
+                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" width="60">
+                  <circle cx="30" cy="30" r="28" stroke="rgba(0,212,255,0.4)" stroke-width="1.5" stroke-dasharray="6 4"/>
+                  <line x1="30" y1="18" x2="30" y2="42" stroke="#00d4ff" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="18" y1="30" x2="42" y2="30" stroke="#00d4ff" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <span class="spec-card__num">06</span>
+              <h3>And more…</h3>
+              <p>General Surgery, Paediatrics, Laparoscopy, Radiology, Physiotherapy and more under one roof.</p>
+              <div class="spec-card__arrow">Contact us →</div>
             </div>
 
-          </div>
+          </div><!-- /spec-grid -->
         </div>
       </section>
 
-      <!-- STATS BAND -->
-      <section class="stats-band">
+      <!-- ═══════════════ STATS ═══════════════ -->
+      <section class="section stats" id="stats">
         <div class="container">
-          <div class="stats-band__grid">
+          <div class="stats-grid">
             <div class="stat-item reveal">
-              <strong data-count="15000">0</strong>
-              <span>Patients Treated</span>
+              <span class="stat-num" data-count="15000">0</span><span class="stat-suf">+</span>
+              <span class="stat-label">Patients Treated</span>
             </div>
-            <div class="divider-v"></div>
+            <div class="stat-divider"></div>
             <div class="stat-item reveal" data-delay="1">
-              <strong data-count="25">0</strong>
-              <span>Expert Doctors</span>
+              <span class="stat-num" data-count="25">0</span><span class="stat-suf">+</span>
+              <span class="stat-label">Expert Doctors</span>
             </div>
-            <div class="divider-v"></div>
+            <div class="stat-divider"></div>
             <div class="stat-item reveal" data-delay="2">
-              <strong data-count="10">0</strong>
-              <span>Specialities</span>
+              <span class="stat-num" data-count="10">0</span><span class="stat-suf">+</span>
+              <span class="stat-label">Specialities</span>
             </div>
-            <div class="divider-v"></div>
+            <div class="stat-divider"></div>
             <div class="stat-item reveal" data-delay="3">
-              <strong>24×7</strong>
-              <span>Emergency Care</span>
+              <span class="stat-num">24</span><span class="stat-suf">×7</span>
+              <span class="stat-label">Emergency Care</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- DOCTORS -->
-      <section class="section doctors-section" id="doctors">
+      <!-- ═══════════════ ABOUT ═══════════════ -->
+      <section class="section about" id="about">
+        <div class="container">
+          <div class="about-grid">
+            <div class="about-left reveal">
+              <span class="eyebrow">Our Story</span>
+              <h2 class="s-title">Rooted in Jhunjhunu,<br/><em>driven by care</em></h2>
+              <p>Founded in 2020 by Dr. Sunil Poonia (MBBS, MS Orthopedics), Aaruni Multispeciality Hospital was born from a singular vision: to bring specialist-level healthcare to the people of Jhunjhunu without requiring them to travel to distant cities.</p>
+              <p>Over five years, we have grown into a trusted multispeciality institution — NABH accredited, staffed by experienced specialists, equipped with modern diagnostics, and driven by the belief that every patient deserves the highest standard of care close to home.</p>
+              <div class="about-chips">
+                <div class="about-chip">
+                  <svg viewBox="0 0 16 16" fill="none" width="16"><circle cx="8" cy="8" r="7" stroke="#00d4ff" stroke-width="1.5"/><path d="M5 8.5 L7 10.5 L11 6" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  NABH Accredited
+                </div>
+                <div class="about-chip">
+                  <svg viewBox="0 0 16 16" fill="none" width="16"><circle cx="8" cy="8" r="7" stroke="#00d4ff" stroke-width="1.5"/><path d="M5 8.5 L7 10.5 L11 6" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Est. 2020
+                </div>
+                <div class="about-chip">
+                  <svg viewBox="0 0 16 16" fill="none" width="16"><circle cx="8" cy="8" r="7" stroke="#00d4ff" stroke-width="1.5"/><path d="M5 8.5 L7 10.5 L11 6" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Founded by Dr. Sunil Poonia
+                </div>
+                <div class="about-chip">
+                  <svg viewBox="0 0 16 16" fill="none" width="16"><circle cx="8" cy="8" r="7" stroke="#00d4ff" stroke-width="1.5"/><path d="M5 8.5 L7 10.5 L11 6" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  24×7 Emergency
+                </div>
+              </div>
+            </div>
+            <div class="about-right reveal" data-delay="1">
+              <span class="eyebrow">Our Capabilities</span>
+              <ol class="about-list">
+                <li><span class="about-list__num">01</span><div><strong>Advanced Diagnostics</strong><p>High-field MRI, CT scan, digital X-ray, echocardiography, EEG, lab services all in-house.</p></div></li>
+                <li><span class="about-list__num">02</span><div><strong>Expert Specialists</strong><p>25+ doctors across 10+ specialities — trained at India's premier medical institutions.</p></div></li>
+                <li><span class="about-list__num">03</span><div><strong>Modern OT & ICU</strong><p>State-of-the-art operation theatres, ICU, NICU and dedicated post-operative care units.</p></div></li>
+                <li><span class="about-list__num">04</span><div><strong>NABH Quality Standards</strong><p>Every process, procedure and protocol meets national accreditation board for hospitals standards.</p></div></li>
+                <li><span class="about-list__num">05</span><div><strong>Compassionate Care</strong><p>Patient-first culture — transparent pricing, clear communication, empathetic support at every step.</p></div></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════ DOCTORS ═══════════════ -->
+      <section class="section doctors" id="doctors">
         <div class="container">
           <div class="s-head reveal">
             <span class="eyebrow">Our Team</span>
-            <h2 class="s-title">Meet our <em>specialists</em></h2>
+            <h2 class="s-title">The specialists<br/><em>behind your care</em></h2>
           </div>
-          <div class="doctor-list reveal">
-
-            <div class="doctor-item">
-              <span class="doctor-item__num">01</span>
-              <div class="doctor-item__info">
-                <h3>Dr. Sunil Poonia</h3>
-                <p>MBBS, MS Orthopedics — Founder &amp; Chief Orthopedic Surgeon</p>
+          <div class="doctors-list">
+            <div class="doc-row reveal" data-delay="0">
+              <span class="doc-num">01</span>
+              <div class="doc-info">
+                <strong>Dr. Sunil Poonia</strong>
+                <span class="doc-qual">MBBS, MS Orthopedics</span>
               </div>
-              <span class="doctor-item__dept">Orthopedics &amp; Joint Replacement</span>
-              <span class="doctor-item__arrow">→</span>
+              <span class="doc-tag doc-tag--cyan">Orthopedics &amp; Joint Replacement</span>
+              <span class="doc-role">Founder &amp; Senior Consultant</span>
+              <span class="doc-arrow">→</span>
             </div>
-
-            <div class="doctor-item">
-              <span class="doctor-item__num">02</span>
-              <div class="doctor-item__info">
-                <h3>Dr. Anita Sharma</h3>
-                <p>MBBS, MD Obstetrics &amp; Gynaecology</p>
+            <div class="doc-row reveal" data-delay="1">
+              <span class="doc-num">02</span>
+              <div class="doc-info">
+                <strong>Sr. Cardiologist</strong>
+                <span class="doc-qual">MD, DM Cardiology</span>
               </div>
-              <span class="doctor-item__dept">Gynaecology &amp; Obstetrics</span>
-              <span class="doctor-item__arrow">→</span>
+              <span class="doc-tag doc-tag--violet">Cardiology</span>
+              <span class="doc-role">Senior Consultant</span>
+              <span class="doc-arrow">→</span>
             </div>
-
-            <div class="doctor-item">
-              <span class="doctor-item__num">03</span>
-              <div class="doctor-item__info">
-                <h3>Dr. Rajesh Kumar</h3>
-                <p>MBBS, MD Cardiology, DM</p>
+            <div class="doc-row reveal" data-delay="2">
+              <span class="doc-num">03</span>
+              <div class="doc-info">
+                <strong>Sr. Neurologist</strong>
+                <span class="doc-qual">MD, DM Neurology</span>
               </div>
-              <span class="doctor-item__dept">Cardiology</span>
-              <span class="doctor-item__arrow">→</span>
+              <span class="doc-tag doc-tag--violet">Neurology</span>
+              <span class="doc-role">Senior Consultant</span>
+              <span class="doc-arrow">→</span>
             </div>
-
-            <div class="doctor-item">
-              <span class="doctor-item__num">04</span>
-              <div class="doctor-item__info">
-                <h3>Dr. Priya Agarwal</h3>
-                <p>MBBS, MD Neurology, DM</p>
+            <div class="doc-row reveal" data-delay="3">
+              <span class="doc-num">04</span>
+              <div class="doc-info">
+                <strong>Sr. Urologist</strong>
+                <span class="doc-qual">MS, MCh Urology</span>
               </div>
-              <span class="doctor-item__dept">Neurology</span>
-              <span class="doctor-item__arrow">→</span>
+              <span class="doc-tag doc-tag--cyan">Urology</span>
+              <span class="doc-role">Senior Consultant</span>
+              <span class="doc-arrow">→</span>
             </div>
-
-            <div class="doctor-item">
-              <span class="doctor-item__num">05</span>
-              <div class="doctor-item__info">
-                <h3>Dr. Vikram Singh</h3>
-                <p>MBBS, MS General Surgery, MCh Urology</p>
+            <div class="doc-row reveal" data-delay="4">
+              <span class="doc-num">05</span>
+              <div class="doc-info">
+                <strong>Sr. Gynaecologist</strong>
+                <span class="doc-qual">MBBS, MS Obstetrics &amp; Gynaecology</span>
               </div>
-              <span class="doctor-item__dept">Urology</span>
-              <span class="doctor-item__arrow">→</span>
+              <span class="doc-tag doc-tag--pink">Gynaecology &amp; Obstetrics</span>
+              <span class="doc-role">Senior Consultant</span>
+              <span class="doc-arrow">→</span>
             </div>
-
-            <div class="doctor-item">
-              <span class="doctor-item__num">06</span>
-              <div class="doctor-item__info">
-                <h3>Dr. Meena Joshi</h3>
-                <p>MBBS, MD Paediatrics</p>
-              </div>
-              <span class="doctor-item__dept">Paediatrics</span>
-              <span class="doctor-item__arrow">→</span>
-            </div>
-
-            <div class="doctor-item">
-              <span class="doctor-item__num">07</span>
-              <div class="doctor-item__info">
-                <h3>Dr. Harish Bansal</h3>
-                <p>MBBS, MS General Surgery, FMAS Laparoscopy</p>
-              </div>
-              <span class="doctor-item__dept">General &amp; Laparoscopic Surgery</span>
-              <span class="doctor-item__arrow">→</span>
-            </div>
-
-            <div class="doctor-item">
-              <span class="doctor-item__num">08</span>
-              <div class="doctor-item__info">
-                <h3>Dr. Sunita Rathi</h3>
-                <p>MBBS, MD Internal Medicine</p>
-              </div>
-              <span class="doctor-item__dept">Internal Medicine</span>
-              <span class="doctor-item__arrow">→</span>
-            </div>
-
-            <div class="doctor-item">
-              <span class="doctor-item__num">09</span>
-              <div class="doctor-item__info">
-                <h3>Dr. Anil Chauhan</h3>
-                <p>MBBS, MS ENT</p>
-              </div>
-              <span class="doctor-item__dept">ENT</span>
-              <span class="doctor-item__arrow">→</span>
-            </div>
-
-            <div class="doctor-item">
-              <span class="doctor-item__num">10</span>
-              <div class="doctor-item__info">
-                <h3>Dr. Kavita Yadav</h3>
-                <p>MBBS, MD Dermatology</p>
-              </div>
-              <span class="doctor-item__dept">Dermatology</span>
-              <span class="doctor-item__arrow">→</span>
-            </div>
-
-            <div class="doctor-item doctor-item--more">
-              <span class="doctor-item__num">+15</span>
-              <div class="doctor-item__info">
-                <h3>15+ More Specialists</h3>
-                <p>Ophthalmology · Radiology · Anaesthesiology · Physiotherapy · Dietetics and more</p>
-              </div>
-              <a href="#appointment" class="btn btn--outline btn--sm">Request Specialist</a>
-            </div>
-
           </div>
+          <p class="doctors-note reveal" data-delay="5">+ 20 more specialist consultants across departments. <a href="#appointment">Book a consultation →</a></p>
         </div>
       </section>
 
-      <!-- ABOUT -->
-      <section class="section about-section" id="about">
-        <div class="container">
-          <div class="about__inner">
-
-            <div class="about__left reveal">
-              <span class="eyebrow">Our Story</span>
-              <h2 class="s-title" style="text-align:left;margin-top:.8rem">Built on <em>trust</em>,<br/>driven by care</h2>
-              <p class="about__lead">
-                Founded in 2020 by Dr. Sunil Poonia (MBBS, MS Orthopedics), Aaruni Multispeciality Hospital was born from a single belief — that the people of Jhunjhunu deserve world-class medical care without travelling to distant cities. In just four years, we've treated over 15,000 patients and earned full NABH accreditation, the gold standard in Indian healthcare quality.
-              </p>
-              <p class="about__lead" style="margin-top:0">
-                We combine the latest technology with warm, personal care. From emergency trauma to elective joint replacements, from high-risk deliveries to complex neurological cases — Aaruni stands by Jhunjhunu, always.
-              </p>
-              <div class="about__tags">
-                <span>NABH Accredited</span>
-                <span>Est. 2020</span>
-                <span>24×7 ICU</span>
-                <span>Modular OT</span>
-                <span>Digital X-Ray</span>
-                <span>USG &amp; ECG</span>
-                <span>Blood Bank</span>
-                <span>Pharmacy</span>
-              </div>
-              <a href="#appointment" class="btn btn--cyan btn--magnetic">Book a Consultation →</a>
-            </div>
-
-            <div class="about__right reveal" data-delay="2">
-              <ol class="about__list">
-                <li>
-                  <span class="about__list-num">01</span>
-                  <div>
-                    <strong>NABH Accreditation</strong><br/>
-                    We hold full NABH accreditation — India's highest hospital quality standard — ensuring patient safety, infection control and clinical excellence at every step.
-                  </div>
-                </li>
-                <li>
-                  <span class="about__list-num">02</span>
-                  <div>
-                    <strong>Advanced Operation Theatres</strong><br/>
-                    Modular OTs with laminar airflow, advanced anaesthesia workstations and complete laparoscopic tower for minimally invasive surgery.
-                  </div>
-                </li>
-                <li>
-                  <span class="about__list-num">03</span>
-                  <div>
-                    <strong>24×7 Emergency &amp; ICU</strong><br/>
-                    Round-the-clock emergency department with trained trauma team, fully equipped ICU and continuous patient monitoring.
-                  </div>
-                </li>
-                <li>
-                  <span class="about__list-num">04</span>
-                  <div>
-                    <strong>NICU &amp; Maternity Care</strong><br/>
-                    Dedicated neonatal intensive care unit supporting premature and high-risk newborns alongside comprehensive antenatal and postnatal services.
-                  </div>
-                </li>
-                <li>
-                  <span class="about__list-num">05</span>
-                  <div>
-                    <strong>Digital Diagnostics</strong><br/>
-                    In-house digital X-Ray, ultrasound, ECG, Holter monitoring, pulmonary function tests and a fully equipped pathology laboratory.
-                  </div>
-                </li>
-                <li>
-                  <span class="about__list-num">06</span>
-                  <div>
-                    <strong>Cashless &amp; Ayushman Bharat</strong><br/>
-                    Empanelled under Ayushman Bharat (PMJAY), CGHS, state government schemes and major insurance — making quality care accessible to all.
-                  </div>
-                </li>
-              </ol>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- FAQ -->
-      <section class="section faq-section" id="faq">
-        <div class="container">
+      <!-- ═══════════════ FAQ ═══════════════ -->
+      <section class="section faq" id="faq">
+        <div class="container faq-inner">
           <div class="s-head reveal">
-            <span class="eyebrow">FAQ</span>
-            <h2 class="s-title">Frequently asked <em>questions</em></h2>
+            <span class="eyebrow">Common Questions</span>
+            <h2 class="s-title">Frequently asked<br/><em>questions</em></h2>
           </div>
-          <div class="faq__list reveal">
-
-            <div class="faq__item">
-              <button class="faq__btn" aria-expanded="false">
-                What are the hospital's visiting hours?
-                <span class="faq__toggle">+</span>
+          <div class="faq-list">
+            <div class="faq-item reveal">
+              <button class="faq-q" aria-expanded="false">
+                Is Aaruni Hospital NABH accredited?
+                <span class="faq-icon">+</span>
               </button>
-              <div class="faq__body">
-                <p>General visiting hours are 10:00 AM – 12:00 PM and 5:00 PM – 7:00 PM daily. ICU visits are permitted once per day for 15 minutes per relative. For specific ward policies please contact our front desk at <a href="tel:+919587875550">+91 95878 75550</a>.</p>
+              <div class="faq-a">
+                <p>Yes. Aaruni Multispeciality Hospital is fully NABH (National Accreditation Board for Hospitals &amp; Healthcare Providers) accredited. This ensures all our processes, safety standards and patient care protocols meet rigorous national quality benchmarks.</p>
               </div>
             </div>
-
-            <div class="faq__item">
-              <button class="faq__btn" aria-expanded="false">
-                Does Aaruni Hospital accept Ayushman Bharat and insurance?
-                <span class="faq__toggle">+</span>
+            <div class="faq-item reveal" data-delay="1">
+              <button class="faq-q" aria-expanded="false">
+                Do you offer 24×7 emergency services?
+                <span class="faq-icon">+</span>
               </button>
-              <div class="faq__body">
-                <p>Yes. We are empanelled under Ayushman Bharat (PMJAY), CGHS, Rajasthan State schemes and most major private insurance providers. Our billing team assists with pre-authorisation and claims. Please bring your insurance card and photo ID at admission.</p>
+              <div class="faq-a">
+                <p>Yes. Our emergency department operates around the clock — 365 days a year. A dedicated trauma team, emergency physicians and support staff are always on duty. Call +91 95878 75550 for immediate assistance.</p>
               </div>
             </div>
-
-            <div class="faq__item">
-              <button class="faq__btn" aria-expanded="false">
-                How do I book an appointment with a specialist?
-                <span class="faq__toggle">+</span>
+            <div class="faq-item reveal" data-delay="2">
+              <button class="faq-q" aria-expanded="false">
+                How do I book an appointment?
+                <span class="faq-icon">+</span>
               </button>
-              <div class="faq__body">
-                <p>Book by calling <a href="tel:+919587875550">+91 95878 75550</a>, emailing <a href="mailto:aarunihospitaljjn@gmail.com">aarunihospitaljjn@gmail.com</a>, or using the <a href="#appointment">online appointment form</a> on this page. Walk-in consultations are also accepted subject to doctor availability.</p>
+              <div class="faq-a">
+                <p>You can book via the appointment form on this page, call us at +91 95878 75550, or email aarunihospitaljjn@gmail.com. Walk-ins are also welcome during OPD hours (9 AM – 6 PM, Mon–Sat).</p>
               </div>
             </div>
-
-            <div class="faq__item">
-              <button class="faq__btn" aria-expanded="false">
-                Is there a 24×7 emergency service?
-                <span class="faq__toggle">+</span>
+            <div class="faq-item reveal" data-delay="3">
+              <button class="faq-q" aria-expanded="false">
+                What diagnostic facilities are available?
+                <span class="faq-icon">+</span>
               </button>
-              <div class="faq__body">
-                <p>Yes. Our emergency department operates 24 hours a day, 7 days a week, 365 days a year. Our trained emergency team handles trauma, cardiac emergencies, stroke, obstetric emergencies and all critical care situations. Call <a href="tel:+919587875550">+91 95878 75550</a> for immediate help.</p>
+              <div class="faq-a">
+                <p>We offer a comprehensive in-house diagnostics suite including MRI, CT scan, digital X-ray, echocardiography, EEG, Holter monitoring, endoscopy, full laboratory services and more — all under one roof.</p>
               </div>
             </div>
-
-            <div class="faq__item">
-              <button class="faq__btn" aria-expanded="false">
-                What is NABH accreditation and why does it matter?
-                <span class="faq__toggle">+</span>
+            <div class="faq-item reveal" data-delay="4">
+              <button class="faq-q" aria-expanded="false">
+                Do you have insurance or cashless facility?
+                <span class="faq-icon">+</span>
               </button>
-              <div class="faq__body">
-                <p>NABH (National Accreditation Board for Hospitals &amp; Healthcare Providers) is India's premier hospital accreditation body. Accreditation means Aaruni meets the highest standards for patient safety, clinical governance, infection control and quality management — it is your assurance of accountable, evidence-based care.</p>
+              <div class="faq-a">
+                <p>Yes. We support Ayushman Bharat (PM-JAY), various TPA (Third Party Administrator) panels and major health insurance providers. Please contact our billing desk or call us to verify your specific insurance coverage before admission.</p>
               </div>
             </div>
-
-            <div class="faq__item">
-              <button class="faq__btn" aria-expanded="false">
-                Where is Aaruni Hospital located?
-                <span class="faq__toggle">+</span>
-              </button>
-              <div class="faq__body">
-                <p>We are at 1-194, Housing Board Colony, Basant Vihar, Churu Road, Jhunjhunu, Rajasthan 333001. Easily accessible from the Jhunjhunu bus stand and railway station. Ample on-site parking available. <a href="#contact">View on map →</a></p>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
 
-      <!-- APPOINTMENT FORM -->
-      <section class="section appt-section" id="appointment">
+      <!-- ═══════════════ APPOINTMENT ═══════════════ -->
+      <section class="section appt" id="appointment">
         <div class="container">
-          <div class="appt__inner">
-
-            <div class="appt__left reveal">
-              <span class="eyebrow">Appointments</span>
-              <h2 class="s-title" style="text-align:left;margin-top:.8rem">Let's get you <em>the care</em> you need</h2>
-              <p class="appt__lead">
-                Fill in the form and our team will call you within 2 hours to confirm your appointment. For emergencies, call us directly — we're always here.
-              </p>
-              <ul class="appt__contact">
-                <li>
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-                  <a href="tel:+919587875550">+91 95878 75550</a>
-                </li>
-                <li>
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                  <a href="mailto:aarunihospitaljjn@gmail.com">aarunihospitaljjn@gmail.com</a>
-                </li>
-                <li>
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                  <span>1-194, Housing Board Colony, Basant Vihar, Churu Road, Jhunjhunu 333001</span>
-                </li>
-                <li>
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
-                  <span>Mon–Sat: 8:00 AM – 8:00 PM &nbsp;|&nbsp; Emergency: 24×7</span>
-                </li>
-              </ul>
+          <div class="appt-wrap glass-card reveal">
+            <div class="appt-head">
+              <span class="eyebrow">Book a Visit</span>
+              <h2 class="s-title">Schedule your<br/><em>appointment</em></h2>
+              <p>Fill in the form and our team will confirm your slot within 2 hours. Emergency? Call us directly.</p>
             </div>
-
-            <div class="appt__right reveal" data-delay="2">
-              <form class="appt-form" id="apptForm" novalidate>
-                <div class="form-row">
-                  <label>
-                    Full Name *
-                    <input type="text" name="name" placeholder="Your full name" autocomplete="name"/>
-                  </label>
-                  <label>
-                    Phone Number *
-                    <input type="tel" name="phone" placeholder="+91 98765 43210" autocomplete="tel"/>
-                  </label>
+            <form class="appt-form" id="apptForm" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="apptName">Full Name *</label>
+                  <input type="text" id="apptName" name="name" placeholder="Your full name" autocomplete="name"/>
+                  <span class="form-err" id="nameErr">Please enter your name</span>
                 </div>
-                <div class="form-row">
-                  <label>
-                    Speciality / Department
-                    <select name="dept">
-                      <option value="">Select department</option>
-                      <option>Orthopedics &amp; Joint Replacement</option>
-                      <option>Cardiology</option>
-                      <option>Neurology</option>
-                      <option>Gynaecology &amp; Obstetrics</option>
-                      <option>Urology</option>
-                      <option>General Surgery</option>
-                      <option>Paediatrics</option>
-                      <option>ENT</option>
-                      <option>Dermatology</option>
-                      <option>Internal Medicine</option>
-                      <option>Other</option>
-                    </select>
-                  </label>
-                  <label>
-                    Preferred Date
-                    <input type="date" name="date"/>
-                  </label>
+                <div class="form-group">
+                  <label for="apptPhone">Phone Number *</label>
+                  <input type="tel" id="apptPhone" name="phone" placeholder="+91 XXXXX XXXXX" autocomplete="tel"/>
+                  <span class="form-err" id="phoneErr">Enter a valid 10-digit phone number</span>
                 </div>
-                <label>
-                  Message (optional)
-                  <textarea name="message" rows="3" placeholder="Brief description of your concern..."></textarea>
-                </label>
-                <button type="submit" class="btn btn--cyan btn--block btn--magnetic">Confirm Appointment →</button>
-                <p class="form-note" id="formNote"></p>
-              </form>
-            </div>
-
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="apptDept">Department</label>
+                  <select id="apptDept" name="department">
+                    <option value="">Select department</option>
+                    <option>Cardiology</option>
+                    <option>Neurology</option>
+                    <option>Orthopedics &amp; Joint Replacement</option>
+                    <option>Urology</option>
+                    <option>Gynaecology &amp; Obstetrics</option>
+                    <option>General Surgery</option>
+                    <option>Paediatrics</option>
+                    <option>Other / Not sure</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="apptDate">Preferred Date</label>
+                  <input type="date" id="apptDate" name="date"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="apptMsg">Message (optional)</label>
+                <textarea id="apptMsg" name="message" rows="3" placeholder="Briefly describe your concern…"></textarea>
+              </div>
+              <button type="submit" class="btn btn--cyan btn--lg btn--full btn--magnetic">Confirm Appointment →</button>
+              <div class="form-success" id="formSuccess" aria-live="polite">
+                <svg viewBox="0 0 24 24" fill="none" width="22"><circle cx="12" cy="12" r="10" stroke="#00d4ff" stroke-width="2"/><path d="M8 12.5 L10.5 15 L16 9" stroke="#00d4ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Appointment request sent! We'll call you within 2 hours.
+              </div>
+            </form>
           </div>
         </div>
       </section>
 
-      <!-- CONTACT + MAP -->
-      <section class="section contact-section" id="contact">
+      <!-- ═══════════════ CONTACT ═══════════════ -->
+      <section class="section contact" id="contact">
         <div class="container">
           <div class="s-head reveal">
             <span class="eyebrow">Find Us</span>
-            <h2 class="s-title">We're in the <em>heart</em> of Jhunjhunu</h2>
+            <h2 class="s-title">Get in<br/><em>touch</em></h2>
           </div>
           <div class="contact-grid">
-
             <div class="contact-cards reveal">
-              <div class="ccard">
-                <div class="ccard__ic">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+              <div class="contact-card glass-card">
+                <div class="contact-card__icon">
+                  <svg viewBox="0 0 24 24" fill="none" width="22"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.07 2.18 2 2 0 012.06.01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="#00d4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
                 <div>
-                  <h3>Phone</h3>
-                  <p><a href="tel:+919587875550">+91 95878 75550</a></p>
-                  <p style="margin-top:.3rem;font-size:.8rem;color:var(--muted)">Emergency line — 24×7</p>
+                  <strong>Emergency &amp; OPD</strong>
+                  <a href="tel:+919587875550">+91 95878 75550</a>
                 </div>
               </div>
-              <div class="ccard">
-                <div class="ccard__ic">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              <div class="contact-card glass-card">
+                <div class="contact-card__icon">
+                  <svg viewBox="0 0 24 24" fill="none" width="22"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#00d4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="#00d4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
                 <div>
-                  <h3>Email</h3>
-                  <p><a href="mailto:aarunihospitaljjn@gmail.com">aarunihospitaljjn@gmail.com</a></p>
-                  <p style="margin-top:.3rem;font-size:.8rem;color:var(--muted)">We respond within 24 hours</p>
+                  <strong>Email</strong>
+                  <a href="mailto:aarunihospitaljjn@gmail.com">aarunihospitaljjn@gmail.com</a>
                 </div>
               </div>
-              <div class="ccard">
-                <div class="ccard__ic">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <div class="contact-card glass-card">
+                <div class="contact-card__icon">
+                  <svg viewBox="0 0 24 24" fill="none" width="22"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" stroke="#00d4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10" r="3" stroke="#00d4ff" stroke-width="1.8"/></svg>
                 </div>
                 <div>
-                  <h3>Address</h3>
-                  <p>1-194, Housing Board Colony, Basant Vihar, Churu Road, Jhunjhunu, Rajasthan 333001</p>
+                  <strong>Address</strong>
+                  <span>1-194, Housing Board Colony, Basant Vihar, Churu Road, Jhunjhunu, Rajasthan 333001</span>
                 </div>
               </div>
-              <div class="ccard">
-                <div class="ccard__ic">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+              <div class="contact-card glass-card">
+                <div class="contact-card__icon">
+                  <svg viewBox="0 0 24 24" fill="none" width="22"><circle cx="12" cy="12" r="10" stroke="#00d4ff" stroke-width="1.8"/><polyline points="12 6 12 12 16 14" stroke="#00d4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
                 <div>
-                  <h3>Hours</h3>
-                  <p>Mon – Sat: 8:00 AM – 8:00 PM</p>
-                  <p>Emergency: 24 hours, 7 days</p>
+                  <strong>OPD Hours</strong>
+                  <span>Mon–Sat: 9 AM – 6 PM<br/>Emergency: 24×7</span>
                 </div>
               </div>
             </div>
-
-            <div class="contact-map reveal" data-delay="2">
+            <div class="contact-map reveal" data-delay="1">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3533.5!2d75.4009!3d28.1288!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3913c0000000001%3A0x0!2sBasant%20Vihar%2C%20Jhunjhunu%2C%20Rajasthan!5e0!3m2!1sen!2sin!4v1"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Aaruni Multispeciality Hospital — Jhunjhunu"
-              ></iframe>
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3558.8!2d75.4!3d28.13!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3914e0d5b8e40001%3A0xabc123!2sAaruni+Multispeciality+Hospital!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade" title="Aaruni Hospital Location"></iframe>
             </div>
-
           </div>
         </div>
       </section>
 
     </main>
 
+    <!-- ═══════════════ FOOTER ═══════════════ -->
     <footer class="footer">
       <div class="container">
-        <div class="footer__inner">
-          <div class="footer__top">
-            <a href="#home" class="brand">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="brand">
               <div class="brand__mark">
-                <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="7" y="1" width="4" height="16" rx="2"/>
-                  <rect x="1" y="7" width="16" height="4" rx="2"/>
+                <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="7" y="1" width="4" height="16" rx="2" fill="currentColor"/>
+                  <rect x="1" y="7" width="16" height="4" rx="2" fill="currentColor"/>
                 </svg>
               </div>
-              <span class="brand__name">Aaruni Multispeciality Hospital</span>
-            </a>
-            <p class="footer__tagline">NABH Accredited · Est. 2020 · Jhunjhunu, Rajasthan<br/>Bringing world-class healthcare to the heart of Shekhawati.</p>
-          </div>
-          <div class="footer__divider"></div>
-          <div class="footer__grid">
-            <div class="footer__col">
-              <h4>Specialities</h4>
-              <ul>
-                <li><a href="#services">Cardiology</a></li>
-                <li><a href="#services">Neurology</a></li>
-                <li><a href="#services">Orthopedics &amp; Joint Replacement</a></li>
-                <li><a href="#services">Urology</a></li>
-                <li><a href="#services">Gynaecology &amp; Obstetrics</a></li>
-                <li><a href="#services">General Surgery</a></li>
-              </ul>
+              <span class="brand__name">Aaruni</span>
             </div>
-            <div class="footer__col">
-              <h4>Hospital</h4>
-              <ul>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#doctors">Our Doctors</a></li>
-                <li><a href="#appointment">Book Appointment</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li>NABH Accredited</li>
-              </ul>
-            </div>
-            <div class="footer__col">
-              <h4>Contact</h4>
-              <ul>
-                <li><a href="tel:+919587875550">+91 95878 75550</a></li>
-                <li><a href="mailto:aarunihospitaljjn@gmail.com">aarunihospitaljjn@gmail.com</a></li>
-                <li>1-194, Housing Board Colony</li>
-                <li>Basant Vihar, Churu Road</li>
-                <li>Jhunjhunu, Rajasthan 333001</li>
-              </ul>
+            <p>Aaruni Multispeciality Hospital<br/>Jhunjhunu, Rajasthan</p>
+            <p class="footer-tagline">"We live in the heart of Jhunjhunu"</p>
+            <div class="footer-chips">
+              <span>NABH Accredited</span>
+              <span>Est. 2020</span>
             </div>
           </div>
-          <div class="footer__divider"></div>
-          <div class="footer__bottom">
-            <p>© <span id="yr"></span> Aaruni Multispeciality Hospital. In the heart of Jhunjhunu, Rajasthan.</p>
-            <p>NABH Accredited · Founded by Dr. Sunil Poonia</p>
+          <div class="footer-col">
+            <h4>Specialities</h4>
+            <ul>
+              <li><a href="#services">Cardiology</a></li>
+              <li><a href="#services">Neurology</a></li>
+              <li><a href="#services">Orthopedics</a></li>
+              <li><a href="#services">Urology</a></li>
+              <li><a href="#services">Gynaecology &amp; Obstetrics</a></li>
+              <li><a href="#services">General Surgery</a></li>
+            </ul>
           </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#doctors">Our Doctors</a></li>
+              <li><a href="#appointment">Book Appointment</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="tel:+919587875550">Emergency: +91 95878 75550</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2024 Aaruni Multispeciality Hospital. All rights reserved. Jhunjhunu, Rajasthan 333001.</p>
         </div>
       </div>
     </footer>
 
   </div><!-- /smoothWrap -->
 
-  <!-- MODAL -->
-  <div class="modal" id="modal" role="dialog" aria-modal="true" hidden>
-    <div class="modal__overlay" id="modalOverlay"></div>
-    <div class="modal__box">
-      <button class="modal__close" id="modalClose">&#x2715;</button>
-      <div id="modalBody"></div>
-    </div>
-  </div>
-
-  <!-- FAB emergency button -->
-  <a href="tel:+919587875550" class="fab" aria-label="Emergency call">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
-    </svg>
+  <!-- Floating Emergency FAB -->
+  <a href="tel:+919587875550" class="fab-emergency" aria-label="Call Emergency">
+    <svg viewBox="0 0 24 24" fill="none" width="24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.07 2.18 2 2 0 012.06.01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" fill="white"/></svg>
+    <div class="fab-pulse"></div>
   </a>
 
   <script src="assets/js/script.js"></script>
