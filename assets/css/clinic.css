@@ -133,38 +133,54 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   z-index:1;pointer-events:none;filter:blur(34px);
   background:radial-gradient(ellipse at 50% 100%,rgba(150,70,255,.5),rgba(120,40,220,.16) 46%,transparent 72%)}
 
-/* ---- hero photo (your image) — seamless deep-space fill + motion ---- */
+/* ---- hero photo (your image) — immersive blended cosmos ---- */
 .hero__photo{position:absolute;inset:0;z-index:0;overflow:hidden;background:
-  radial-gradient(900px 700px at 80% -5%,#1a0c33 0,transparent 60%),
-  radial-gradient(800px 600px at 12% 6%,#160a2c 0,transparent 55%),
-  linear-gradient(180deg,#07040f,#06030c)}
-.hero__stars{position:absolute;inset:0;pointer-events:none;opacity:.38;background-repeat:repeat;
-  background-size:560px 560px;animation:starDrift 120s linear infinite;background-image:
-    radial-gradient(1.6px 1.6px at 18% 28%,rgba(224,206,255,.95),transparent),
-    radial-gradient(1.4px 1.4px at 68% 62%,rgba(210,188,255,.85),transparent),
-    radial-gradient(1.1px 1.1px at 38% 82%,rgba(200,176,255,.8),transparent),
-    radial-gradient(1.5px 1.5px at 86% 22%,rgba(224,206,255,.85),transparent),
-    radial-gradient(1.3px 1.3px at 52% 12%,rgba(224,206,255,.8),transparent),
-    radial-gradient(1.1px 1.1px at 10% 66%,rgba(200,176,255,.75),transparent),
-    radial-gradient(1.2px 1.2px at 92% 84%,rgba(224,206,255,.75),transparent),
-    radial-gradient(1.5px 1.5px at 30% 48%,rgba(224,206,255,.85),transparent),
-    radial-gradient(1px 1px at 60% 38%,rgba(200,176,255,.7),transparent),
-    radial-gradient(1px 1px at 78% 70%,rgba(210,188,255,.7),transparent)}
-@keyframes starDrift{from{background-position:0 0}to{background-position:0 -560px}}
-.hero__glow{position:absolute;left:50%;top:30%;width:1000px;max-width:126vw;height:580px;
-  transform:translate(-50%,-50%);pointer-events:none;filter:blur(66px);
+  radial-gradient(1100px 760px at 78% -8%,#1d0e3a 0,transparent 60%),
+  radial-gradient(900px 680px at 8% 2%,#180b30 0,transparent 56%),
+  radial-gradient(820px 760px at 50% 118%,#160a2e 0,transparent 60%),
+  linear-gradient(180deg,#08040f,#06030c)}
+.hero__stars{position:absolute;inset:0;pointer-events:none;background-repeat:repeat}
+.hero__stars--far{opacity:.34;background-size:540px 540px;animation:starDriftA 150s linear infinite;background-image:
+  radial-gradient(1.4px 1.4px at 18% 28%,rgba(224,206,255,.9),transparent),
+  radial-gradient(1.2px 1.2px at 68% 62%,rgba(210,188,255,.8),transparent),
+  radial-gradient(1px 1px at 38% 82%,rgba(200,176,255,.75),transparent),
+  radial-gradient(1.3px 1.3px at 86% 22%,rgba(224,206,255,.8),transparent),
+  radial-gradient(1.1px 1.1px at 52% 12%,rgba(224,206,255,.75),transparent),
+  radial-gradient(1px 1px at 10% 66%,rgba(200,176,255,.7),transparent),
+  radial-gradient(1.1px 1.1px at 92% 84%,rgba(224,206,255,.7),transparent),
+  radial-gradient(1.3px 1.3px at 30% 48%,rgba(224,206,255,.8),transparent)}
+.hero__stars--near{opacity:.55;background-size:790px 790px;animation:starDriftB 96s linear infinite;background-image:
+  radial-gradient(2px 2px at 22% 36%,rgba(236,224,255,.95),transparent),
+  radial-gradient(1.8px 1.8px at 74% 20%,rgba(220,198,255,.9),transparent),
+  radial-gradient(1.6px 1.6px at 46% 74%,rgba(224,206,255,.85),transparent),
+  radial-gradient(2px 2px at 88% 58%,rgba(236,224,255,.9),transparent),
+  radial-gradient(1.6px 1.6px at 14% 88%,rgba(220,198,255,.8),transparent),
+  radial-gradient(1.8px 1.8px at 62% 44%,rgba(236,224,255,.85),transparent)}
+@keyframes starDriftA{from{background-position:0 0}to{background-position:0 -540px}}
+@keyframes starDriftB{from{background-position:0 0}to{background-position:0 -790px}}
+.hero__glow{position:absolute;left:50%;top:28%;width:1120px;max-width:132vw;height:640px;
+  transform:translate(-50%,-50%);pointer-events:none;filter:blur(72px);
   background:radial-gradient(ellipse at center,rgba(150,70,255,.26),rgba(120,40,220,.08) 50%,transparent 72%);
-  animation:heroGlowPulse 8.5s ease-in-out infinite}
+  animation:heroGlowPulse 9s ease-in-out infinite}
 @keyframes heroGlowPulse{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}
-  50%{opacity:.95;transform:translate(-50%,-50%) scale(1.09)}}
+  50%{opacity:.95;transform:translate(-50%,-50%) scale(1.1)}}
 .hero__art{position:absolute;inset:0;display:block;cursor:pointer;will-change:transform;
   background:url("../img/hero.webp") center top/contain no-repeat;
+  -webkit-mask-image:radial-gradient(128% 104% at 50% 31%,#000 56%,transparent 100%);
+  mask-image:radial-gradient(128% 104% at 50% 31%,#000 56%,transparent 100%);
   animation:heroFloat 13s ease-in-out infinite alternate}
-@keyframes heroFloat{0%{transform:translateY(-8px) scale(1.004)}
-  50%{transform:translateY(3px) scale(1.022)}100%{transform:translateY(8px) scale(1.004)}}
+@keyframes heroFloat{0%{transform:translateY(-8px) scale(1.005)}
+  50%{transform:translateY(3px) scale(1.022)}100%{transform:translateY(8px) scale(1.005)}}
+.hero__dood{position:absolute;width:clamp(116px,14vw,200px);height:auto;pointer-events:none;
+  opacity:.6;filter:drop-shadow(0 0 6px rgba(166,77,255,.5))}
+.hero__dood--l{left:1.5%;top:29%}
+.hero__dood--r{right:1.5%;top:29%;transform:scaleX(-1)}
+.dood-orbit{transform-box:fill-box;transform-origin:center;animation:spin 48s linear infinite}
+.dood-orbit2{transform-box:fill-box;transform-origin:center;animation:spin 34s linear infinite reverse}
+.dood-star{animation:twinkle 4.4s ease-in-out infinite}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@media(max-width:760px){.hero{min-height:66vh}}
+@media(max-width:760px){.hero{min-height:64vh}.hero__dood{display:none}}
 .planet{position:absolute;left:50%;top:-10%;width:min(1300px,156vw);aspect-ratio:1;transform:translateX(-50%);
   border-radius:50%;overflow:hidden;background:
     radial-gradient(10% 7% at 46% 10%,rgba(255,255,255,.92),rgba(233,210,255,.24) 50%,transparent 72%),
