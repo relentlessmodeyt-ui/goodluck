@@ -53,72 +53,13 @@
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="home">
-      <div class="hero__scene" aria-hidden="true">
-        <div class="par" data-px="14" data-py="13" data-ps="70"><span class="planet"></span></div>
-        <div class="par" data-px="8" data-py="8" data-ps="44"><span class="planet__glow"></span></div>
-        <div class="hero__haze"></div>
-        <div class="hero__nebula"></div>
-        <div class="par sparkles" id="sparkles" data-px="22" data-py="18" data-ps="120"></div>
-
-        <!-- Neon heart (left) -->
-        <div class="par" data-px="40" data-py="34" data-ps="150"><span class="organ organ--heart">
-          <svg viewBox="0 0 220 220" class="organ__svg">
-            <defs>
-              <linearGradient id="gHeart" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#d8a8ff"/><stop offset=".5" stop-color="#a64dff"/><stop offset="1" stop-color="#6f1fd6"/>
-              </linearGradient>
-              <filter id="glowH" x="-70%" y="-70%" width="240%" height="240%">
-                <feGaussianBlur stdDeviation="5.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-            </defs>
-            <g filter="url(#glowH)" fill="none" stroke="url(#gHeart)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M110 196C44 150 22 110 22 78 22 50 42 32 66 32 84 32 100 44 110 62 120 44 136 32 154 32 178 32 198 50 198 78 198 110 176 150 110 196Z"/>
-              <path d="M110 60c-3 19-10 34-23 47M110 60c5 16 14 31 28 42M84 74c7 10 11 24 8 40M138 82c-7 9-13 23-11 39M68 92c9 4 17 13 20 27M152 100c-9 3-17 12-21 26M110 86c-2 21 0 41 3 61M96 110c5 12 5 27-2 39M126 116c-3 11-3 25 2 36M78 122c7 6 10 17 9 28M146 128c-6 5-10 15-10 25M58 108c8 2 14 9 16 19M162 116c-8 3-14 10-16 20"/>
-              <circle cx="110" cy="60" r="4" fill="url(#gHeart)" stroke="none"/>
-              <circle cx="68" cy="92" r="3" fill="url(#gHeart)" stroke="none"/>
-              <circle cx="152" cy="100" r="3" fill="url(#gHeart)" stroke="none"/>
-              <circle cx="96" cy="110" r="2.6" fill="url(#gHeart)" stroke="none"/>
-              <circle cx="126" cy="116" r="2.6" fill="url(#gHeart)" stroke="none"/>
-            </g>
-            <path class="organ__ecg" d="M14 130h36l9-30 13 56 11-40 8 16h90" fill="none" stroke="#e9c6ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#glowH)"/>
-          </svg>
-        </span></div>
-
-        <!-- Neon brain (right) -->
-        <div class="par" data-px="30" data-py="26" data-ps="120"><span class="organ organ--brain">
-          <svg viewBox="0 0 220 220" class="organ__svg">
-            <defs>
-              <linearGradient id="gBrain" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#e7c4ff"/><stop offset=".55" stop-color="#a64dff"/><stop offset="1" stop-color="#7322d8"/>
-              </linearGradient>
-              <filter id="glowB" x="-70%" y="-70%" width="240%" height="240%">
-                <feGaussianBlur stdDeviation="5.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-            </defs>
-            <g filter="url(#glowB)" fill="none" stroke="url(#gBrain)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M110 44c-14-10-34-8-44 6-16-2-30 10-30 26-12 6-16 22-8 34-6 14 2 30 18 34 6 14 22 20 36 14 8 8 22 8 30 0M110 44c14-10 34-8 44 6 16-2 30 10 30 26 12 6 16 22 8 34 6 14-2 30-18 34-6 14-22 20-36 14-8 8-22 8-30 0M110 44v132"/>
-              <path d="M86 70c-12 4-16 18-10 28M70 92c-12 2-16 16-8 26M84 124c-10 4-12 18-2 26M134 70c12 4 16 18 10 28M150 92c12 2 16 16 8 26M136 124c10 4 12 18 2 26M110 72c-10 6-12 18-4 26M110 110c-8 6-10 16-2 24M110 72c10 6 12 18 4 26M110 110c8 6 10 16 2 24M54 110c10 0 17 7 18 17M166 110c-10 0-17 7-18 17M92 96c-6 6-7 15-2 22M128 96c6 6 7 15 2 22"/>
-              <circle cx="70" cy="92" r="3.2" fill="url(#gBrain)" stroke="none" class="brain__node"/>
-              <circle cx="150" cy="92" r="3.2" fill="url(#gBrain)" stroke="none" class="brain__node" style="animation-delay:.6s"/>
-              <circle cx="110" cy="110" r="3.2" fill="url(#gBrain)" stroke="none" class="brain__node" style="animation-delay:1.1s"/>
-              <circle cx="54" cy="110" r="2.6" fill="url(#gBrain)" stroke="none" class="brain__node" style="animation-delay:1.6s"/>
-              <circle cx="166" cy="110" r="2.6" fill="url(#gBrain)" stroke="none" class="brain__node" style="animation-delay:.3s"/>
-            </g>
-          </svg>
-        </span></div>
+      <div class="hero__photo" aria-hidden="true">
+        <span class="hero__blur"></span>
+        <a href="#appointment" class="hero__art" aria-label="Book my appointment at Aaruni Multi Speciality Hospital">
+          <span class="par sparkles" id="sparkles" data-px="14" data-py="10" data-ps="80"></span>
+        </a>
       </div>
-
-      <div class="hero__content">
-        <span class="hero__tag reveal">Precision, Speed, Intelligence.</span>
-        <h1 class="hero__title reveal">AARUNI MULTI SPECIALITY HOSPITAL</h1>
-        <p class="hero__sub reveal">WE ARE IN THE HEART OF JHUNJHUNU</p>
-        <div class="hero__cta reveal">
-          <a href="#appointment" class="btn btn--hero">
-            BOOK MY APPOINTMENT
-            <span class="btn__arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-          </a>
-        </div>
-      </div>
+      <h1 class="sr-only">Aaruni Multi Speciality Hospital — We are in the heart of Jhunjhunu. Precision, Speed, Intelligence.</h1>
 
       <a href="#strip" class="hero__scroll" aria-label="Scroll down">
         <span></span>
