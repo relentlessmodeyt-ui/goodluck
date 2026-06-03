@@ -55,7 +55,7 @@
     if (!host) return;
     var plus = '<svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>';
     var star = '<svg viewBox="0 0 12 12"><path d="M6 0c.5 3.4 2.1 5 5.5 6-3.4 1-5 2.6-5.5 6-.5-3.4-2.1-5-5.5-6 3.4-1 5-2.6 5.5-6Z"/></svg>';
-    var N = window.innerWidth < 640 ? 16 : 30;
+    var N = window.innerWidth < 640 ? 22 : 46;
     var frag = document.createDocumentFragment();
     for (var i = 0; i < N; i++) {
       var s = document.createElement('span');
