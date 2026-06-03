@@ -134,21 +134,26 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   background:radial-gradient(ellipse at 50% 100%,rgba(150,70,255,.5),rgba(120,40,220,.16) 46%,transparent 72%)}
 .planet{position:absolute;left:50%;top:-10%;width:min(1300px,156vw);aspect-ratio:1;transform:translateX(-50%);
   border-radius:50%;overflow:hidden;background:
-    radial-gradient(12% 8% at 47% 11%,rgba(255,255,255,.95),rgba(233,210,255,.3) 50%,transparent 72%),
-    radial-gradient(46% 40% at 50% 13%,rgba(241,226,255,.82),rgba(176,108,255,.26) 42%,transparent 60%),
-    radial-gradient(6% 6% at 41% 29%,rgba(7,4,16,.5),transparent 62%),
-    radial-gradient(4.6% 4.6% at 58% 23%,rgba(7,4,16,.46),transparent 62%),
-    radial-gradient(8% 8% at 56% 39%,rgba(7,4,16,.42),transparent 66%),
-    radial-gradient(5% 5% at 37% 45%,rgba(7,4,16,.42),transparent 66%),
-    radial-gradient(38% 36% at 30% 34%,rgba(150,80,230,.32),transparent 60%),
-    radial-gradient(55% 50% at 72% 66%,rgba(96,30,170,.42),transparent 70%),
+    radial-gradient(10% 7% at 46% 10%,rgba(255,255,255,.92),rgba(233,210,255,.24) 50%,transparent 72%),
+    radial-gradient(40% 33% at 49% 12%,rgba(232,217,255,.55),rgba(176,108,255,.14) 46%,transparent 62%),
+    radial-gradient(5% 5% at 41% 27%,rgba(4,2,10,.6),transparent 60%),
+    radial-gradient(3.4% 3.4% at 58% 22%,rgba(4,2,10,.54),transparent 60%),
+    radial-gradient(7% 7% at 55% 38%,rgba(4,2,10,.52),transparent 64%),
+    radial-gradient(4% 4% at 36% 44%,rgba(4,2,10,.52),transparent 64%),
+    radial-gradient(5.5% 5.5% at 66% 49%,rgba(4,2,10,.5),transparent 64%),
+    radial-gradient(3% 3% at 48% 32%,rgba(4,2,10,.48),transparent 60%),
+    radial-gradient(4.4% 4.4% at 30% 56%,rgba(4,2,10,.5),transparent 64%),
+    radial-gradient(6% 6% at 71% 29%,rgba(4,2,10,.46),transparent 66%),
+    radial-gradient(2.6% 2.6% at 62% 43%,rgba(4,2,10,.5),transparent 60%),
+    radial-gradient(3.6% 3.6% at 44% 52%,rgba(4,2,10,.48),transparent 62%),
+    radial-gradient(38% 36% at 30% 34%,rgba(150,80,230,.2),transparent 60%),
+    radial-gradient(55% 50% at 72% 66%,rgba(96,30,170,.32),transparent 70%),
     radial-gradient(circle at 50% 45%,#281450 0,#190d38 46%,#0d0726 70%,#070313 86%);
   box-shadow:inset 0 54px 120px -30px rgba(241,226,255,.62),inset -30px -70px 170px -8px rgba(0,0,0,.96),
     inset 0 -46px 120px -28px rgba(0,0,0,.9),inset 60px 30px 130px -50px rgba(166,77,255,.42),
     0 0 170px rgba(115,34,216,.5)}
-.planet::before{content:"";position:absolute;inset:-3%;border-radius:50%;mix-blend-mode:overlay;opacity:.32;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.018' numOctaves='3' seed='9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E") center/cover;
-  animation:planetTex 180s linear infinite}
+.planet::before{content:"";position:absolute;inset:0;border-radius:50%;mix-blend-mode:overlay;opacity:.12;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.42' numOctaves='2' seed='7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E") center/cover}
 .planet::after{content:"";position:absolute;inset:0;border-radius:50%;mix-blend-mode:screen;
   background:radial-gradient(closest-side,transparent 67%,rgba(202,152,255,.42) 84%,transparent 90%)}
 @keyframes planetTex{to{transform:rotate(360deg)}}
@@ -165,8 +170,8 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .organ::before{content:"";position:absolute;inset:-22%;z-index:-1;border-radius:50%;filter:blur(22px);
   background:radial-gradient(circle,rgba(166,77,255,.34),transparent 64%)}
 .organ__svg{width:100%;height:auto;overflow:visible}
-.organ--heart{left:2.5%;bottom:8%;animation:beat 1.5s ease-in-out infinite,organGlow 3.2s ease-in-out infinite}
-.organ--brain{right:2.5%;top:32%;animation:floaty 6s ease-in-out infinite,organGlow 4.2s ease-in-out infinite}
+.organ--heart{left:2.5%;top:52%;margin-top:calc(min(316px,33vw) * -.5);animation:beat 1.5s ease-in-out infinite,organGlow 3.2s ease-in-out infinite}
+.organ--brain{right:2.5%;top:52%;margin-top:calc(min(316px,33vw) * -.5);animation:floaty 6s ease-in-out infinite,organGlow 4.2s ease-in-out infinite}
 @keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.07)}28%{transform:scale(1)}42%{transform:scale(1.05)}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
 @keyframes organGlow{0%,100%{filter:drop-shadow(0 0 22px rgba(166,77,255,.5))}50%{filter:drop-shadow(0 0 44px rgba(202,152,255,.9))}}
