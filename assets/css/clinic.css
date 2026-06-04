@@ -207,19 +207,23 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   .organ--heart{left:-4%}.organ--brain{right:-4%}
 }
 .planet{position:absolute;left:50%;top:-12%;width:min(1200px,110vw);aspect-ratio:1;transform:translateX(-50%);
-  background:url("../img/planet.webp") center center/contain no-repeat;will-change:transform}
+  background:url("../img/planet.webp") center center/contain no-repeat;
+  filter:drop-shadow(0 0 55px rgba(150,70,255,.55)) drop-shadow(0 0 120px rgba(115,34,216,.4));
+  animation:planetGlow 8s ease-in-out infinite;will-change:transform}
+@keyframes planetGlow{0%,100%{filter:drop-shadow(0 0 48px rgba(150,70,255,.45)) drop-shadow(0 0 110px rgba(115,34,216,.32))}
+  50%{filter:drop-shadow(0 0 78px rgba(176,108,255,.75)) drop-shadow(0 0 150px rgba(140,60,240,.5))}}
 .planet::before,.planet::after{content:none;display:none}
 @keyframes planetTex{to{transform:rotate(360deg)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-.planet__glow{position:absolute;left:50%;top:1%;width:840px;max-width:92vw;height:360px;transform:translateX(-50%);
-  background:radial-gradient(ellipse at center,rgba(176,108,255,.42),transparent 70%);filter:blur(26px);
+.planet__glow{position:absolute;left:50%;top:5%;width:1020px;max-width:110vw;height:520px;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center,rgba(176,108,255,.5),rgba(120,40,220,.18) 50%,transparent 72%);filter:blur(34px);
   animation:breath 9s ease-in-out infinite}
 @keyframes breath{0%,100%{opacity:.65}50%{opacity:1}}
 .hero__nebula{position:absolute;left:50%;top:-8%;width:1240px;max-width:165vw;height:1000px;transform:translateX(-50%);
   z-index:-1;pointer-events:none;filter:blur(92px);opacity:.5;background:
     radial-gradient(44% 40% at 50% 30%,rgba(112,42,200,.3),transparent 72%)}
 
-.organ{position:absolute;--osz:min(264px,23vw);width:var(--osz);filter:drop-shadow(0 0 26px rgba(166,77,255,.55));will-change:transform}
+.organ{position:absolute;--osz:min(272px,24vw);width:var(--osz);filter:drop-shadow(0 0 34px rgba(180,100,255,.7));will-change:transform}
 .organ::before{content:"";position:absolute;inset:-22%;z-index:-1;border-radius:50%;filter:blur(22px);
   background:radial-gradient(circle,rgba(166,77,255,.34),transparent 64%)}
 .organ__svg{width:100%;height:auto;overflow:visible}
@@ -227,7 +231,7 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .organ--brain{right:3%;top:56%;margin-top:calc(var(--osz) * -.5);animation:floaty 6s ease-in-out infinite,organGlow 4.2s ease-in-out infinite}
 @keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.07)}28%{transform:scale(1)}42%{transform:scale(1.05)}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
-@keyframes organGlow{0%,100%{filter:drop-shadow(0 0 22px rgba(166,77,255,.5))}50%{filter:drop-shadow(0 0 44px rgba(202,152,255,.9))}}
+@keyframes organGlow{0%,100%{filter:drop-shadow(0 0 30px rgba(180,100,255,.65))}50%{filter:drop-shadow(0 0 58px rgba(214,164,255,1))}}
 .organ__ecg{stroke-dasharray:340;stroke-dashoffset:340;animation:ecg 2.6s linear infinite}
 @keyframes ecg{to{stroke-dashoffset:-340}}
 .brain__node{animation:nodeBlink 2.4s ease-in-out infinite}
