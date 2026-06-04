@@ -130,8 +130,22 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 /* shooting-stars layer (over the sky, behind the button) */
 .hero__shooting{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
 .shooting{position:absolute;height:2px;border-radius:2px;transform-origin:right center;opacity:0;
-  background:linear-gradient(to right,transparent,rgba(214,164,255,.6) 55%,#fff);
-  filter:drop-shadow(0 0 5px rgba(214,164,255,.85))}
+  background:linear-gradient(to right,transparent,rgba(200,210,255,.55) 50%,#fff);
+  filter:drop-shadow(0 0 6px rgba(214,224,255,.95)) drop-shadow(0 0 14px rgba(160,120,255,.6))}
+/* realistic twinkling starfield — deep-space depth behind the planet */
+.hero__stars{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:url("../img/starfield.png") center/cover no-repeat;opacity:.55;
+  -webkit-mask-image:radial-gradient(ellipse 58% 42% at 50% 5%,transparent 36%,#000 86%);
+  mask-image:radial-gradient(ellipse 58% 42% at 50% 5%,transparent 36%,#000 86%);
+  animation:starTwinkle 5.5s ease-in-out infinite}
+@keyframes starTwinkle{0%,100%{opacity:.4}50%{opacity:.72}}
+/* floating organs cut from the hero image (independent float, desktop) */
+.hero__organ{position:absolute;z-index:4;pointer-events:none;height:auto;will-change:transform;
+  filter:drop-shadow(0 0 13px rgba(180,100,255,.55))}
+.hero__organ--heart{left:1%;top:49%;width:17.5%;animation:floatHeart 6s ease-in-out infinite}
+.hero__organ--brain{left:73%;top:49%;width:25.5%;animation:floatBrain 7.4s ease-in-out infinite}
+@keyframes floatHeart{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-15px) rotate(1.2deg)}}
+@keyframes floatBrain{0%,100%{transform:translateY(0) rotate(1deg)}50%{transform:translateY(-19px) rotate(-1.2deg)}}
 /* real BOOK MY APPOINTMENT button, sized in % to fully cover the baked one + a touch bigger */
 .hero__cta{position:absolute;left:50%;top:54.5%;transform:translate(-50%,-50%);z-index:6;
   display:inline-flex;align-items:center;justify-content:center;gap:.7em;min-width:22%;white-space:nowrap;cursor:pointer;
@@ -164,6 +178,9 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   /* booking button sits in a different spot & size on the portrait image */
   .hero__cta{left:50%;top:53%;min-width:42%;font-size:3vw;gap:.5em;padding:.72em 1.1em;letter-spacing:.02em}
   .hero__cta-arrow{width:1.7em;height:1.7em}
+  /* mobile keeps the baked organs in its image, so hide the floating overlays */
+  .hero__organ{display:none}
+  .hero__stars{opacity:.4}
 }
 
 /* ---------- HIGHLIGHT STRIP ---------- */

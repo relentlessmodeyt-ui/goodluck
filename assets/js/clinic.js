@@ -77,21 +77,23 @@
     function spawn() {
       var s = document.createElement('span');
       s.className = 'shooting';
-      var len = 70 + Math.random() * 70;
-      var dist = 260 + Math.random() * 280;
+      var big = Math.random() < 0.28;                      // occasional dramatic streak
+      var len = big ? (150 + Math.random() * 90) : (70 + Math.random() * 70);
+      var dist = (big ? 440 : 280) + Math.random() * 260;
       var ang = (Math.random() < 0.5 ? 22 : 152) + (Math.random() * 16 - 8);
       var rad = ang * Math.PI / 180;
       var dx = Math.cos(rad) * dist, dy = Math.sin(rad) * dist;
       s.style.width = len + 'px';
+      if (big) s.style.height = '3px';
       s.style.left = (Math.random() * 92) + '%';
-      s.style.top = (Math.random() * 46) + '%';
+      s.style.top = (Math.random() * 48) + '%';
       host.appendChild(s);
       var anim = s.animate([
         { transform: 'translate(0,0) rotate(' + ang + 'deg)', opacity: 0 },
-        { opacity: 1, offset: 0.12 },
-        { opacity: 0.9, offset: 0.75 },
+        { opacity: 1, offset: 0.1 },
+        { opacity: 0.95, offset: 0.78 },
         { transform: 'translate(' + dx + 'px,' + dy + 'px) rotate(' + ang + 'deg)', opacity: 0 }
-      ], { duration: 700 + Math.random() * 500, easing: 'cubic-bezier(.3,.1,.25,1)' });
+      ], { duration: (big ? 1100 : 720) + Math.random() * 520, easing: 'cubic-bezier(.3,.1,.25,1)' });
       anim.onfinish = function () { s.remove(); };
     }
     (function cycle() {
@@ -101,28 +103,22 @@
     })();
   })();
 
-  /* ---- hero life: gentle float (heart & brain bob) + 3D tilt on desktop ---- */
-  (function heroLife() {
+  /* ---- hero 3D tilt on desktop (depth; the organs float on their own via CSS) ---- */
+  (function heroTilt() {
     var hero = $('.hero'), stage = $('.hero__stage');
-    if (reduce || !hero || !stage) return;
-    var now0 = (window.performance ? performance.now() : Date.now());
+    if (reduce || !fine || !hero || !stage) return;
     var tx = 0, ty = 0, cx = 0, cy = 0;
-    if (fine) {
-      hero.addEventListener('mousemove', function (e) {
-        var r = hero.getBoundingClientRect();
-        tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
-        ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
-      });
-      hero.addEventListener('mouseleave', function () { tx = 0; ty = 0; });
-    }
-    (function frame(now) {
-      now = now || (window.performance ? performance.now() : Date.now());
+    hero.addEventListener('mousemove', function (e) {
+      var r = hero.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+    });
+    hero.addEventListener('mouseleave', function () { tx = 0; ty = 0; });
+    (function frame() {
       cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
-      var fy = Math.sin((now - now0) / 850) * 5;
-      var rot = fine ? (' rotateY(' + (cx * 3.5).toFixed(2) + 'deg) rotateX(' + (-cy * 2.5).toFixed(2) + 'deg)') : '';
-      stage.style.transform = 'translateY(' + fy.toFixed(2) + 'px)' + rot;
+      stage.style.transform = 'rotateY(' + (cx * 3).toFixed(2) + 'deg) rotateX(' + (-cy * 2).toFixed(2) + 'deg)';
       requestAnimationFrame(frame);
-    })(now0);
+    })();
   })();
 
   /* ---- scroll reveals (hero animates on load; rest on scroll) ---- */
