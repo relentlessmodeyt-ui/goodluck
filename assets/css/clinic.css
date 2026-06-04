@@ -161,9 +161,9 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   radial-gradient(1.8px 1.8px at 62% 44%,rgba(236,224,255,.85),transparent)}
 @keyframes starDriftA{from{background-position:0 0}to{background-position:0 -540px}}
 @keyframes starDriftB{from{background-position:0 0}to{background-position:0 -790px}}
-.hero__glow{position:absolute;left:50%;top:28%;width:1120px;max-width:132vw;height:640px;
+.hero__glow{position:absolute;left:50%;top:22%;width:780px;max-width:90vw;height:420px;
   transform:translate(-50%,-50%);pointer-events:none;filter:blur(72px);
-  background:radial-gradient(ellipse at center,rgba(150,70,255,.26),rgba(120,40,220,.08) 50%,transparent 72%);
+  background:radial-gradient(ellipse at center,rgba(150,70,255,.11),transparent 66%);
   animation:heroGlowPulse 9s ease-in-out infinite}
 @keyframes heroGlowPulse{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}
   50%{opacity:.95;transform:translate(-50%,-50%) scale(1.1)}}
@@ -208,15 +208,15 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 }
 .planet{position:absolute;left:50%;top:-12%;width:min(1200px,110vw);aspect-ratio:1;transform:translateX(-50%);
   background:url("../img/planet.webp") center center/contain no-repeat;
-  filter:drop-shadow(0 0 55px rgba(150,70,255,.55)) drop-shadow(0 0 120px rgba(115,34,216,.4));
+  filter:drop-shadow(0 0 24px rgba(150,70,255,.42));
   animation:planetGlow 8s ease-in-out infinite;will-change:transform}
-@keyframes planetGlow{0%,100%{filter:drop-shadow(0 0 48px rgba(150,70,255,.45)) drop-shadow(0 0 110px rgba(115,34,216,.32))}
-  50%{filter:drop-shadow(0 0 78px rgba(176,108,255,.75)) drop-shadow(0 0 150px rgba(140,60,240,.5))}}
+@keyframes planetGlow{0%,100%{filter:drop-shadow(0 0 20px rgba(150,70,255,.36))}
+  50%{filter:drop-shadow(0 0 36px rgba(176,108,255,.55))}}
 .planet::before,.planet::after{content:none;display:none}
 @keyframes planetTex{to{transform:rotate(360deg)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-.planet__glow{position:absolute;left:50%;top:5%;width:1020px;max-width:110vw;height:520px;transform:translateX(-50%);
-  background:radial-gradient(ellipse at center,rgba(176,108,255,.5),rgba(120,40,220,.18) 50%,transparent 72%);filter:blur(34px);
+.planet__glow{position:absolute;left:50%;top:2%;width:640px;max-width:70vw;height:300px;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center,rgba(176,108,255,.28),transparent 68%);filter:blur(30px);
   animation:breath 9s ease-in-out infinite}
 @keyframes breath{0%,100%{opacity:.65}50%{opacity:1}}
 .hero__nebula{position:absolute;left:50%;top:-8%;width:1240px;max-width:165vw;height:1000px;transform:translateX(-50%);
@@ -227,8 +227,8 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .organ::before{content:"";position:absolute;inset:-22%;z-index:-1;border-radius:50%;filter:blur(22px);
   background:radial-gradient(circle,rgba(166,77,255,.34),transparent 64%)}
 .organ__svg{width:100%;height:auto;overflow:visible}
-.organ--heart{left:3%;top:56%;margin-top:calc(var(--osz) * -.5);animation:beat 1.5s ease-in-out infinite,organGlow 3.2s ease-in-out infinite}
-.organ--brain{right:3%;top:56%;margin-top:calc(var(--osz) * -.5);animation:floaty 6s ease-in-out infinite,organGlow 4.2s ease-in-out infinite}
+.organ--heart{left:3%;top:55%;margin-top:calc(var(--osz) * -.625);animation:beat 1.5s ease-in-out infinite,organGlow 3.2s ease-in-out infinite}
+.organ--brain{right:3.5%;top:55%;margin-top:calc(var(--osz) * -.446);animation:floaty 6s ease-in-out infinite,organGlow 4.2s ease-in-out infinite}
 @keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.07)}28%{transform:scale(1)}42%{transform:scale(1.05)}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
 @keyframes organGlow{0%,100%{filter:drop-shadow(0 0 30px rgba(180,100,255,.65))}50%{filter:drop-shadow(0 0 58px rgba(214,164,255,1))}}
@@ -253,6 +253,7 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   letter-spacing:.02em;color:#fff;text-shadow:0 2px 40px rgba(166,77,255,.45);text-transform:uppercase;white-space:nowrap}
 .hero__sub{margin-top:14px;font-family:var(--display);font-weight:400;font-size:clamp(13px,1.85vw,21px);
   letter-spacing:.24em;color:var(--muted);text-transform:uppercase}
+.hero__tag,.hero__title,.hero__sub{font-family:'Poppins',var(--display)}
 .hero__cta{margin-top:38px}
 .hero__scroll{position:absolute;left:50%;bottom:26px;z-index:2;transform:translateX(-50%);
   width:26px;height:44px;border:1.5px solid var(--line-2);border-radius:14px;display:grid;justify-items:center;padding-top:8px}
