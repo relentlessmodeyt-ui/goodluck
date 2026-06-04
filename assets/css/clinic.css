@@ -223,15 +223,15 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   z-index:-1;pointer-events:none;filter:blur(92px);opacity:.5;background:
     radial-gradient(44% 40% at 50% 30%,rgba(112,42,200,.3),transparent 72%)}
 
-.organ{position:absolute;--osz:min(272px,24vw);width:var(--osz);filter:drop-shadow(0 0 34px rgba(180,100,255,.7));will-change:transform}
-.organ::before{content:"";position:absolute;inset:-22%;z-index:-1;border-radius:50%;filter:blur(22px);
-  background:radial-gradient(circle,rgba(166,77,255,.34),transparent 64%)}
-.organ__svg{width:100%;height:auto;overflow:visible}
-.organ--heart{left:3%;top:55%;margin-top:calc(var(--osz) * -.625);animation:beat 1.5s ease-in-out infinite,organGlow 3.2s ease-in-out infinite}
-.organ--brain{right:3.5%;top:55%;margin-top:calc(var(--osz) * -.446);animation:floaty 6s ease-in-out infinite,organGlow 4.2s ease-in-out infinite}
+.organ{position:absolute;--osz:min(264px,23vw);width:var(--osz);filter:drop-shadow(0 0 12px rgba(180,100,255,.45));will-change:transform}
+.organ::before{content:"";position:absolute;inset:-14%;z-index:-1;border-radius:50%;filter:blur(20px);
+  background:radial-gradient(circle,rgba(166,77,255,.2),transparent 66%)}
+.organ__svg,.organ__img{width:100%;height:auto;display:block;overflow:visible}
+.organ--heart{left:3%;top:55%;margin-top:calc(var(--osz) * -.722);animation:beat 1.5s ease-in-out infinite,organGlow 3.2s ease-in-out infinite}
+.organ--brain{right:3.5%;top:55%;margin-top:calc(var(--osz) * -.402);animation:floaty 6s ease-in-out infinite,organGlow 4.2s ease-in-out infinite}
 @keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.07)}28%{transform:scale(1)}42%{transform:scale(1.05)}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
-@keyframes organGlow{0%,100%{filter:drop-shadow(0 0 30px rgba(180,100,255,.65))}50%{filter:drop-shadow(0 0 58px rgba(214,164,255,1))}}
+@keyframes organGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(180,100,255,.45))}50%{filter:drop-shadow(0 0 24px rgba(214,164,255,.8))}}
 .organ__ecg{stroke-dasharray:340;stroke-dashoffset:340;animation:ecg 2.6s linear infinite}
 @keyframes ecg{to{stroke-dashoffset:-340}}
 .brain__node{animation:nodeBlink 2.4s ease-in-out infinite}
