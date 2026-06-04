@@ -123,67 +123,16 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   border:1px solid var(--glass-line);box-shadow:var(--sh-sm)}
 
 /* ---------- HERO ---------- */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
-  overflow:hidden;text-align:center;padding:120px 24px 90px}
-.hero__scene{position:absolute;inset:0;z-index:0;pointer-events:none}
-.par{position:absolute;inset:0;pointer-events:none;will-change:transform}
-.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(125% 85% at 50% 38%,transparent 54%,rgba(7,4,15,.6) 100%)}
-.hero__haze{position:absolute;left:50%;bottom:-50px;width:920px;max-width:124vw;height:400px;transform:translateX(-50%);
-  z-index:1;pointer-events:none;filter:blur(34px);
-  background:radial-gradient(ellipse at 50% 100%,rgba(150,70,255,.5),rgba(120,40,220,.16) 46%,transparent 72%)}
-.hero__fade{position:absolute;left:0;right:0;bottom:0;height:60%;pointer-events:none;background:
-  radial-gradient(ellipse 58% 44% at 50% 104%,rgba(166,77,255,.5),rgba(120,40,220,.14) 44%,transparent 72%),
-  linear-gradient(to top,#07040f 0%,rgba(7,4,15,.95) 14%,rgba(7,4,15,.5) 40%,transparent 100%)}
-
-/* ---- hero photo (your image) — immersive blended cosmos ---- */
-.hero__photo{position:absolute;inset:0;z-index:0;overflow:hidden;background:
-  radial-gradient(1100px 760px at 78% -8%,#1d0e3a 0,transparent 60%),
-  radial-gradient(900px 680px at 8% 2%,#180b30 0,transparent 56%),
-  radial-gradient(820px 760px at 50% 118%,#160a2e 0,transparent 60%),
-  linear-gradient(180deg,#08040f,#06030c)}
-.hero__stars{position:absolute;inset:0;pointer-events:none;background-repeat:repeat}
-.hero__stars--far{opacity:.34;background-size:540px 540px;animation:starDriftA 150s linear infinite;background-image:
-  radial-gradient(1.4px 1.4px at 18% 28%,rgba(224,206,255,.9),transparent),
-  radial-gradient(1.2px 1.2px at 68% 62%,rgba(210,188,255,.8),transparent),
-  radial-gradient(1px 1px at 38% 82%,rgba(200,176,255,.75),transparent),
-  radial-gradient(1.3px 1.3px at 86% 22%,rgba(224,206,255,.8),transparent),
-  radial-gradient(1.1px 1.1px at 52% 12%,rgba(224,206,255,.75),transparent),
-  radial-gradient(1px 1px at 10% 66%,rgba(200,176,255,.7),transparent),
-  radial-gradient(1.1px 1.1px at 92% 84%,rgba(224,206,255,.7),transparent),
-  radial-gradient(1.3px 1.3px at 30% 48%,rgba(224,206,255,.8),transparent)}
-.hero__stars--near{opacity:.55;background-size:790px 790px;animation:starDriftB 96s linear infinite;background-image:
-  radial-gradient(2px 2px at 22% 36%,rgba(236,224,255,.95),transparent),
-  radial-gradient(1.8px 1.8px at 74% 20%,rgba(220,198,255,.9),transparent),
-  radial-gradient(1.6px 1.6px at 46% 74%,rgba(224,206,255,.85),transparent),
-  radial-gradient(2px 2px at 88% 58%,rgba(236,224,255,.9),transparent),
-  radial-gradient(1.6px 1.6px at 14% 88%,rgba(220,198,255,.8),transparent),
-  radial-gradient(1.8px 1.8px at 62% 44%,rgba(236,224,255,.85),transparent)}
-@keyframes starDriftA{from{background-position:0 0}to{background-position:0 -540px}}
-@keyframes starDriftB{from{background-position:0 0}to{background-position:0 -790px}}
-.hero__glow{position:absolute;left:50%;top:22%;width:780px;max-width:90vw;height:420px;
-  transform:translate(-50%,-50%);pointer-events:none;filter:blur(72px);
-  background:radial-gradient(ellipse at center,rgba(150,70,255,.11),transparent 66%);
-  animation:heroGlowPulse 9s ease-in-out infinite}
-@keyframes heroGlowPulse{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}
-  50%{opacity:.95;transform:translate(-50%,-50%) scale(1.1)}}
-.hero__art{position:absolute;inset:0;display:block;cursor:pointer;will-change:transform;
-  background:url("../img/hero.webp") center top/contain no-repeat;
-  -webkit-mask-image:radial-gradient(128% 104% at 50% 31%,#000 56%,transparent 100%);
-  mask-image:radial-gradient(128% 104% at 50% 31%,#000 56%,transparent 100%);
-  animation:heroFloat 13s ease-in-out infinite alternate}
-@keyframes heroFloat{0%{transform:translateY(-8px) scale(1.005)}
-  50%{transform:translateY(3px) scale(1.022)}100%{transform:translateY(8px) scale(1.005)}}
-.hero__dood{position:absolute;width:clamp(116px,14vw,200px);height:auto;pointer-events:none;
-  opacity:.6;filter:drop-shadow(0 0 6px rgba(166,77,255,.5))}
-.hero__dood--l{left:1.5%;top:29%}
-.hero__dood--r{right:1.5%;top:29%;transform:scaleX(-1)}
-.dood-orbit{transform-box:fill-box;transform-origin:center;animation:spin 48s linear infinite}
-.dood-orbit2{transform-box:fill-box;transform-origin:center;animation:spin 34s linear infinite reverse}
-.dood-star{animation:twinkle 4.4s ease-in-out infinite}
+.hero{position:relative;width:100%;overflow:hidden}
+.hero__bg{display:block;width:100%;height:auto;pointer-events:none;user-select:none;
+  -webkit-mask-image:linear-gradient(to bottom,#000 84%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 84%,transparent 100%)}
+.hero__cta-btn{position:absolute;left:50%;top:63%;transform:translate(-50%,-50%);z-index:2;white-space:nowrap}
+.hero__fade{position:absolute;left:0;right:0;bottom:0;height:22%;pointer-events:none;z-index:1;
+  background:linear-gradient(to top,#07040f 0%,transparent 100%)}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0,0,0,0);white-space:nowrap;border:0}
-/* hero → site connector notch (lives in the strip so the hero's overflow can't clip it) */
+/* hero → site connector notch (lives in the strip so overflow cannot clip it) */
 .strip{padding-top:30px}
 .hero__notch{position:absolute;left:50%;top:0;transform:translate(-50%,-56%);z-index:9;
   width:64px;height:64px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
@@ -194,71 +143,13 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   animation:notchDip 1.9s ease-in-out infinite}
 .hero__notch:hover{box-shadow:0 0 0 7px var(--bg),0 0 46px rgba(166,77,255,.78),0 16px 34px -14px rgba(0,0,0,.8)}
 @keyframes notchDip{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
-/* responsive hero — fill the screen on phones (no tiny banner) */
-@media(max-width:900px){
-  .hero{min-height:100svh;padding:100px 20px 88px}
-  .organ{--osz:min(208px,40vw)}
-  .hero__title{white-space:normal}
-}
-@media(max-width:560px){
-  .hero__title{font-size:clamp(28px,8.4vw,46px)}
-  .hero__sub{font-size:clamp(13px,3.3vw,16px);letter-spacing:.2em}
-  .organ{--osz:min(156px,44vw)}
-  .organ--heart{left:-4%}.organ--brain{right:-4%}
-}
-.planet{position:absolute;left:50%;top:-12%;width:min(1200px,110vw);aspect-ratio:1;transform:translateX(-50%);
-  background:url("../img/planet.webp") center center/contain no-repeat;
-  filter:drop-shadow(0 0 24px rgba(150,70,255,.42));
-  animation:planetGlow 8s ease-in-out infinite;will-change:transform}
-@keyframes planetGlow{0%,100%{filter:drop-shadow(0 0 20px rgba(150,70,255,.36))}
-  50%{filter:drop-shadow(0 0 36px rgba(176,108,255,.55))}}
-.planet::before,.planet::after{content:none;display:none}
-@keyframes planetTex{to{transform:rotate(360deg)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-.planet__glow{position:absolute;left:50%;top:2%;width:640px;max-width:70vw;height:300px;transform:translateX(-50%);
-  background:radial-gradient(ellipse at center,rgba(176,108,255,.28),transparent 68%);filter:blur(30px);
-  animation:breath 9s ease-in-out infinite}
-@keyframes breath{0%,100%{opacity:.65}50%{opacity:1}}
-.hero__nebula{position:absolute;left:50%;top:-8%;width:1240px;max-width:165vw;height:1000px;transform:translateX(-50%);
-  z-index:-1;pointer-events:none;filter:blur(92px);opacity:.5;background:
-    radial-gradient(44% 40% at 50% 30%,rgba(112,42,200,.3),transparent 72%)}
-
-.organ{position:absolute;--osz:min(264px,23vw);width:var(--osz);filter:drop-shadow(0 0 12px rgba(180,100,255,.45));will-change:transform}
-.organ::before{content:"";position:absolute;inset:-14%;z-index:-1;border-radius:50%;filter:blur(20px);
-  background:radial-gradient(circle,rgba(166,77,255,.2),transparent 66%)}
-.organ__svg,.organ__img{width:100%;height:auto;display:block;overflow:visible}
-.organ--heart{left:3%;top:55%;margin-top:calc(var(--osz) * -.722);animation:beat 1.5s ease-in-out infinite,organGlow 3.2s ease-in-out infinite}
-.organ--brain{right:3.5%;top:55%;margin-top:calc(var(--osz) * -.402);animation:floaty 6s ease-in-out infinite,organGlow 4.2s ease-in-out infinite}
-@keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.07)}28%{transform:scale(1)}42%{transform:scale(1.05)}}
-@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
-@keyframes organGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(180,100,255,.45))}50%{filter:drop-shadow(0 0 24px rgba(214,164,255,.8))}}
-.organ__ecg{stroke-dasharray:340;stroke-dashoffset:340;animation:ecg 2.6s linear infinite}
-@keyframes ecg{to{stroke-dashoffset:-340}}
-.brain__node{animation:nodeBlink 2.4s ease-in-out infinite}
-@keyframes nodeBlink{0%,100%{opacity:.3}50%{opacity:1}}
-
-.sparkles{position:absolute;inset:0}
-.spark{position:absolute;color:var(--violet-bright);opacity:0;animation:twinkle var(--tw,4s) ease-in-out infinite;
-  animation-delay:var(--dl,0s);will-change:transform,opacity}
-.spark svg{width:100%;height:100%;display:block;fill:currentColor;filter:drop-shadow(0 0 6px rgba(166,77,255,.8))}
-@keyframes twinkle{0%,100%{opacity:0;transform:scale(.5) rotate(0)}50%{opacity:.95;transform:scale(1) rotate(45deg)}}
-
-.hero__content{position:relative;z-index:2;max-width:1180px;display:flex;flex-direction:column;align-items:center}
-.hero__content::before{content:"";position:absolute;left:50%;top:50%;width:130%;height:160%;transform:translate(-50%,-50%);
-  z-index:-1;pointer-events:none;filter:blur(26px);
-  background:radial-gradient(ellipse at center,rgba(7,4,15,.55),rgba(7,4,15,.2) 45%,transparent 66%)}
-.hero__tag{font-family:var(--display);font-size:clamp(13px,1.4vw,16px);color:var(--violet-bright);
-  letter-spacing:.06em;margin-bottom:18px;text-shadow:0 0 20px rgba(166,77,255,.5)}
-.hero__title{font-family:var(--display);font-weight:600;font-size:clamp(25px,5.1vw,58px);line-height:1.04;
-  letter-spacing:.02em;color:#fff;text-shadow:0 2px 40px rgba(166,77,255,.45);text-transform:uppercase;white-space:nowrap}
-.hero__sub{margin-top:14px;font-family:var(--display);font-weight:400;font-size:clamp(13px,1.85vw,21px);
-  letter-spacing:.24em;color:var(--muted);text-transform:uppercase}
-.hero__tag,.hero__title,.hero__sub{font-family:'Poppins',var(--display)}
-.hero__cta{margin-top:38px}
-.hero__scroll{position:absolute;left:50%;bottom:26px;z-index:2;transform:translateX(-50%);
-  width:26px;height:44px;border:1.5px solid var(--line-2);border-radius:14px;display:grid;justify-items:center;padding-top:8px}
-.hero__scroll span{width:4px;height:9px;border-radius:3px;background:var(--violet-bright);animation:scrolldot 1.8s ease-in-out infinite}
-@keyframes scrolldot{0%{opacity:0;transform:translateY(-4px)}40%{opacity:1}100%{opacity:0;transform:translateY(12px)}}
+@media(max-width:768px){
+  .hero{min-height:100svh;display:flex;align-items:center;justify-content:center}
+  .hero__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    object-position:center center;-webkit-mask-image:none;mask-image:none}
+  .hero__cta-btn{top:63%;transform:translate(-50%,-50%)}
+}
 
 /* ---------- HIGHLIGHT STRIP ---------- */
 .strip{position:relative;z-index:5;margin-top:-44px}
