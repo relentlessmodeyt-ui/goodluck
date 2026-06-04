@@ -101,22 +101,28 @@
     })();
   })();
 
-  /* ---- hero 3D tilt (gives the flat image depth on desktop) ---- */
-  (function heroTilt() {
+  /* ---- hero life: gentle float (heart & brain bob) + 3D tilt on desktop ---- */
+  (function heroLife() {
     var hero = $('.hero'), stage = $('.hero__stage');
-    if (reduce || !fine || !hero || !stage) return;
+    if (reduce || !hero || !stage) return;
+    var now0 = (window.performance ? performance.now() : Date.now());
     var tx = 0, ty = 0, cx = 0, cy = 0;
-    hero.addEventListener('mousemove', function (e) {
-      var r = hero.getBoundingClientRect();
-      tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
-      ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
-    });
-    hero.addEventListener('mouseleave', function () { tx = 0; ty = 0; });
-    (function frame() {
+    if (fine) {
+      hero.addEventListener('mousemove', function (e) {
+        var r = hero.getBoundingClientRect();
+        tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+        ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      });
+      hero.addEventListener('mouseleave', function () { tx = 0; ty = 0; });
+    }
+    (function frame(now) {
+      now = now || (window.performance ? performance.now() : Date.now());
       cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
-      stage.style.transform = 'rotateY(' + (cx * 3.5).toFixed(2) + 'deg) rotateX(' + (-cy * 2.5).toFixed(2) + 'deg)';
+      var fy = Math.sin((now - now0) / 850) * 5;
+      var rot = fine ? (' rotateY(' + (cx * 3.5).toFixed(2) + 'deg) rotateX(' + (-cy * 2.5).toFixed(2) + 'deg)') : '';
+      stage.style.transform = 'translateY(' + fy.toFixed(2) + 'px)' + rot;
       requestAnimationFrame(frame);
-    })();
+    })(now0);
   })();
 
   /* ---- scroll reveals (hero animates on load; rest on scroll) ---- */
