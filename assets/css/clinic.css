@@ -123,13 +123,13 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   border:1px solid var(--glass-line);box-shadow:var(--sh-sm)}
 
 /* ---------- HERO ---------- */
-.hero{position:relative;width:100%;overflow:hidden}
-.hero__bg{display:block;width:100%;height:auto;pointer-events:none;user-select:none;
-  -webkit-mask-image:linear-gradient(to bottom,#000 84%,transparent 100%);
-  mask-image:linear-gradient(to bottom,#000 84%,transparent 100%)}
-.hero__cta-btn{position:absolute;left:50%;top:63%;transform:translate(-50%,-50%);z-index:2;white-space:nowrap}
-.hero__fade{position:absolute;left:0;right:0;bottom:0;height:22%;pointer-events:none;z-index:1;
-  background:linear-gradient(to top,#07040f 0%,transparent 100%)}
+.hero{position:relative;width:100%;overflow:hidden;line-height:0;background:#07040f}
+.hero__bg{display:block;width:100%;height:auto;pointer-events:none;user-select:none}
+/* transparent clickable zone over the baked-in BOOK MY APPOINTMENT button */
+.hero__hotspot{position:absolute;left:50%;top:58.5%;transform:translate(-50%,-50%);z-index:3;
+  width:26%;height:11%;border-radius:999px;cursor:pointer}
+.hero__fade{position:absolute;left:0;right:0;bottom:-1px;height:14%;pointer-events:none;z-index:1;
+  background:linear-gradient(to top,#07040f 0%,rgba(7,4,15,.4) 55%,transparent 100%)}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0,0,0,0);white-space:nowrap;border:0}
 /* hero → site connector notch (lives in the strip so overflow cannot clip it) */
@@ -145,10 +145,8 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 @keyframes notchDip{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:768px){
-  .hero{min-height:100svh;display:flex;align-items:center;justify-content:center}
-  .hero__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-    object-position:center center;-webkit-mask-image:none;mask-image:none}
-  .hero__cta-btn{top:63%;transform:translate(-50%,-50%)}
+  /* keep the full image (heart & brain live at the edges — never crop them) */
+  .hero__bg{width:100%;height:auto}
 }
 
 /* ---------- HIGHLIGHT STRIP ---------- */
