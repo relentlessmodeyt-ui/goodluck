@@ -143,8 +143,10 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .hero__notch:hover{box-shadow:0 0 0 7px var(--bg),0 0 46px rgba(166,77,255,.78),0 16px 34px -14px rgba(0,0,0,.8)}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:768px){
-  /* portrait hero image is served via <picture>; full width fills the phone, nothing cropped */
+  /* portrait hero image is served via <picture>; full width, nothing cropped */
   .hero__bg{width:100%;height:auto}
+  /* booking button sits in a different spot on the portrait image */
+  .hero__hotspot{left:52.7%;top:55.3%;width:46%;height:7%}
 }
 
 /* ---------- HIGHLIGHT STRIP ---------- */

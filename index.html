@@ -49,8 +49,11 @@
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="home">
-      <!-- Full-bleed hero image created by client (static). Mobile portrait swap wired once the 1080x1920 export is uploaded. -->
-      <img src="assets/img/hero.webp" class="hero__bg" alt="Aaruni Multi Speciality Hospital — Precision, Speed, Intelligence. We are in the heart of Jhunjhunu." fetchpriority="high">
+      <!-- Hero image created by client. Desktop = wide; phones get the portrait version (auto-swapped by screen size). -->
+      <picture>
+        <source media="(max-width:768px)" srcset="assets/img/hero-mobile.webp">
+        <img src="assets/img/hero.webp" class="hero__bg" alt="Aaruni Multi Speciality Hospital — Precision, Speed, Intelligence. We are in the heart of Jhunjhunu." fetchpriority="high">
+      </picture>
       <span class="hero__fade" aria-hidden="true"></span>
       <!-- Transparent clickable hotspot sitting over the baked-in BOOK MY APPOINTMENT button -->
       <a href="#appointment" class="hero__hotspot" aria-label="Book my appointment"></a>
