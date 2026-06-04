@@ -126,8 +126,8 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .hero{position:relative;width:100%;overflow:hidden;line-height:0;background:#07040f}
 .hero__bg{display:block;width:100%;height:auto;pointer-events:none;user-select:none}
 /* transparent clickable zone over the baked-in BOOK MY APPOINTMENT button */
-.hero__hotspot{position:absolute;left:50%;top:58.5%;transform:translate(-50%,-50%);z-index:3;
-  width:26%;height:11%;border-radius:999px;cursor:pointer}
+.hero__hotspot{position:absolute;left:48.5%;top:59.7%;transform:translate(-50%,-50%);z-index:3;
+  width:24%;height:10%;border-radius:999px;cursor:pointer}
 .hero__fade{position:absolute;left:0;right:0;bottom:-1px;height:14%;pointer-events:none;z-index:1;
   background:linear-gradient(to top,#07040f 0%,rgba(7,4,15,.4) 55%,transparent 100%)}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
