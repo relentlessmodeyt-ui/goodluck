@@ -124,12 +124,42 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 
 /* ---------- HERO ---------- */
 .hero{position:relative;width:100%;overflow:hidden;line-height:0;background:#07040f}
-.hero__bg{display:block;width:100%;height:auto;pointer-events:none;user-select:none}
+/* the whole hero gently breathes */
+.hero__frame{position:relative;width:100%;will-change:transform;transform-origin:50% 46%;
+  animation:heroBreath 17s ease-in-out infinite}
+/* the baked-in sparkles softly twinkle (no extra sparkles added — just the image shimmering) */
+.hero__bg{display:block;width:100%;height:auto;pointer-events:none;user-select:none;
+  animation:heroTwinkle 4.6s ease-in-out infinite}
+/* slow diagonal light sweep that makes the sparkles glint as it passes */
+.hero__shimmer{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.10) 48%,rgba(214,164,255,.18) 50%,rgba(255,255,255,.10) 52%,transparent 58%);
+  background-size:260% 100%;animation:heroSweep 8s linear infinite}
+/* localized neon throb over the heart & brain */
+.hero__pulse{position:absolute;z-index:2;pointer-events:none;border-radius:50%;opacity:.3;
+  mix-blend-mode:screen;filter:blur(16px);transform:translate(-50%,-50%)}
+.hero__pulse--heart{left:13%;top:63%;width:19%;height:36%;
+  background:radial-gradient(closest-side,rgba(255,80,150,.62),rgba(220,70,255,.26) 55%,transparent 72%);
+  animation:heartThrob 1.7s ease-in-out infinite}
+.hero__pulse--brain{left:85%;top:58%;width:19%;height:33%;
+  background:radial-gradient(closest-side,rgba(150,100,255,.56),rgba(120,80,255,.22) 55%,transparent 72%);
+  animation:brainThrob 3.6s ease-in-out infinite}
 /* transparent clickable zone over the baked-in BOOK MY APPOINTMENT button */
-.hero__hotspot{position:absolute;left:50%;top:58.5%;transform:translate(-50%,-50%);z-index:3;
+.hero__hotspot{position:absolute;left:50%;top:58.5%;transform:translate(-50%,-50%);z-index:4;
   width:26%;height:11%;border-radius:999px;cursor:pointer}
-.hero__fade{position:absolute;left:0;right:0;bottom:-1px;height:14%;pointer-events:none;z-index:1;
+.hero__fade{position:absolute;left:0;right:0;bottom:-1px;height:14%;pointer-events:none;z-index:3;
   background:linear-gradient(to top,#07040f 0%,rgba(7,4,15,.4) 55%,transparent 100%)}
+@keyframes heroBreath{0%,100%{transform:scale(1.004) translateY(0)}
+  50%{transform:scale(1.024) translateY(-.5%)}}
+@keyframes heroTwinkle{0%,100%{filter:brightness(1) saturate(1)}
+  50%{filter:brightness(1.07) saturate(1.09)}}
+@keyframes heroSweep{0%{background-position:135% 0}100%{background-position:-35% 0}}
+@keyframes heartThrob{0%,100%{opacity:.16;transform:translate(-50%,-50%) scale(.9)}
+  12%{opacity:.74;transform:translate(-50%,-50%) scale(1.08)}
+  26%{opacity:.32;transform:translate(-50%,-50%) scale(.97)}
+  40%{opacity:.6;transform:translate(-50%,-50%) scale(1.04)}
+  55%{opacity:.18;transform:translate(-50%,-50%) scale(.92)}}
+@keyframes brainThrob{0%,100%{opacity:.2;transform:translate(-50%,-50%) scale(.96)}
+  50%{opacity:.64;transform:translate(-50%,-50%) scale(1.05)}}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0,0,0,0);white-space:nowrap;border:0}
 /* hero → site connector notch (lives in the strip so overflow cannot clip it) */
@@ -145,8 +175,15 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 @keyframes notchDip{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:768px){
-  /* keep the full image (heart & brain live at the edges — never crop them) */
+  /* a little bigger on phones so it fills nicely — frame widens & centers,
+     trimming only the safe 3% outer margins (heart & brain stay fully visible) */
+  .hero{display:flex;justify-content:center;align-items:flex-start}
+  .hero__frame{width:106%;flex:none;animation:none}
   .hero__bg{width:100%;height:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero__frame,.hero__bg,.hero__shimmer,.hero__pulse{animation:none!important}
+  .hero__pulse{opacity:.35}
 }
 
 /* ---------- HIGHLIGHT STRIP ---------- */

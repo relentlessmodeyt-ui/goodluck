@@ -49,8 +49,13 @@
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="home">
-      <!-- Full-bleed flat hero image created by client -->
-      <img src="assets/img/hero.png" class="hero__bg" alt="Aaruni Multi Speciality Hospital — Precision, Speed, Intelligence. We are in the heart of Jhunjhunu." fetchpriority="high">
+      <!-- Full-bleed 4K hero image (created by client) + live animation layers -->
+      <div class="hero__frame">
+        <img src="assets/img/hero.webp" class="hero__bg" alt="Aaruni Multi Speciality Hospital — Precision, Speed, Intelligence. We are in the heart of Jhunjhunu." fetchpriority="high">
+        <span class="hero__shimmer" aria-hidden="true"></span>
+        <span class="hero__pulse hero__pulse--heart" aria-hidden="true"></span>
+        <span class="hero__pulse hero__pulse--brain" aria-hidden="true"></span>
+      </div>
       <span class="hero__fade" aria-hidden="true"></span>
       <!-- Transparent clickable hotspot sitting over the baked-in BOOK MY APPOINTMENT button -->
       <a href="#appointment" class="hero__hotspot" aria-label="Book my appointment"></a>
