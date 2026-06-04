@@ -70,6 +70,55 @@
     host.appendChild(frag);
   })();
 
+  /* ---- hero shooting stars (~4-6 streaks every ~3.5s, random) ---- */
+  (function shootingStars() {
+    var host = $('#heroShooting');
+    if (reduce || !host || typeof host.animate !== 'function') return;
+    function spawn() {
+      var s = document.createElement('span');
+      s.className = 'shooting';
+      var len = 70 + Math.random() * 70;
+      var dist = 260 + Math.random() * 280;
+      var ang = (Math.random() < 0.5 ? 22 : 152) + (Math.random() * 16 - 8);
+      var rad = ang * Math.PI / 180;
+      var dx = Math.cos(rad) * dist, dy = Math.sin(rad) * dist;
+      s.style.width = len + 'px';
+      s.style.left = (Math.random() * 92) + '%';
+      s.style.top = (Math.random() * 46) + '%';
+      host.appendChild(s);
+      var anim = s.animate([
+        { transform: 'translate(0,0) rotate(' + ang + 'deg)', opacity: 0 },
+        { opacity: 1, offset: 0.12 },
+        { opacity: 0.9, offset: 0.75 },
+        { transform: 'translate(' + dx + 'px,' + dy + 'px) rotate(' + ang + 'deg)', opacity: 0 }
+      ], { duration: 700 + Math.random() * 500, easing: 'cubic-bezier(.3,.1,.25,1)' });
+      anim.onfinish = function () { s.remove(); };
+    }
+    (function cycle() {
+      var n = 4 + Math.floor(Math.random() * 3);
+      for (var i = 0; i < n; i++) setTimeout(spawn, Math.random() * 3400);
+      setTimeout(cycle, 3600);
+    })();
+  })();
+
+  /* ---- hero 3D tilt (gives the flat image depth on desktop) ---- */
+  (function heroTilt() {
+    var hero = $('.hero'), stage = $('.hero__stage');
+    if (reduce || !fine || !hero || !stage) return;
+    var tx = 0, ty = 0, cx = 0, cy = 0;
+    hero.addEventListener('mousemove', function (e) {
+      var r = hero.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+    });
+    hero.addEventListener('mouseleave', function () { tx = 0; ty = 0; });
+    (function frame() {
+      cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
+      stage.style.transform = 'rotateY(' + (cx * 3.5).toFixed(2) + 'deg) rotateX(' + (-cy * 2.5).toFixed(2) + 'deg)';
+      requestAnimationFrame(frame);
+    })();
+  })();
+
   /* ---- scroll reveals (hero animates on load; rest on scroll) ---- */
   var allReveals = $$('.reveal');
   var heroReveals = allReveals.filter(function (el) { return !!el.closest('.hero'); });

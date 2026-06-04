@@ -32,7 +32,7 @@
   --font:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   --display:'Space Grotesk',var(--font);
 }
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--bg)}
 body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.6;
   -webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -123,11 +123,26 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   border:1px solid var(--glass-line);box-shadow:var(--sh-sm)}
 
 /* ---------- HERO ---------- */
-.hero{position:relative;width:100%;overflow:hidden;line-height:0;background:#07040f}
+.hero{position:relative;width:100%;overflow:hidden;line-height:0;background:#07040f;perspective:1500px}
+.hero__stage{position:relative;transform-style:preserve-3d;will-change:transform}
 .hero__bg{display:block;width:100%;height:auto;pointer-events:none;user-select:none}
-/* transparent clickable zone over the baked-in BOOK MY APPOINTMENT button */
-.hero__hotspot{position:absolute;left:48.5%;top:59.7%;transform:translate(-50%,-50%);z-index:3;
-  width:24%;height:10%;border-radius:999px;cursor:pointer}
+/* shooting-stars layer (over the sky, behind the button) */
+.hero__shooting{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.shooting{position:absolute;height:2px;border-radius:2px;transform-origin:right center;opacity:0;
+  background:linear-gradient(to right,transparent,rgba(214,164,255,.6) 55%,#fff);
+  filter:drop-shadow(0 0 5px rgba(214,164,255,.85))}
+/* real BOOK MY APPOINTMENT button, sized in % to fully cover the baked one + a touch bigger */
+.hero__cta{position:absolute;left:49.7%;top:56.5%;transform:translate(-50%,-50%);z-index:6;
+  display:inline-flex;align-items:center;justify-content:center;gap:.7em;min-width:21%;white-space:nowrap;cursor:pointer;
+  padding:.85em 1.5em;border-radius:999px;font-family:var(--display);font-weight:600;font-size:1.05vw;letter-spacing:.04em;color:#fff;
+  background:linear-gradient(135deg,rgba(42,19,78,.97),rgba(17,9,33,.97));border:1px solid rgba(178,120,255,.5);
+  box-shadow:0 0 0 1px rgba(166,77,255,.14),0 12px 30px -12px #000,0 0 26px rgba(166,77,255,.32);
+  transition:transform .25s,box-shadow .25s,border-color .25s}
+.hero__cta:hover{transform:translate(-50%,-50%) translateY(-2px);border-color:var(--violet);
+  box-shadow:0 0 0 1px rgba(166,77,255,.2),0 16px 34px -12px #000,0 0 40px rgba(166,77,255,.55)}
+.hero__cta-arrow{display:grid;place-items:center;width:1.85em;height:1.85em;border-radius:50%;flex:none;background:#fff;color:#2a0e52;transition:transform .25s}
+.hero__cta-arrow svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.hero__cta:hover .hero__cta-arrow{transform:rotate(45deg)}
 .hero__fade{position:absolute;left:0;right:0;bottom:-1px;height:14%;pointer-events:none;z-index:1;
   background:linear-gradient(to top,#07040f 0%,rgba(7,4,15,.4) 55%,transparent 100%)}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
@@ -145,8 +160,9 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 @media(max-width:768px){
   /* portrait hero image is served via <picture>; full width, nothing cropped */
   .hero__bg{width:100%;height:auto}
-  /* booking button sits in a different spot on the portrait image */
-  .hero__hotspot{left:52.7%;top:55.3%;width:46%;height:7%}
+  /* booking button sits in a different spot & size on the portrait image */
+  .hero__cta{left:50%;top:53%;min-width:42%;font-size:3vw;gap:.5em;padding:.72em 1.1em;letter-spacing:.02em}
+  .hero__cta-arrow{width:1.7em;height:1.7em}
 }
 
 /* ---------- HIGHLIGHT STRIP ---------- */

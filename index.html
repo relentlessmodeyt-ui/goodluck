@@ -49,14 +49,20 @@
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="home">
-      <!-- Hero image created by client. Desktop = wide; phones get the portrait version (auto-swapped by screen size). -->
-      <picture>
-        <source media="(max-width:768px)" srcset="assets/img/hero-mobile.webp">
-        <img src="assets/img/hero.webp" class="hero__bg" alt="Aaruni Multi Speciality Hospital — Precision, Speed, Intelligence. We are in the heart of Jhunjhunu." fetchpriority="high">
-      </picture>
+      <div class="hero__stage">
+        <!-- Hero image created by client. Desktop = wide; phones get the portrait version (auto-swapped by screen size). -->
+        <picture>
+          <source media="(max-width:768px)" srcset="assets/img/hero-mobile.webp">
+          <img src="assets/img/hero.webp" class="hero__bg" alt="Aaruni Multi Speciality Hospital — Precision, Speed, Intelligence. We are in the heart of Jhunjhunu." fetchpriority="high">
+        </picture>
+        <span class="hero__shooting" id="heroShooting" aria-hidden="true"></span>
+        <!-- Real button placed over (and covering) the baked-in BOOK MY APPOINTMENT button -->
+        <a href="#appointment" class="hero__cta" aria-label="Book my appointment">
+          <span class="hero__cta-txt">BOOK MY APPOINTMENT</span>
+          <span class="hero__cta-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+        </a>
+      </div>
       <span class="hero__fade" aria-hidden="true"></span>
-      <!-- Transparent clickable hotspot sitting over the baked-in BOOK MY APPOINTMENT button -->
-      <a href="#appointment" class="hero__hotspot" aria-label="Book my appointment"></a>
       <!-- Visually hidden text for SEO & screen readers -->
       <div class="sr-only">
         <h1>AARUNI MULTI SPECIALITY HOSPITAL</h1>
