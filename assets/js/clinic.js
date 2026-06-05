@@ -93,12 +93,12 @@
         { opacity: 1, offset: 0.1 },
         { opacity: 0.95, offset: 0.78 },
         { transform: 'translate(' + dx + 'px,' + dy + 'px) rotate(' + ang + 'deg)', opacity: 0 }
-      ], { duration: (big ? 2600 : 1800) + Math.random() * 700, easing: 'cubic-bezier(.25,.1,.25,1)' });
+      ], { duration: (big ? 3200 : 2300) + Math.random() * 800, easing: 'cubic-bezier(.25,.1,.25,1)' });
       anim.onfinish = function () { s.remove(); };
     }
     (function cycle() {
-      for (var i = 0; i < 5; i++) setTimeout(spawn, Math.random() * 4600);
-      setTimeout(cycle, 5000);
+      spawn();
+      setTimeout(cycle, 3000 + Math.random() * 800);
     })();
   })();
 

@@ -127,13 +127,16 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .hero__stage{position:relative;transform-style:preserve-3d;will-change:transform}
 .hero__stage picture{display:block;line-height:0}
 .hero__bg{display:block;width:100%;height:auto;pointer-events:none;user-select:none}
-/* shooting-stars layer (over the sky, behind the button) */
-.hero__shooting{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;
-  -webkit-mask-image:radial-gradient(ellipse 56% 40% at 50% 4%,transparent 42%,#000 84%);
-  mask-image:radial-gradient(ellipse 56% 40% at 50% 4%,transparent 42%,#000 84%)}
+/* shooting-stars layer (deep space — sits behind the planet layer) */
+.hero__shooting{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
 .shooting{position:absolute;height:2px;border-radius:2px;transform-origin:right center;opacity:0;
   background:linear-gradient(to right,transparent,rgba(200,210,255,.55) 50%,#fff);
   filter:drop-shadow(0 0 6px rgba(214,224,255,.95)) drop-shadow(0 0 14px rgba(160,120,255,.6))}
+/* planet re-drawn over the stars so they fall behind it (desktop) */
+.hero__planet{position:absolute;left:0;top:0;width:100%;height:42%;z-index:3;pointer-events:none;
+  background:url("../img/hero.webp") top center/100% auto no-repeat;
+  -webkit-mask-image:linear-gradient(to bottom,#000 88%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 88%,transparent 100%)}
 /* realistic twinkling starfield — deep-space depth behind the planet */
 .hero__stars{position:absolute;inset:0;z-index:1;pointer-events:none;
   background:url("../img/starfield.png") center/cover no-repeat;opacity:.55;
@@ -144,7 +147,7 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 /* floating organs cut from the hero image (independent float, desktop) */
 .hero__organ{position:absolute;z-index:4;pointer-events:none;height:auto;will-change:transform;
   filter:drop-shadow(0 0 13px rgba(180,100,255,.55))}
-.hero__organ--heart{left:2%;top:43%;width:19%;animation:floatHeart 6s ease-in-out infinite}
+.hero__organ--heart{left:2%;top:41%;width:19%;animation:floatHeart 6s ease-in-out infinite}
 .hero__organ--brain{left:73.5%;top:44%;width:21.5%;animation:floatBrain 7.4s ease-in-out infinite}
 @keyframes floatHeart{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-15px) rotate(1.2deg)}}
 @keyframes floatBrain{0%,100%{transform:translateY(0) rotate(1deg)}50%{transform:translateY(-19px) rotate(-1.2deg)}}
@@ -182,7 +185,11 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   .hero__cta-arrow{width:1.7em;height:1.7em}
   /* mobile keeps the baked organs in its image, so hide the floating overlays */
   .hero__organ{display:none}
+  .hero__planet{display:none}
   .hero__stars{opacity:.4}
+  /* no planet layer on mobile, so mask the stars off the planet instead */
+  .hero__shooting{-webkit-mask-image:radial-gradient(ellipse 60% 34% at 50% 4%,transparent 44%,#000 82%);
+    mask-image:radial-gradient(ellipse 60% 34% at 50% 4%,transparent 44%,#000 82%)}
 }
 
 /* ---------- HIGHLIGHT STRIP ---------- */
