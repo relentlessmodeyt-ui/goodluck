@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#07040f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/clinic.css" />
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -53,7 +53,7 @@
         <!-- Hero image created by client. Desktop = wide; phones get the portrait version (auto-swapped by screen size). -->
         <picture>
           <source media="(max-width:768px)" srcset="assets/img/hero-mobile.webp">
-          <img src="assets/img/hero.webp" class="hero__bg" alt="Aaruni Multi Speciality Hospital — Precision, Speed, Intelligence. We are in the heart of Jhunjhunu." fetchpriority="high">
+          <img src="assets/img/hero.webp" class="hero__bg" decoding="async" alt="Aaruni Multi Speciality Hospital — Precision, Speed, Intelligence. We are in the heart of Jhunjhunu." fetchpriority="high">
         </picture>
         <span class="hero__stars" aria-hidden="true"></span>
         <span class="hero__sparkles" id="heroSparkles" aria-hidden="true"></span>
@@ -565,9 +565,9 @@
   </a>
 
   <!-- premium motion engine -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script src="assets/js/clinic.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script defer src="assets/js/clinic.js"></script>
 </body>
 </html>
