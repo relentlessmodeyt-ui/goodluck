@@ -49,20 +49,23 @@
     });
   }
 
-  /* ---- generate hero sparkles ---- */
+  /* ---- generate twinkling hero sparkles (✦ and +) ---- */
   (function sparkle() {
-    var host = $('#sparkles');
-    if (!host) return;
-    var plus = '<svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>';
+    var host = $('#heroSparkles');
+    if (reduce || !host) return;
+    var plus = '<svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>';
     var star = '<svg viewBox="0 0 12 12"><path d="M6 0c.5 3.4 2.1 5 5.5 6-3.4 1-5 2.6-5.5 6-.5-3.4-2.1-5-5.5-6 3.4-1 5-2.6 5.5-6Z"/></svg>';
-    var N = window.innerWidth < 640 ? 22 : 46;
+    var N = window.innerWidth < 640 ? 16 : 28;
     var frag = document.createDocumentFragment();
     for (var i = 0; i < N; i++) {
+      var x, y, tries = 0;
+      do { x = Math.random() * 100; y = Math.random() * 100; tries++; }
+      while (tries < 8 && x > 24 && x < 76 && y > 43 && y < 64);   // keep clear of the title/button
       var s = document.createElement('span');
-      s.className = 'spark';
-      var size = 7 + Math.random() * 13;
-      s.style.cssText = 'left:' + (Math.random() * 100).toFixed(2) + '%;top:' + (Math.random() * 100).toFixed(2) +
-        '%;width:' + size + 'px;height:' + size + 'px;--tw:' + (3 + Math.random() * 4).toFixed(2) +
+      s.className = 'spk';
+      var size = 8 + Math.random() * 13;
+      s.style.cssText = 'left:' + x.toFixed(2) + '%;top:' + y.toFixed(2) +
+        '%;width:' + size + 'px;height:' + size + 'px;--tw:' + (2.8 + Math.random() * 3.4).toFixed(2) +
         's;--dl:' + (Math.random() * 5).toFixed(2) + 's';
       s.innerHTML = Math.random() > 0.5 ? plus : star;
       frag.appendChild(s);
