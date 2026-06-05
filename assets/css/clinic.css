@@ -144,13 +144,21 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   mask-image:radial-gradient(ellipse 58% 42% at 50% 5%,transparent 36%,#000 86%);
   animation:starTwinkle 5.5s ease-in-out infinite}
 @keyframes starTwinkle{0%,100%{opacity:.4}50%{opacity:.72}}
+/* twinkle the baked sparkles & plus-signs (screen-blend pulse, masked off the planet & text) */
+.hero__twinkle{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen;opacity:0;
+  background:url("../img/hero.webp") top center/100% auto no-repeat;
+  -webkit-mask-image:url("../img/twinkle-mask.png");mask-image:url("../img/twinkle-mask.png");
+  -webkit-mask-size:100% auto;mask-size:100% auto;-webkit-mask-position:top center;mask-position:top center;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  animation:heroTwinkle 3.6s ease-in-out infinite}
+@keyframes heroTwinkle{0%,100%{opacity:0}50%{opacity:.45}}
 /* floating organs cut from the hero image (independent float, desktop) */
 .hero__organ{position:absolute;z-index:4;pointer-events:none;height:auto;will-change:transform;
   filter:drop-shadow(0 0 13px rgba(180,100,255,.55))}
 .hero__organ--heart{left:2%;top:41%;width:19%;animation:floatHeart 6s ease-in-out infinite}
-.hero__organ--brain{left:73.5%;top:44%;width:21.5%;animation:floatBrain 7.4s ease-in-out infinite}
+.hero__organ--brain{left:73.5%;top:44%;width:21.5%;animation:floatBrain 6.4s ease-in-out infinite}
 @keyframes floatHeart{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-15px) rotate(1.2deg)}}
-@keyframes floatBrain{0%,100%{transform:translateY(0) rotate(1deg)}50%{transform:translateY(-19px) rotate(-1.2deg)}}
+@keyframes floatBrain{0%,100%{transform:translateY(0) rotate(1deg)}50%{transform:translateY(-15px) rotate(-1.2deg)}}
 /* real BOOK MY APPOINTMENT button, sized in % to fully cover the baked one + a touch bigger */
 .hero__cta{position:absolute;left:50%;top:54.5%;transform:translate(-50%,-50%);z-index:6;
   display:inline-flex;align-items:center;justify-content:center;gap:.7em;min-width:22%;white-space:nowrap;cursor:pointer;
@@ -186,6 +194,7 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   /* mobile keeps the baked organs in its image, so hide the floating overlays */
   .hero__organ{display:none}
   .hero__planet{display:none}
+  .hero__twinkle{display:none}
   .hero__stars{opacity:.4}
   /* no planet layer on mobile, so mask the stars off the planet instead */
   .hero__shooting{-webkit-mask-image:radial-gradient(ellipse 60% 34% at 50% 4%,transparent 44%,#000 82%);
