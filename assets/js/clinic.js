@@ -55,7 +55,7 @@
     if (reduce || !host) return;
     var plus = '<svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>';
     var star = '<svg viewBox="0 0 12 12"><path d="M6 0c.5 3.4 2.1 5 5.5 6-3.4 1-5 2.6-5.5 6-.5-3.4-2.1-5-5.5-6 3.4-1 5-2.6 5.5-6Z"/></svg>';
-    var N = window.innerWidth < 640 ? 20 : 38;
+    var N = window.innerWidth < 640 ? 12 : 38;
     var frag = document.createDocumentFragment();
     for (var i = 0; i < N; i++) {
       var x, y, tries = 0;
@@ -219,6 +219,10 @@
     if (reduce) { el.textContent = fmt(target); return; }
     var plain = el.getAttribute('data-plain');
     var from = plain ? Math.max(target - 35, 0) : 0;
+    /* reserve the final width so the layout doesn't shift/glitch while counting */
+    el.style.display = 'inline-block';
+    el.textContent = fmt(target);
+    el.style.minWidth = Math.ceil(el.getBoundingClientRect().width) + 'px';
     var dur = 1500, start = null;
     function step(ts) {
       if (!start) start = ts;

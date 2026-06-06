@@ -324,7 +324,7 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   padding:9px 15px;border-radius:999px;color:#fff;background:linear-gradient(135deg,var(--violet),var(--violet-deep));
   box-shadow:var(--glow-sm);transition:transform .25s,box-shadow .25s}
 .appt__map-link:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(166,77,255,.6)}
-.about__statcard strong{font-family:var(--display);font-size:26px;font-weight:700;color:#fff}
+.about__statcard strong{font-family:var(--display);font-size:26px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
 .about__statcard b{color:var(--violet-bright);font-weight:700}
 .about__statcard span{display:block;font-size:12px;color:var(--muted)}
 .about__copy h2{font-family:var(--display);font-size:clamp(26px,3.4vw,40px);font-weight:700;letter-spacing:-.01em;line-height:1.12;color:#fff}
@@ -334,7 +334,7 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .checks svg{width:24px;height:24px;flex:none;padding:5px;border-radius:50%;background:var(--violet-soft);border:1px solid var(--line);
   fill:none;stroke:var(--violet-bright);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 .about__stats{display:flex;gap:30px;margin-bottom:30px;flex-wrap:wrap}
-.about__stats strong{font-family:var(--display);font-size:30px;font-weight:700;color:#fff}
+.about__stats strong{font-family:var(--display);font-size:30px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
 .about__stats b{color:var(--violet-bright);font-weight:700}
 .about__stats span{display:block;font-size:13px;color:var(--muted)}
 .rate-star{width:13px;height:13px;fill:var(--violet-bright);vertical-align:-2px;margin-right:1px;filter:drop-shadow(0 0 4px rgba(166,77,255,.75))}
@@ -449,4 +449,16 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .js .reveal,.js .flip.reveal[data-from]{opacity:1!important;transform:none!important}
+}
+
+/* ---------- MOBILE PERFORMANCE ---------- */
+@media(max-width:768px){
+  /* backdrop-blur is very GPU-heavy on phones (esp. while scrolling) — use solid panels instead */
+  .glass,.strip__grid,.nav.scrolled,.nav__links,.btn--hero{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+  .glass{background:rgba(22,13,42,.9)}
+  .strip__grid{background:rgba(26,15,48,.94)}
+  .nav.scrolled{background:rgba(8,4,18,.95)}
+  /* lighten always-on background effects */
+  .bg__aurora{animation:none;filter:blur(80px);opacity:.15}
+  .bg__grain{display:none}
 }
