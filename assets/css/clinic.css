@@ -124,11 +124,7 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 
 /* ---------- HERO ---------- */
 .hero{position:relative;width:100%;overflow:hidden;line-height:0;background:#07040f;perspective:1500px}
-.hero__stage{position:relative;transform-style:preserve-3d;will-change:transform;animation:heroEnter 1.25s cubic-bezier(.16,1,.3,1) both}
-@keyframes heroEnter{0%{opacity:0;transform:scale(1.06) translateY(24px)}100%{opacity:1;transform:scale(1) translateY(0)}}
-.hero__cta{animation:ctaPop .7s ease-out .95s both}
-@keyframes ctaPop{from{opacity:0}to{opacity:1}}
-@media(prefers-reduced-motion:reduce){.hero__stage,.hero__cta{animation:none}}
+.hero__stage{position:relative;transform-style:preserve-3d;will-change:transform}
 .hero__stage picture{display:block;line-height:0}
 .hero__bg{display:block;width:100%;height:auto;pointer-events:none;user-select:none}
 /* shooting-stars layer (deep space — sits behind the planet layer) */

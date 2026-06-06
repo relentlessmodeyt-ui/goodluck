@@ -130,7 +130,7 @@
       if (heroVisible) stage.style.transform = 'rotateY(' + (cx * 3).toFixed(2) + 'deg) rotateX(' + (-cy * 2).toFixed(2) + 'deg)';
       requestAnimationFrame(frame);
     }
-    setTimeout(frame, 1350);   // start after the load entrance finishes
+    frame();
   })();
 
   /* ---- scroll reveals (hero animates on load; rest on scroll) ---- */
