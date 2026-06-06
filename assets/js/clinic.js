@@ -73,7 +73,16 @@
     host.appendChild(frag);
   })();
 
-  /* ---- hero shooting stars (~4-6 streaks every ~3.5s, random) ---- */
+  /* ---- pause heavy hero animations when it's scrolled out of view ---- */
+  var heroVisible = true;
+  (function () {
+    var hero = $('.hero');
+    if (hero && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { heroVisible = e[0].isIntersecting; }, { threshold: 0 }).observe(hero);
+    }
+  })();
+
+  /* ---- hero shooting stars (1 every ~3s, behind the planet) ---- */
   (function shootingStars() {
     var host = $('#heroShooting');
     if (reduce || !host || typeof host.animate !== 'function') return;
@@ -100,7 +109,7 @@
       anim.onfinish = function () { s.remove(); };
     }
     (function cycle() {
-      spawn();
+      if (heroVisible && !document.hidden) spawn();
       setTimeout(cycle, 3000 + Math.random() * 800);
     })();
   })();
@@ -116,11 +125,12 @@
       ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
     });
     hero.addEventListener('mouseleave', function () { tx = 0; ty = 0; });
-    (function frame() {
+    function frame() {
       cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
-      stage.style.transform = 'rotateY(' + (cx * 3).toFixed(2) + 'deg) rotateX(' + (-cy * 2).toFixed(2) + 'deg)';
+      if (heroVisible) stage.style.transform = 'rotateY(' + (cx * 3).toFixed(2) + 'deg) rotateX(' + (-cy * 2).toFixed(2) + 'deg)';
       requestAnimationFrame(frame);
-    })();
+    }
+    setTimeout(frame, 1350);   // start after the load entrance finishes
   })();
 
   /* ---- scroll reveals (hero animates on load; rest on scroll) ---- */
