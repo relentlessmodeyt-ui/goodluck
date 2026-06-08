@@ -408,6 +408,8 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .fg textarea{resize:vertical}
 .formok{margin-top:16px;background:var(--violet-soft);color:var(--violet-bright);font-weight:600;font-size:14px;
   padding:14px 16px;border-radius:12px;border:1px solid var(--line)}
+.formerr{margin-top:16px;background:rgba(255,90,90,.1);color:#ff9b9b;font-weight:600;font-size:14px;
+  padding:14px 16px;border-radius:12px;border:1px solid rgba(255,90,90,.3)}
 @media(max-width:900px){.appt__grid{grid-template-columns:1fr;gap:34px}}
 @media(max-width:480px){.frow{grid-template-columns:1fr}}
 

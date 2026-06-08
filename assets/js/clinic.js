@@ -249,8 +249,16 @@
   if (dt) { dt.min = new Date().toISOString().split('T')[0]; }
 
   /* ---- appointment form ---- */
-  var form = $('#apptForm'), ok = $('#formOk');
+  var form = $('#apptForm'), ok = $('#formOk'), err = $('#formErr');
   if (form) {
+    function showOk() {
+      if (err) err.hidden = true;
+      ok.hidden = false;
+      if (lenis) lenis.scrollTo(ok, { offset: -200 });
+      else ok.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+      form.querySelectorAll('input:not([type=hidden]):not([type=checkbox]),select,textarea').forEach(function (f) { f.value = ''; });
+      setTimeout(function () { ok.hidden = true; }, 9000);
+    }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var valid = true;
@@ -260,11 +268,19 @@
         else { f.style.borderColor = ''; f.style.boxShadow = ''; }
       });
       if (!valid) return;
-      ok.hidden = false;
-      if (lenis) lenis.scrollTo(ok, { offset: -200 });
-      else ok.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
-      form.querySelectorAll('input,select,textarea').forEach(function (f) { f.value = ''; });
-      setTimeout(function () { ok.hidden = true; }, 9000);
+      var keyEl = form.querySelector('[name=access_key]');
+      var key = keyEl ? keyEl.value : '';
+      // until a real Web3Forms key is set, just confirm (demo mode)
+      if (!key || key.indexOf('YOUR_ACCESS') === 0) { showOk(); return; }
+      var btn = form.querySelector('button[type=submit]');
+      var btnHtml = btn.innerHTML;
+      btn.disabled = true; btn.textContent = 'Sending…';
+      if (err) err.hidden = true; if (ok) ok.hidden = true;
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (res) { if (res.success) showOk(); else if (err) err.hidden = false; })
+        .catch(function () { if (err) err.hidden = false; })
+        .then(function () { btn.disabled = false; btn.innerHTML = btnHtml; });
     });
   }
 
