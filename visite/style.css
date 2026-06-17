@@ -191,6 +191,15 @@ body{
 .signup input:focus{outline:none;border-color:var(--accent)}
 .fine{font-size:13px;opacity:.6}
 
+/* video embed */
+.panel--video .panel__inner{max-width:420px}
+.video-wrap{
+  width:100%;border-radius:16px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.6);
+  border:1.5px solid rgba(255,255,255,.12);
+}
+.video-wrap video{display:block;width:100%;height:auto}
+
 /* reveal-on-scroll */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .reveal.in{opacity:1;transform:none}
