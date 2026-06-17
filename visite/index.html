@@ -3,301 +3,103 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nirvaan – VISITE</title>
+  <title>YASHXDAKSH — Websites as a Service</title>
+  <meta name="description" content="YASHXDAKSH builds websites that feel like a place, not a page. One continuous scroll from the summit to the valley."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<!-- ═══════════════ FIXED BACKGROUND STAGE ═══════════════ -->
-<div class="stage" aria-hidden="true">
-
-  <!-- SCENE 1 — VISITE / golden sunset mountains -->
-  <div class="scene scene-visite active">
-    <!-- Sky layers -->
-    <div class="sky-visite"></div>
-    <!-- Sun glow -->
-    <div class="sun-glow"></div>
-    <!-- Birds -->
-    <div class="birds-wrap">
-      <svg viewBox="0 0 1200 200" preserveAspectRatio="xMidYMid meet">
-        <g fill="none" stroke="rgba(60,30,80,0.55)" stroke-width="1.5" stroke-linecap="round">
-          <path d="M80 60 Q88 54 96 60"/>
-          <path d="M110 48 Q120 41 130 48"/>
-          <path d="M148 55 Q157 49 166 55"/>
-          <path d="M185 42 Q193 36 201 42"/>
-          <path d="M218 52 Q225 46 232 52"/>
-          <path d="M252 38 Q260 32 268 38"/>
-          <path d="M290 58 Q298 52 306 58"/>
-        </g>
-      </svg>
-    </div>
-    <!-- Mountains far -->
-    <svg class="mtn-far" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice">
-      <path d="M0 420 L160 260 L300 360 L430 200 L560 320 L680 170 L820 300 L960 150 L1100 280 L1230 180 L1360 300 L1440 240 L1440 600 L0 600Z" fill="#7b60c0"/>
-      <path d="M680 170 L760 240 L600 240Z" fill="#f5d080" opacity="0.6"/>
-      <path d="M960 150 L1030 210 L890 215Z" fill="#f5d080" opacity="0.5"/>
-    </svg>
-    <!-- Mountains mid -->
-    <svg class="mtn-mid" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice">
-      <path d="M-60 500 L120 320 L280 440 L420 270 L580 400 L700 240 L860 380 L1020 220 L1180 370 L1340 260 L1500 380 L1500 600 L-60 600Z" fill="#5040a0"/>
-    </svg>
-    <!-- Lake / reflection -->
-    <div class="lake-visite"></div>
-    <!-- Foreground reeds / grass -->
-    <svg class="reeds" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice">
-      <path d="M0 300 L0 200 Q120 140 240 185 Q360 230 480 190 Q600 150 700 180 Q780 200 840 240 L1440 220 L1440 300Z" fill="#180e35"/>
-      <!-- reed stalks -->
-      <g stroke="#2a1a50" stroke-width="2" fill="none">
-        <line x1="820" y1="300" x2="830" y2="200"/>
-        <line x1="840" y1="300" x2="850" y2="210"/>
-        <line x1="860" y1="300" x2="868" y2="195"/>
-        <line x1="878" y1="300" x2="885" y2="205"/>
-        <line x1="896" y1="300" x2="902" y2="215"/>
-        <line x1="912" y1="300" x2="916" y2="198"/>
-        <line x1="928" y1="300" x2="934" y2="208"/>
-        <line x1="944" y1="300" x2="948" y2="202"/>
-        <line x1="960" y1="300" x2="966" y2="196"/>
-        <line x1="976" y1="300" x2="980" y2="212"/>
-        <line x1="992" y1="300" x2="997" y2="200"/>
-        <line x1="1008" y1="300" x2="1012" y2="210"/>
-        <line x1="1024" y1="300" x2="1027" y2="204"/>
-      </g>
-      <!-- reed tips -->
-      <ellipse cx="830" cy="200" rx="4" ry="9" fill="#3a2560"/>
-      <ellipse cx="850" cy="210" rx="4" ry="8" fill="#3a2560"/>
-      <ellipse cx="868" cy="195" rx="4" ry="9" fill="#3a2560"/>
-      <ellipse cx="885" cy="205" rx="3.5" ry="8" fill="#3a2560"/>
-      <ellipse cx="902" cy="215" rx="4" ry="8" fill="#3a2560"/>
-      <ellipse cx="916" cy="198" rx="4" ry="9" fill="#3a2560"/>
-      <ellipse cx="934" cy="208" rx="3.5" ry="8" fill="#3a2560"/>
-      <ellipse cx="948" cy="202" rx="4" ry="9" fill="#3a2560"/>
-      <ellipse cx="966" cy="196" rx="4" ry="9" fill="#3a2560"/>
-      <ellipse cx="980" cy="212" rx="4" ry="8" fill="#3a2560"/>
-      <ellipse cx="997" cy="200" rx="3.5" ry="9" fill="#3a2560"/>
-      <ellipse cx="1012" cy="210" rx="4" ry="8" fill="#3a2560"/>
-      <ellipse cx="1027" cy="204" rx="4" ry="9" fill="#3a2560"/>
-    </svg>
-    <!-- Traveler figure right side -->
-    <svg class="traveler-visite" viewBox="0 0 160 200" preserveAspectRatio="xMidYMax meet">
-      <!-- conical hat -->
-      <ellipse cx="80" cy="55" rx="52" ry="12" fill="#c8860a"/>
-      <path d="M36 64 L80 20 L124 64Z" fill="#d49020"/>
-      <path d="M36 64 Q80 60 124 64Z" fill="#b87a10"/>
-      <!-- head -->
-      <circle cx="80" cy="72" r="10" fill="#c8956a"/>
-      <!-- scarf/wrap -->
-      <path d="M68 80 Q80 76 92 80 L94 95 Q80 98 66 95Z" fill="#b04020"/>
-      <!-- body/cloak -->
-      <path d="M55 95 Q80 88 105 95 L115 160 Q80 170 45 160Z" fill="#8a3015"/>
-      <!-- backpack hint -->
-      <rect x="88" y="90" width="22" height="40" rx="5" fill="#6a5025"/>
-      <!-- legs -->
-      <rect x="62" y="158" width="14" height="30" rx="5" fill="#3a2510"/>
-      <rect x="84" y="158" width="14" height="28" rx="5" fill="#3a2510"/>
-    </svg>
-  </div>
-
-  <!-- SCENE 2 — TRANQUILITY / waterfall cave -->
-  <div class="scene scene-tranquility">
-    <div class="sky-tranquility"></div>
-    <!-- cave walls left -->
-    <svg class="cave-left" viewBox="0 0 500 900" preserveAspectRatio="xMaxYMax slice">
-      <path d="M0 0 L380 0 Q420 200 400 450 Q380 700 360 900 L0 900Z" fill="#1a3028"/>
-      <path d="M0 0 L300 0 Q330 200 315 450 Q295 700 280 900 L0 900Z" fill="#142418"/>
-      <!-- moss / texture -->
-      <path d="M280 100 Q300 120 290 150 Q270 140 280 100Z" fill="#1e3820" opacity="0.7"/>
-      <path d="M310 250 Q330 270 320 300 Q300 290 310 250Z" fill="#1e3820" opacity="0.7"/>
-      <path d="M270 420 Q295 440 280 470 Q258 455 270 420Z" fill="#1e3820" opacity="0.6"/>
-    </svg>
-    <!-- cave wall right -->
-    <svg class="cave-right" viewBox="0 0 500 900" preserveAspectRatio="xMinYMax slice">
-      <path d="M500 0 L120 0 Q80 200 100 450 Q120 700 140 900 L500 900Z" fill="#1a3028"/>
-      <path d="M500 0 L200 0 Q170 200 185 450 Q205 700 220 900 L500 900Z" fill="#142418"/>
-      <path d="M220 150 Q200 170 210 200 Q230 190 220 150Z" fill="#1e3820" opacity="0.7"/>
-      <path d="M190 320 Q170 340 180 370 Q200 358 190 320Z" fill="#1e3820" opacity="0.7"/>
-    </svg>
-    <!-- waterfall -->
-    <div class="waterfall-wrap">
-      <div class="waterfall-stream"></div>
-      <div class="waterfall-glow"></div>
-    </div>
-    <!-- mist at bottom -->
-    <div class="mist-bottom"></div>
-    <!-- Lily pads / rocks foreground -->
-    <svg class="cave-floor" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax slice">
-      <path d="M0 220 L0 160 Q200 120 400 150 Q500 160 560 140 L600 100 Q640 80 680 100 L720 140 Q800 160 1000 150 Q1200 140 1440 160 L1440 220Z" fill="#101c14"/>
-      <!-- rocks -->
-      <ellipse cx="600" cy="130" rx="30" ry="14" fill="#1e2e1a"/>
-      <ellipse cx="650" cy="118" rx="22" ry="10" fill="#222e1c"/>
-      <ellipse cx="700" cy="128" rx="26" ry="12" fill="#1c2818"/>
-      <!-- water shimmer -->
-      <ellipse cx="640" cy="155" rx="80" ry="12" fill="#3050a8" opacity="0.4"/>
-    </svg>
-    <!-- Traveler on rock -->
-    <svg class="traveler-tranq" viewBox="0 0 120 160" preserveAspectRatio="xMidYMax meet">
-      <ellipse cx="60" cy="38" rx="38" ry="9" fill="#c8860a"/>
-      <path d="M26 46 L60 14 L94 46Z" fill="#d49020"/>
-      <circle cx="60" cy="52" r="8" fill="#c8956a"/>
-      <path d="M50 60 Q60 56 70 60 L72 72 Q60 75 48 72Z" fill="#b04020"/>
-      <path d="M38 72 Q60 64 82 72 L88 118 Q60 125 32 118Z" fill="#8a3015"/>
-      <rect x="48" y="116" width="10" height="22" rx="4" fill="#3a2510"/>
-      <rect x="62" y="116" width="10" height="20" rx="4" fill="#3a2510"/>
-    </svg>
-  </div>
-
-  <!-- SCENE 3 — BIODIVERSITY / night forest -->
-  <div class="scene scene-bio">
-    <div class="sky-bio"></div>
-    <!-- Stars -->
-    <canvas class="stars-canvas" id="starsCanvas"></canvas>
-    <!-- Background hills -->
-    <svg class="bio-hills-back" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice">
-      <path d="M0 420 Q240 340 480 400 Q720 460 960 380 Q1200 300 1440 380 L1440 600 L0 600Z" fill="#1a1040"/>
-    </svg>
-    <!-- Glowing plants / mushrooms -->
-    <svg class="bio-plants" viewBox="0 0 1440 500" preserveAspectRatio="xMidYMax slice">
-      <!-- large mushrooms right cluster -->
-      <g opacity="0.9">
-        <ellipse cx="1100" cy="340" rx="38" ry="18" fill="#7040c0"/>
-        <rect x="1094" y="338" width="12" height="80" rx="4" fill="#4a2880"/>
-        <circle cx="1100" cy="340" r="6" fill="#c090ff" opacity="0.8"/>
-
-        <ellipse cx="1150" cy="310" rx="32" ry="16" fill="#6030b0"/>
-        <rect x="1144" y="308" width="11" height="95" rx="4" fill="#3a1870"/>
-        <circle cx="1150" cy="310" r="5" fill="#b080f0" opacity="0.8"/>
-
-        <ellipse cx="1060" cy="355" rx="28" ry="13" fill="#5028a0"/>
-        <rect x="1054" y="353" width="10" height="68" rx="4" fill="#32166a"/>
-      </g>
-      <!-- left cluster -->
-      <g opacity="0.8">
-        <ellipse cx="200" cy="380" rx="30" ry="14" fill="#5838a8"/>
-        <rect x="194" y="378" width="11" height="72" rx="4" fill="#3a2070"/>
-        <ellipse cx="160" cy="400" rx="24" ry="11" fill="#4a2898"/>
-        <rect x="154" y="398" width="10" height="56" rx="4" fill="#321860"/>
-      </g>
-      <!-- glowing ferns -->
-      <g stroke="#5040c8" stroke-width="1.5" fill="none" opacity="0.7">
-        <path d="M300 440 Q310 400 330 385 Q320 410 340 420 M330 385 Q350 370 370 380"/>
-        <path d="M1200 420 Q1210 380 1230 365 Q1220 390 1240 400 M1230 365 Q1250 350 1270 360"/>
-      </g>
-      <!-- ground glow patches -->
-      <ellipse cx="1100" cy="418" rx="80" ry="20" fill="#6030b0" opacity="0.25"/>
-      <ellipse cx="180" cy="450" rx="60" ry="15" fill="#5030a0" opacity="0.2"/>
-      <!-- foreground dark ground -->
-      <path d="M0 450 Q360 410 720 440 Q1080 470 1440 435 L1440 500 L0 500Z" fill="#080618"/>
-    </svg>
-    <!-- Fireflies -->
-    <div class="fireflies" id="fireflies"></div>
-    <!-- DEER -->
-    <svg class="deer" viewBox="0 0 220 260" preserveAspectRatio="xMidYMax meet">
-      <!-- antlers -->
-      <g stroke="#c8a050" stroke-width="3" fill="none" stroke-linecap="round">
-        <line x1="90" y1="30" x2="75" y2="5"/>
-        <line x1="75" y1="5" x2="60" y2="15"/>
-        <line x1="75" y1="5" x2="68" y2="-5"/>
-        <line x1="90" y1="30" x2="80" y2="18"/>
-        <line x1="130" y1="30" x2="145" y2="5"/>
-        <line x1="145" y1="5" x2="160" y2="15"/>
-        <line x1="145" y1="5" x2="152" y2="-5"/>
-        <line x1="130" y1="30" x2="140" y2="18"/>
-      </g>
-      <!-- head -->
-      <ellipse cx="110" cy="42" rx="26" ry="22" fill="#c09050"/>
-      <!-- snout -->
-      <ellipse cx="110" cy="56" rx="14" ry="10" fill="#b08040"/>
-      <!-- nose -->
-      <ellipse cx="110" cy="61" rx="5" ry="3.5" fill="#7a5030"/>
-      <!-- eye -->
-      <circle cx="100" cy="38" r="4" fill="#2a1808"/>
-      <circle cx="101" cy="37" r="1.5" fill="#fff" opacity="0.6"/>
-      <!-- ear left -->
-      <ellipse cx="84" cy="32" rx="8" ry="14" fill="#b08040" transform="rotate(-15 84 32)"/>
-      <!-- ear right -->
-      <ellipse cx="136" cy="32" rx="8" ry="14" fill="#b08040" transform="rotate(15 136 32)"/>
-      <!-- neck -->
-      <path d="M92 62 Q110 68 128 62 L132 95 Q110 102 88 95Z" fill="#c09050"/>
-      <!-- body -->
-      <path d="M68 95 Q110 85 152 95 L165 185 Q110 196 55 185Z" fill="#b88040"/>
-      <!-- white spots -->
-      <circle cx="110" cy="120" r="5" fill="#e8c880" opacity="0.7"/>
-      <circle cx="125" cy="135" r="4" fill="#e8c880" opacity="0.6"/>
-      <circle cx="98" cy="132" r="3.5" fill="#e8c880" opacity="0.6"/>
-      <circle cx="118" cy="148" r="4" fill="#e8c880" opacity="0.5"/>
-      <!-- legs -->
-      <rect x="78" y="183" width="16" height="60" rx="6" fill="#a07030"/>
-      <rect x="100" y="183" width="16" height="65" rx="6" fill="#a07030"/>
-      <rect x="120" y="183" width="16" height="60" rx="6" fill="#a07030"/>
-      <rect x="142" y="183" width="14" height="62" rx="6" fill="#a07030"/>
-      <!-- hooves -->
-      <ellipse cx="86" cy="243" rx="9" ry="5" fill="#5a3a18"/>
-      <ellipse cx="108" cy="248" rx="9" ry="5" fill="#5a3a18"/>
-      <ellipse cx="128" cy="243" rx="9" ry="5" fill="#5a3a18"/>
-      <ellipse cx="149" cy="245" rx="8" ry="5" fill="#5a3a18"/>
-      <!-- tail -->
-      <ellipse cx="58" cy="120" rx="10" ry="14" fill="#e8e0d0" transform="rotate(20 58 120)"/>
-    </svg>
-  </div>
-
-  <!-- Global vignette -->
-  <div class="vignette"></div>
-</div>
-
 <!-- ═══════════════ NAV ═══════════════ -->
 <header class="nav" id="nav">
-  <a class="nav__brand" href="#s1">Nirvaan</a>
+  <a class="nav__brand" href="#a1">
+    <span class="nav__mark">⛩</span>
+    <span class="nav__name">YASH<span class="x">X</span>DAKSH</span>
+  </a>
   <nav class="nav__links" aria-label="Main navigation">
-    <a href="#s1">Community</a>
-    <a href="#s2">About</a>
-    <a href="#s3">Support</a>
-    <a href="#s3">Contact</a>
+    <a href="#a1">Home</a>
+    <a href="#a2">Craft</a>
+    <a href="#a3">Detail</a>
+    <a href="#a3">Contact</a>
   </nav>
-  <a href="#s1" class="nav__cta">Register</a>
-  <button class="nav__burger" aria-label="Menu">&#9776;</button>
+  <a href="#a3" class="nav__cta">Start a project</a>
+  <button class="nav__burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </header>
 
-<!-- ═══════════════ CONTENT PANELS ═══════════════ -->
-<main>
+<!-- ═══════════════ SCROLL PROGRESS RAIL ═══════════════ -->
+<aside class="rail" aria-hidden="true">
+  <a href="#a1" class="rail__dot is-on" data-i="0"><span>Summit</span></a>
+  <a href="#a2" class="rail__dot" data-i="1"><span>Falls</span></a>
+  <a href="#a3" class="rail__dot" data-i="2"><span>Valley</span></a>
+</aside>
 
-  <!-- Panel 1 — VISITE -->
-  <section class="panel" id="s1" data-scene="0">
-    <div class="panel__content align-left">
-      <p class="eyebrow">&#9670; Journey to New Frontiers &nbsp;·&nbsp; Find a Natural Park</p>
-      <h1 class="heading-hero">VISITE</h1>
-      <p class="body-text">A journey beyond the known horizon. Discover peaks wrapped in golden
-        light, still lakes that mirror the heavens, and wilderness untouched by time.</p>
-      <a href="#s2" class="btn btn-solid">Start the Journey &#x2192;</a>
+<!-- ═══════════════ THE JOURNEY — one continuous mural ═══════════════ -->
+<main class="journey">
+
+  <!-- ACT 1 — Summit / sky temple (the hero) -->
+  <section class="act act--1" id="a1" data-scene="0">
+    <img class="scene" src="img/scene1-hero.png" alt="Anime sky temple resting on a cliff above a golden sea of clouds at sunrise" fetchpriority="high"/>
+    <!-- light rays from the sun (left) -->
+    <div class="rays" aria-hidden="true"></div>
+    <!-- asymmetric veil: sun side (left) stays bright, only a little shade on the house side (right) -->
+    <div class="hero-veil" aria-hidden="true"></div>
+    <div class="act__content align-left" data-content>
+      <p class="eyebrow"><span class="eyebrow__dot">◆</span> Websites&nbsp;as&nbsp;a&nbsp;Service</p>
+      <h1 class="wordmark" data-split>YASHXDAKSH</h1>
+      <p class="lede">We build sites that feel like a <em>place</em>, not a page —
+        you start at the summit and simply keep scrolling into the world.</p>
+      <div class="actions">
+        <a href="#a2" class="btn btn-solid">Begin the descent <span class="btn__arrow">↓</span></a>
+        <a href="#a3" class="btn btn-text">See the craft</a>
+      </div>
+    </div>
+    <a href="#a2" class="scroll-cue" aria-label="Scroll down">
+      <span class="scroll-cue__txt">Scroll</span>
+      <span class="scroll-cue__line"></span>
+    </a>
+  </section>
+
+  <!-- ACT 2 — The falls / crafted flow -->
+  <section class="act act--2" id="a2" data-scene="1">
+    <div class="seam" aria-hidden="true"></div>
+    <img class="scene" src="img/scene2-tranquility.png" alt="A hidden waterfall falling through misty peaks with a crimson stairway descending the cliff"/>
+    <div class="act__content align-left" data-content>
+      <p class="eyebrow"><span class="eyebrow__dot">◆</span> 01 · Crafted Flow</p>
+      <h2 class="heading" data-split>Built to flow</h2>
+      <p class="body-text">Every section pours into the next like the falls — no jarring cuts,
+        no pasted-on blocks. Just one continuous descent your visitors can&rsquo;t stop following.</p>
+      <div class="actions">
+        <a href="#a3" class="btn btn-ghost">Keep descending <span class="btn__arrow">↓</span></a>
+      </div>
     </div>
   </section>
 
-  <!-- Panel 2 — Tranquility -->
-  <section class="panel" id="s2" data-scene="1">
-    <div class="panel__content align-right">
-      <p class="eyebrow">&#9670; Stillness &nbsp;·&nbsp; 02</p>
-      <h2 class="heading-section">Tranquility</h2>
-      <p class="body-text">Step inside the cathedral of water and stone. Where the
-        waterfall meets the quiet pool below, time ceases to count and only
-        the sound of rushing water remains.</p>
-      <a href="#s3" class="btn btn-ghost">Learn more &#x2192;</a>
-    </div>
-  </section>
-
-  <!-- Panel 3 — Biodiversity -->
-  <section class="panel" id="s3" data-scene="2">
-    <div class="panel__content align-left">
-      <p class="eyebrow">&#9670; Wild Life &nbsp;·&nbsp; 03</p>
-      <h2 class="heading-section">Biodiversity</h2>
-      <p class="body-text">After nightfall the forest awakens in bioluminescent glory.
-        Creatures move through glowing thickets in perfect silence — nature
-        exactly as it was meant to be, long before us.</p>
-      <a href="#s1" class="btn btn-ghost">Learn more &#x2192;</a>
+  <!-- ACT 3 — The valley / living detail -->
+  <section class="act act--3" id="a3" data-scene="2">
+    <div class="seam" aria-hidden="true"></div>
+    <img class="scene" src="img/scene3-biodiversity.png" alt="The waterfall pooling into a quiet valley river where a deer drinks at dawn"/>
+    <div class="act__content align-left" data-content>
+      <p class="eyebrow"><span class="eyebrow__dot">◆</span> 02 · Living Detail</p>
+      <h2 class="heading" data-split>Alive in the detail</h2>
+      <p class="body-text">Light, motion and atmosphere tuned by hand, down to the last mote of mist.
+        The kind of craft that makes people trust a brand the moment they land.</p>
+      <div class="actions">
+        <a href="mailto:relentlessmodeyt@gmail.com" class="btn btn-solid">Let&rsquo;s build yours <span class="btn__arrow">→</span></a>
+        <a href="#a1" class="btn btn-text">Back to the summit ↑</a>
+      </div>
     </div>
   </section>
 
 </main>
+
+<!-- shared filmic grain so the three frames read as one image -->
+<div class="grain" aria-hidden="true"></div>
+<!-- drifting atmosphere (motes) -->
+<div class="atmos" id="atmos" aria-hidden="true"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script src="script.js"></script>
