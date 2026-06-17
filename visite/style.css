@@ -15,7 +15,7 @@
   --accent-2:#d6533f;        /* crimson stairway */
   --night:   #0b0a12;
   --ease:    cubic-bezier(.22,.61,.36,1);
-  --overlap: 11vw;           /* how far each frame climbs into the one above */
+  --overlap: 4vw;            /* tiny feather between frames — no ghosting, no gap */
 }
 
 html { scroll-behavior: smooth; }
@@ -46,23 +46,13 @@ body {
 
 /* Acts 2 & 3 climb up into the frame above and dissolve their own top
    edge — this is what removes the "pasted rectangle" look. */
+/* The masked transparent strip (0→5% ≈ 3.3vw) is always SHORTER than the
+   4vw overlap, so it only ever feathers onto the frame above — never onto
+   the page background. That removes both the dark seam bars and the ghosting. */
 .act--2, .act--3 { margin-top: calc(var(--overlap) * -1); }
 .act--2 .scene, .act--3 .scene {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 17%);
-          mask-image: linear-gradient(to bottom, transparent 0%, #000 17%);
-}
-
-/* A soft band of mist sits exactly on each join for an extra melt. */
-.seam {
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 26vw; z-index: 2; pointer-events: none;
-  background:
-    linear-gradient(to bottom,
-      rgba(228,224,214,.30) 0%,
-      rgba(228,224,214,.10) 38%,
-      transparent 100%);
-  filter: blur(2px);
-  mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 5%);
+          mask-image: linear-gradient(to bottom, transparent 0%, #000 5%);
 }
 
 /* shared filmic grain unifies the three frames into one surface */
@@ -112,10 +102,11 @@ body {
 .hero-veil {
   position: absolute; inset: 0; z-index: 3; pointer-events: none;
   background:
-    /* very light vignette on the right (house) side only */
-    linear-gradient(to left, rgba(11,10,18,.26) 0%, rgba(11,10,18,.06) 22%, transparent 40%),
-    /* legibility fade rising from the bottom-left for the text */
-    linear-gradient(to top, rgba(11,10,18,.52) 0%, rgba(11,10,18,.12) 24%, transparent 46%);
+    /* very little shade on the RIGHT (house) side only — sun side stays bright */
+    linear-gradient(to left, rgba(11,10,18,.22) 0%, rgba(11,10,18,.05) 20%, transparent 38%),
+    /* legibility glow kept LOCAL to the bottom-left text, so the bottom edge
+       stays clean and there's no dark bar where this frame meets the falls */
+    radial-gradient(120% 75% at 18% 116%, rgba(11,10,18,.6) 0%, rgba(11,10,18,.2) 36%, transparent 60%);
 }
 
 /* ══════════════ NAV ══════════════ */
@@ -315,7 +306,7 @@ body {
 
 /* ══════════════ RESPONSIVE ══════════════ */
 @media (max-width: 760px) {
-  :root { --overlap: 14vw; }
+  :root { --overlap: 5vw; }
   .nav__links {
     position: fixed; inset: 0 0 auto auto; top: 0; right: 0;
     width: min(74vw, 320px); height: 100vh;
