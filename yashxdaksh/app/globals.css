@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk", sans-serif;
+    --font-sans: "Inter", system-ui, sans-serif;
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: auto; /* Lenis owns scrolling */
+  }
+
+  body {
+    @apply bg-base text-ink font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Lenis */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  ::selection {
+    background: rgba(91, 124, 255, 0.3);
+    color: #f8fafc;
+  }
+
+  /* Hide native cursor only when the custom cursor is active (fine pointers). */
+  @media (pointer: fine) {
+    body.custom-cursor,
+    body.custom-cursor * {
+      cursor: none;
+    }
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-gutter;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.28em] text-ink-muted;
+  }
+
+  /* Glass surface — subtle, premium, not frosted-to-death. */
+  .glass {
+    background: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.015)
+    );
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(248, 250, 252, 0.08);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(110deg, #f8fafc 30%, #94a3b8 70%);
+  }
+
+  .text-accent-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(110deg, #5b7cff, #8b5cf6);
+  }
+
+  /* Form inputs */
+  .field {
+    @apply w-full rounded-xl border border-line bg-base/50 px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 outline-none transition-colors duration-200;
+  }
+  .field:focus {
+    @apply border-accent/60;
+    box-shadow: 0 0 0 3px rgba(91, 124, 255, 0.12);
+  }
+
+  /* Fine top hairline used to separate sections. */
+  .hairline {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(248, 250, 252, 0.12) 50%,
+      transparent
+    );
+    height: 1px;
+  }
+}
+
+@layer utilities {
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: theme("backgroundImage.grain");
+    background-size: 180px;
+    opacity: 0.035;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  .perspective {
+    perspective: 1000px;
+  }
+}
+
+/* Respect reduced motion globally — disable non-essential animation. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
