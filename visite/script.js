@@ -1,82 +1,110 @@
-/* ===== VISITE — scroll engine =====
-   Smooth scroll (Lenis) + scene cross-fade + parallax + reveals.
-   Everything is guarded so the site still works if a CDN fails
-   or the user prefers reduced motion. */
 (function () {
-  "use strict";
+  'use strict';
 
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const scenes = Array.from(document.querySelectorAll(".scene"));
-  const panels = Array.from(document.querySelectorAll(".panel"));
-  const layers = Array.from(document.querySelectorAll(".layer"));
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---- 1. Which scene is showing ----
-     Driven by whichever panel is closest to the viewport centre. */
-  function setScene(index) {
-    scenes.forEach((s, i) => s.classList.toggle("is-active", i === index));
+  /* ── Stars canvas ── */
+  const canvas = document.getElementById('starsCanvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      drawStars();
+    }
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < 200; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height * 0.75;
+        const r = Math.random() * 1.4 + 0.3;
+        const a = Math.random() * 0.8 + 0.2;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,250,240,${a})`;
+        ctx.fill();
+      }
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
   }
 
-  let current = -1;
-  function updateScene() {
+  /* ── Fireflies ── */
+  const ffWrap = document.getElementById('fireflies');
+  if (ffWrap) {
+    const positions = [
+      [18,62],[30,74],[44,55],[58,68],[70,58],[80,70],[25,50],[64,48],
+      [12,78],[52,42],[88,65],[35,82],[76,52],[48,72],[92,44],[20,60]
+    ];
+    positions.forEach(([lp, tp], i) => {
+      const el = document.createElement('div');
+      el.className = 'firefly';
+      el.style.left = lp + '%';
+      el.style.top  = tp + '%';
+      el.style.setProperty('--dur',   (6 + Math.random() * 5).toFixed(1) + 's');
+      el.style.setProperty('--delay', (Math.random() * 6).toFixed(1) + 's');
+      el.style.setProperty('--dx',    (Math.random() * 40 - 20).toFixed(0) + 'px');
+      el.style.setProperty('--dy',    (Math.random() * -40 - 10).toFixed(0) + 'px');
+      ffWrap.appendChild(el);
+    });
+  }
+
+  /* ── Scene switching ── */
+  const scenes  = Array.from(document.querySelectorAll('.scene'));
+  const panels  = Array.from(document.querySelectorAll('.panel'));
+  const contents= Array.from(document.querySelectorAll('.panel__content'));
+
+  let currentScene = 0;
+
+  function activateScene(idx) {
+    if (idx === currentScene) return;
+    currentScene = idx;
+    scenes.forEach((s, i) => s.classList.toggle('active', i === idx));
+  }
+
+  function revealContent(idx) {
+    contents.forEach((c, i) => c.classList.toggle('visible', i === idx));
+  }
+
+  function onScroll() {
     const mid = window.innerHeight / 2;
     let best = 0, bestDist = Infinity;
-    panels.forEach((p) => {
-      const r = p.getBoundingClientRect();
-      const dist = Math.abs(r.top + r.height / 2 - mid);
-      if (dist < bestDist) { bestDist = dist; best = +p.dataset.scene; }
+
+    panels.forEach((p, i) => {
+      const rect = p.getBoundingClientRect();
+      const dist = Math.abs(rect.top + rect.height / 2 - mid);
+      if (dist < bestDist) { bestDist = dist; best = i; }
     });
-    if (best !== current) { current = best; setScene(best); }
+
+    const sceneIdx = parseInt(panels[best].dataset.scene, 10);
+    activateScene(sceneIdx);
+    revealContent(best);
   }
 
-  /* ---- 2. Parallax: nudge layers by scroll position ---- */
-  function parallax(scrollY) {
-    if (reduce) return;
-    layers.forEach((el, i) => {
-      // alternating depth, foreground moves more
-      const depth = ((i % 5) + 1) * 6;
-      el.style.transform = `translate3d(0, ${(scrollY * depth) / 200}px, 0)`;
-    });
-  }
-
-  /* ---- 3. Reveal panels on enter ---- */
-  const io = "IntersectionObserver" in window
-    ? new IntersectionObserver(
-        (entries) => entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add("in");
-        }),
-        { threshold: 0.25 }
-      )
-    : null;
-  document.querySelectorAll(".reveal").forEach((el) => {
-    if (io) io.observe(el); else el.classList.add("in");
-  });
-
-  /* ---- 4. Smooth scroll via Lenis if present ---- */
+  /* ── Smooth scroll via Lenis ── */
   let lenis = null;
-  if (window.Lenis && !reduce) {
-    lenis = new window.Lenis({ duration: 1.1, smoothWheel: true });
+  if (window.Lenis && !reduced) {
+    lenis = new window.Lenis({ duration: 1.2, smoothWheel: true, lerp: 0.08 });
     function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
-    lenis.on("scroll", ({ scroll }) => { updateScene(); parallax(scroll); });
+    lenis.on('scroll', onScroll);
   } else {
-    window.addEventListener("scroll", () => {
-      updateScene();
-      parallax(window.scrollY);
-    }, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  /* ---- 5. Smooth anchor clicks ---- */
-  document.querySelectorAll('a[href^="#"]').forEach((a) => {
-    a.addEventListener("click", (e) => {
-      const target = document.querySelector(a.getAttribute("href"));
+  /* ── Smooth anchor clicks ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
       if (!target) return;
       e.preventDefault();
-      if (lenis) lenis.scrollTo(target, { offset: 0 });
-      else target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+      if (lenis) lenis.scrollTo(target, { duration: 1.4 });
+      else target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
     });
   });
 
-  /* ---- init ---- */
-  updateScene();
-  parallax(window.scrollY || 0);
+  /* ── Init ── */
+  scenes[0].classList.add('active');
+  contents[0].classList.add('visible');
+  onScroll();
 })();
