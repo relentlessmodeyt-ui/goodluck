@@ -1,56 +1,129 @@
-# Aaruni Multi Speciality Hospital — Website
+# YashxDaksh — Premium Digital Agency
 
-A premium, **dark-purple "cosmic" healthcare website** for **Aaruni Multi Speciality
-Hospital, Jhunjhunu**. Two-color theme (deep violet-black + neon violet), a replicated
-hero with a glowing planet, neon **heart** & **brain**, twinkling sparkles, and motion
-throughout — 3D depth, parallax, glass, glow and cinematic scroll reveals.
+> We Build Digital Experiences That Perform.
 
-## View it
+An immersive, award-tier marketing site for the fictional premium agency
+**YashxDaksh**. Built as a cinematic, interactive experience rather than a
+template — a living 3D centerpiece, kinetic typography, smooth scrolling, a
+custom cursor, and an interactive project estimator.
 
-Plain HTML/CSS/JS, no build step. Open `index.html`, or serve locally:
+The single visual metaphor running through the site: **ideas transforming into
+digital experiences** — embodied by a morphing glass-and-metal orb in the hero
+that reacts to the pointer and transforms as you scroll.
+
+---
+
+## Tech stack
+
+| Concern | Choice |
+|---|---|
+| Framework | **Next.js 15** (App Router, React 19, Server Components) |
+| Language | **TypeScript** (strict) |
+| Styling | **Tailwind CSS** 3.4 + custom design tokens |
+| 3D | **Three.js · React Three Fiber · drei** |
+| Animation | **GSAP-ready** + **Framer Motion** |
+| Smooth scroll | **Lenis** |
+| State | **Zustand** |
+| Forms | **React Hook Form** + **Zod** |
+| Analytics | **Google Analytics 4** + **Microsoft Clarity** (env-gated) |
+| Deploy | **Vercel** |
+
+## Quick start
 
 ```bash
-python3 -m http.server 8000   # → http://localhost:8000
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-## Structure
-
-```
-index.html             # all markup / sections
-assets/css/clinic.css  # design system + all styling (two-color violet theme)
-assets/js/clinic.js    # motion engine, parallax, reveals, tilt, counters, form
+```bash
+npm run build    # production build
+npm start        # serve the production build
+npm run typecheck
 ```
 
-## Motion stack
+### Environment variables
 
-Loaded from CDN, all **optional & guarded** (the site degrades gracefully and
-respects `prefers-reduced-motion`):
+Create `.env.local` (all optional — the site works without them):
 
-- **GSAP + ScrollTrigger** — scroll-reveal animations
-- **Lenis** — smooth scrolling
-- Custom vanilla JS — hero scroll + mouse **parallax** (on wrapper layers so the
-  CSS keyframe animations never conflict), 3D **tilt** cards, sparkle field,
-  count-up stats.
+```bash
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX       # Google Analytics 4
+NEXT_PUBLIC_CLARITY_ID=xxxxxxxxxx    # Microsoft Clarity
+```
 
-## Sections
+Analytics only load in `production`.
 
-Sticky nav → cosmic **hero** (planet · neon heart & brain · sparkles) → highlights
-strip → **Hospital Specialities** (cards hanging from a rail, gentle sway) →
-**Special Cure** (50/50 hover-to-flip cards with animated icons — cardiology's
-heartbeat, neurology's brain) → Why Aaruni (+ animated stats) → facilities (3D tilt)
-→ how it works → doctors (no photos) → patient stories → appointment form + contact → footer.
+## Folder structure
 
-## Content
+```
+yashxdaksh/
+├── app/                     # App Router
+│   ├── layout.tsx           # fonts, metadata, JSON-LD, providers
+│   ├── page.tsx             # the single-page experience
+│   ├── globals.css          # design system + utilities
+│   ├── opengraph-image.tsx  # dynamic OG image (next/og)
+│   ├── sitemap.ts           # sitemap.xml
+│   └── robots.ts            # robots.txt
+├── components/
+│   ├── hero/                # HeroScene, MorphingObject, Hero
+│   ├── layout/              # Preloader, Navbar, Footer
+│   ├── sections/            # Work, Services, Process, Why, Testimonials, FAQ, Estimator, Marquee
+│   ├── providers/           # SmoothScroll, Analytics
+│   └── ui/                  # AnimatedHeading, MagneticButton, CustomCursor,
+│                            #   ScrollProgress, Reveal, SectionHeader, icons
+├── hooks/                   # useSmoothScroll, useMousePosition, useMediaQuery,
+│                            #   usePrefersReducedMotion
+├── lib/                     # data, schema, jsonld, utils
+├── store/                   # Zustand UI store
+├── types/                   # shared TypeScript types
+├── public/                  # favicon, static assets
+└── docs/                    # brand, motion, accessibility, SEO deliverables
+```
 
-Hospital details reflect Aaruni Multi Speciality Hospital, Jhunjhunu, Rajasthan.
-The appointment form is front-end only (shows a confirmation; nothing is sent).
-Doctor names and testimonials are representative placeholders — swap in real staff
-before going live.
+## Key components
 
-## Notes
+| Component | Role |
+|---|---|
+| `MorphingObject` | The living 3D orb — distortion, reflections, pointer + scroll reactive |
+| `HeroScene` | R3F `<Canvas>`, loaded `ssr:false` and only after the preloader |
+| `Preloader` | Cinematic 0→100 loading sequence |
+| `AnimatedHeading` | Word-by-word masked reveal (kinetic type) |
+| `MagneticButton` | Cursor-following button + custom-cursor growth |
+| `CustomCursor` | rAF-driven dot + trailing ring, mix-blend |
+| `ScrollProgress` | Top gradient progress bar |
+| `ProjectEstimator` | Multi-step interactive estimator → smart form |
 
-- Fully responsive; touch devices get **tap-to-flip** on the Special Cure cards.
-- Fonts: **Space Grotesk** (display) + **Plus Jakarta Sans** (body), via Google Fonts.
-- Icons and the hero heart/brain are inline SVG (no image assets required).
-- **Deploy:** the GitHub Pages workflow publishes on push to `main`. This branch is a
-  safe preview — merge it into `main` to go live.
+## Performance notes
+
+- The entire **three.js bundle is lazy-loaded** (`dynamic(..., { ssr: false })`)
+  and mounts only after the preloader, keeping the initial route lean.
+- 3D quality and DPR scale down on mobile; the canvas uses
+  `frameloop="demand"` under reduced-motion.
+- Images use `next/image` (AVIF/WebP, responsive `sizes`, lazy by default).
+- Every animation is **disabled or simplified under `prefers-reduced-motion`**.
+
+## Accessibility & SEO
+
+See [`docs/ACCESSIBILITY.md`](./docs/ACCESSIBILITY.md) and
+[`docs/SEO.md`](./docs/SEO.md). Highlights: semantic landmarks, skip link,
+visible focus states, keyboard-operable controls, JSON-LD
+(`Organization` + `ProfessionalService` + `FAQPage`), dynamic OG image,
+sitemap and robots.
+
+## Deliverables
+
+| # | Deliverable | Where |
+|---|---|---|
+| 1 | Brand guidelines | [`docs/BRAND_GUIDELINES.md`](./docs/BRAND_GUIDELINES.md) |
+| 2 | Wireframes / structure | [`docs/BRAND_GUIDELINES.md`](./docs/BRAND_GUIDELINES.md) |
+| 3 | Visual system | `tailwind.config.ts` + `app/globals.css` |
+| 4 | Motion guidelines | [`docs/MOTION.md`](./docs/MOTION.md) |
+| 5 | Complete UI | `app/` + `components/` |
+| 6 | Responsive layouts | Tailwind breakpoints throughout |
+| 7 | Production code | this repo (`npm run build` passes) |
+| 8 | Animation implementation | Framer Motion + Lenis + R3F |
+| 9 | SEO strategy | [`docs/SEO.md`](./docs/SEO.md) |
+| 10 | Accessibility checklist | [`docs/ACCESSIBILITY.md`](./docs/ACCESSIBILITY.md) |
+
+---
+
+© YashxDaksh. Crafting websites worth remembering.
