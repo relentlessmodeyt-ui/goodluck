@@ -365,6 +365,12 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .doc__photo img{position:absolute;left:50%;bottom:0;transform:translateX(-50%);height:100%;width:auto;max-width:none;
   object-position:bottom;transition:transform .4s cubic-bezier(.16,1,.3,1)}
 .doc:hover .doc__photo img{transform:translateX(-50%) scale(1.03)}
+.doc__avatar{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(140deg,var(--violet-deep),var(--violet) 55%,var(--violet-bright));
+  font-family:var(--display);font-weight:700;font-size:34px;letter-spacing:1px;color:#fff;
+  text-shadow:0 2px 18px rgba(0,0,0,.4);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.doc:hover .doc__avatar{transform:scale(1.03)}
+.doc__avatar svg{width:48%;height:48%;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .doc h3{font-family:var(--display);font-size:18px;font-weight:600;color:#fff}
 .doc__spec{font-size:13.5px;color:var(--muted)}
 @media(max-width:900px){.docgrid{grid-template-columns:1fr 1fr}}
