@@ -135,10 +135,8 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .hero__eyebrow{font-family:var(--display);font-size:1.15vw;font-weight:500;letter-spacing:.32em;text-transform:uppercase;
   color:var(--violet-bright);text-shadow:0 0 18px rgba(166,77,255,.6)}
-.hero__title{font-family:var(--display);font-weight:700;font-size:5vw;line-height:1;letter-spacing:.02em;color:#fff;
-  text-shadow:0 0 34px rgba(166,77,255,.5),0 2px 30px rgba(0,0,0,.6)}
-.hero__title span{background:linear-gradient(120deg,#c98bff,#a64dff 55%,#7322d8);
-  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero__title{font-family:var(--display);font-weight:700;font-size:5vw;line-height:1;letter-spacing:.06em;color:#fff;
+  text-transform:uppercase;text-shadow:0 0 22px rgba(206,170,255,.35),0 2px 26px rgba(0,0,0,.6)}
 .hero__tagline{font-family:var(--font);font-size:1.5vw;color:var(--ink);opacity:.92;letter-spacing:.01em}
 /* shooting-stars layer (deep space — sits behind the planet layer) */
 .hero__shooting{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
