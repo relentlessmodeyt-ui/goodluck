@@ -79,12 +79,6 @@
         <!-- floating organs (cut out of the hero image) — desktop only -->
         <img src="assets/img/heart-float.png" class="hero__organ hero__organ--heart" alt="" aria-hidden="true">
         <img src="assets/img/brain-float.png" class="hero__organ hero__organ--brain" alt="" aria-hidden="true">
-        <!-- Live title band: masks the baked-in title in the hero image and renders the Apex name in-theme -->
-        <div class="hero__head">
-          <span class="hero__eyebrow">Precision · Speed · Intelligence</span>
-          <h1 class="hero__title">APEX SKYLINE</h1>
-          <p class="hero__tagline">We are in the heart of Jhunjhunu</p>
-        </div>
         <!-- Real button placed over (and covering) the baked-in BOOK MY APPOINTMENT button -->
         <a href="#appointment" class="hero__cta" aria-label="Book my appointment">
           <span class="hero__cta-txt">BOOK MY APPOINTMENT</span>
@@ -92,6 +86,11 @@
         </a>
       </div>
       <span class="hero__fade" aria-hidden="true"></span>
+      <!-- Visually hidden text for SEO & screen readers (the title is part of the hero image) -->
+      <div class="sr-only">
+        <h1>Apex Skyline Multi Speciality Hospital — Jhunjhunu</h1>
+        <p>Precision. Speed. Intelligence. We are in the heart of Jhunjhunu.</p>
+      </div>
     </section>
 
     <!-- ===== HIGHLIGHT STRIP ===== -->
