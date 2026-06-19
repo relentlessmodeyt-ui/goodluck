@@ -1,5 +1,5 @@
 /* =========================================================
-   AARUNI MULTI SPECIALITY HOSPITAL — cosmic dark-purple UI
+   APEX HOSPITALS · JHUNJHUNU — cosmic dark-purple UI
    Two-color system: deep violet-black  +  neon violet
    ========================================================= */
 :root{
@@ -297,7 +297,7 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   .cure__col{gap:24px}
 }
 
-/* ---------- WHY AARUNI ---------- */
+/* ---------- WHY APEX ---------- */
 .about__grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:60px;align-items:center}
 .about__art{position:relative;transform-style:preserve-3d}
 .about__panel{position:relative;aspect-ratio:1/1;border-radius:var(--r-lg);overflow:hidden;display:grid;place-items:center;

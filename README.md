@@ -1,7 +1,7 @@
-# Aaruni Multi Speciality Hospital — Website
+# Apex Hospitals · Jhunjhunu — Website
 
-A premium, **dark-purple "cosmic" healthcare website** for **Aaruni Multi Speciality
-Hospital, Jhunjhunu**. Two-color theme (deep violet-black + neon violet), a replicated
+A premium, **dark-purple "cosmic" healthcare website** for **Apex Hospitals,
+Jhunjhunu**. Two-color theme (deep violet-black + neon violet), a replicated
 hero with a glowing planet, neon **heart** & **brain**, twinkling sparkles, and motion
 throughout — 3D depth, parallax, glass, glow and cinematic scroll reveals.
 
@@ -37,12 +37,12 @@ respects `prefers-reduced-motion`):
 Sticky nav → cosmic **hero** (planet · neon heart & brain · sparkles) → highlights
 strip → **Hospital Specialities** (cards hanging from a rail, gentle sway) →
 **Special Cure** (50/50 hover-to-flip cards with animated icons — cardiology's
-heartbeat, neurology's brain) → Why Aaruni (+ animated stats) → facilities (3D tilt)
+heartbeat, neurology's brain) → Why Apex (+ animated stats) → facilities (3D tilt)
 → how it works → doctors (no photos) → patient stories → appointment form + contact → footer.
 
 ## Content
 
-Hospital details reflect Aaruni Multi Speciality Hospital, Jhunjhunu, Rajasthan.
+Hospital details reflect Apex Hospitals, Jhunjhunu, Rajasthan.
 The appointment form is front-end only (shows a confirmation; nothing is sent).
 Doctor names and testimonials are representative placeholders — swap in real staff
 before going live.

@@ -1,5 +1,5 @@
 /* =========================================================
-   AARUNI MULTI SPECIALITY HOSPITAL — interactions + motion
+   APEX HOSPITALS · JHUNJHUNU — interactions + motion
    GSAP + ScrollTrigger + Lenis (all optional / guarded)
    ========================================================= */
 (function () {
