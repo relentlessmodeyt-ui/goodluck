@@ -14,9 +14,6 @@
 </head>
 <body>
 
-  <!-- ===== ANIMATED SHADER BACKDROP (WebGL, whole site) ===== -->
-  <canvas id="shader-bg" class="shader-bg" aria-hidden="true"></canvas>
-
   <!-- ===== AMBIENT BACKGROUND (whole site) ===== -->
   <div class="bg" aria-hidden="true">
     <span class="bg__aurora bg__aurora--1"></span>
@@ -79,8 +76,6 @@
         <span class="hero__shooting" id="heroShooting" aria-hidden="true"></span>
         <!-- planet re-drawn on top of the shooting layer so stars pass BEHIND it -->
         <span class="hero__planet" aria-hidden="true"></span>
-        <!-- animated shader that fills the space where the heart/brain used to be -->
-        <canvas id="hero-shader" class="hero__shader" aria-hidden="true"></canvas>
         <!-- Real button placed over (and covering) the baked-in BOOK MY APPOINTMENT button -->
         <a href="#appointment" class="hero__cta" aria-label="Book my appointment">
           <span class="hero__cta-txt">BOOK MY APPOINTMENT</span>
@@ -599,7 +594,5 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script defer src="assets/js/clinic.js"></script>
-  <!-- animated WebGL shader backdrop -->
-  <script defer src="assets/js/shader-background.js"></script>
 </body>
 </html>
