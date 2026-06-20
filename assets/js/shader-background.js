@@ -1,28 +1,20 @@
 /* =========================================================
    APEX SKYLINE · JHUNJHUNU — animated shader background
    Vanilla WebGL port of the ShaderBackground React component.
-   Full-screen violet "plasma + grid" backdrop. Degrades gracefully:
-   no WebGL  -> no-op (CSS --bg fallback shows)
-   reduced-motion -> renders a single static frame (no animation loop)
+   Drives two canvases:
+     #shader-bg    -> full-window backdrop behind the whole site
+     #hero-shader  -> scoped to the hero (glows in the space the
+                      heart/brain used to occupy), screen-blended
+   Degrades gracefully: no WebGL -> no-op; reduced-motion -> single frame.
    ========================================================= */
 (function () {
   'use strict';
 
-  var canvas = document.getElementById('shader-bg');
-  if (!canvas) return;
-
-  var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-  if (!gl) { console.warn('WebGL not supported — shader background disabled.'); return; }
-
-  // Vertex shader: full-screen triangle strip
   var vsSource = [
     'attribute vec4 aVertexPosition;',
-    'void main() {',
-    '  gl_Position = aVertexPosition;',
-    '}'
+    'void main() { gl_Position = aVertexPosition; }'
   ].join('\n');
 
-  // Fragment shader (unchanged from the source component)
   var fsSource = [
     'precision highp float;',
     'uniform vec2 iResolution;',
@@ -130,71 +122,85 @@
     return shader;
   }
 
-  function initShaderProgram(gl, vsSource, fsSource) {
-    var vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
-    var fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
-    if (!vertexShader || !fragmentShader) return null;
-    var shaderProgram = gl.createProgram();
-    gl.attachShader(shaderProgram, vertexShader);
-    gl.attachShader(shaderProgram, fragmentShader);
-    gl.linkProgram(shaderProgram);
-    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-      console.error('Shader program link error: ', gl.getProgramInfoLog(shaderProgram));
+  function initProgram(gl) {
+    var vs = loadShader(gl, gl.VERTEX_SHADER, vsSource);
+    var fs = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
+    if (!vs || !fs) return null;
+    var prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+      console.error('Shader program link error: ', gl.getProgramInfoLog(prog));
       return null;
     }
-    return shaderProgram;
-  }
-
-  var shaderProgram = initShaderProgram(gl, vsSource, fsSource);
-  if (!shaderProgram) return;
-
-  var positionBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  var positions = [-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0];
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-
-  var programInfo = {
-    program: shaderProgram,
-    attribLocations: {
-      vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition')
-    },
-    uniformLocations: {
-      resolution: gl.getUniformLocation(shaderProgram, 'iResolution'),
-      time: gl.getUniformLocation(shaderProgram, 'iTime')
-    }
-  };
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    gl.viewport(0, 0, canvas.width, canvas.height);
-  }
-  window.addEventListener('resize', resizeCanvas, { passive: true });
-  resizeCanvas();
-
-  function drawFrame(timeSeconds) {
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.useProgram(programInfo.program);
-    gl.uniform2f(programInfo.uniformLocations.resolution, canvas.width, canvas.height);
-    gl.uniform1f(programInfo.uniformLocations.time, timeSeconds);
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    gl.vertexAttribPointer(programInfo.attribLocations.vertexPosition, 2, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    return prog;
   }
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) {
-    // static single frame for users who prefer reduced motion
-    drawFrame(8.0);
-    window.addEventListener('resize', function () { drawFrame(8.0); }, { passive: true });
-    return;
+
+  // sizeFn returns {w, h} in device pixels for this canvas
+  function startShader(canvas, sizeFn) {
+    if (!canvas) return;
+    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) { console.warn('WebGL not supported — shader disabled.'); return; }
+
+    var program = initProgram(gl);
+    if (!program) return;
+
+    var buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+
+    var loc = {
+      pos: gl.getAttribLocation(program, 'aVertexPosition'),
+      res: gl.getUniformLocation(program, 'iResolution'),
+      time: gl.getUniformLocation(program, 'iTime')
+    };
+
+    function resize() {
+      var s = sizeFn();
+      var w = Math.max(1, Math.round(s.w));
+      var h = Math.max(1, Math.round(s.h));
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w; canvas.height = h;
+      }
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+    window.addEventListener('resize', resize, { passive: true });
+    window.addEventListener('load', resize); // hero size needs the image laid out
+    resize();
+
+    function draw(t) {
+      resize();
+      gl.clearColor(0, 0, 0, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.useProgram(program);
+      gl.uniform2f(loc.res, canvas.width, canvas.height);
+      gl.uniform1f(loc.time, t);
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      gl.vertexAttribPointer(loc.pos, 2, gl.FLOAT, false, 0, 0);
+      gl.enableVertexAttribArray(loc.pos);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+
+    if (reduce) { draw(8.0); return; }
+    var start = Date.now();
+    (function render() {
+      draw((Date.now() - start) / 1000);
+      requestAnimationFrame(render);
+    })();
   }
 
-  var startTime = Date.now();
-  (function render() {
-    drawFrame((Date.now() - startTime) / 1000);
-    requestAnimationFrame(render);
-  })();
+  // full-window backdrop
+  startShader(document.getElementById('shader-bg'), function () {
+    return { w: window.innerWidth, h: window.innerHeight };
+  });
+
+  // hero-scoped layer (fills the space where the heart/brain were)
+  var hero = document.getElementById('hero-shader');
+  startShader(hero, function () {
+    var r = hero.getBoundingClientRect();
+    return { w: r.width || window.innerWidth, h: r.height || (window.innerWidth * 0.546) };
+  });
 })();
