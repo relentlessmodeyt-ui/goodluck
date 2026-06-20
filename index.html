@@ -66,27 +66,23 @@
     <!-- ===== HERO ===== -->
     <section class="hero" id="home">
       <div class="hero__stage">
-        <!-- text-free background image; the title is live, animated HTML over it -->
-        <img src="assets/img/hero.webp" class="hero__bg" decoding="async" alt="" aria-hidden="true" fetchpriority="high">
+        <!-- background carries the exact title text; CTA + organs + sparkles are live overlays -->
+        <img src="assets/img/hero.webp" class="hero__bg" decoding="async" alt="Apex Skyline Hospital — Precision. Speed. Intelligence. We are in the heart of Jhunjhunu." fetchpriority="high">
         <span class="hero__stars" aria-hidden="true"></span>
         <span class="hero__shooting" id="heroShooting" aria-hidden="true"></span>
         <!-- animated floating organs (components) -->
         <img src="assets/img/heart-float.png" class="hero__organ hero__organ--heart" alt="" aria-hidden="true">
         <img src="assets/img/brain-float.png" class="hero__organ hero__organ--brain" alt="" aria-hidden="true">
         <span class="hero__sparkles" id="heroSparkles" aria-hidden="true"></span>
-
-        <!-- live, animated hero text -->
-        <div class="hero__head">
-          <span class="hero__eyebrow">Precision. Speed. Intelligence.</span>
-          <h1 class="hero__title">APEX SKYLINE HOSPITAL</h1>
-          <p class="hero__tagline">We are in the heart of Jhunjhunu</p>
-          <a href="#appointment" class="hero__cta" aria-label="Book my appointment">
-            <span class="hero__cta-txt">BOOK MY APPOINTMENT</span>
-            <span class="hero__cta-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-          </a>
-        </div>
+        <!-- real button placed over the cleared button spot in the image -->
+        <a href="#appointment" class="hero__cta" aria-label="Book my appointment">
+          <span class="hero__cta-txt">BOOK MY APPOINTMENT</span>
+          <span class="hero__cta-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+        </a>
       </div>
       <span class="hero__fade" aria-hidden="true"></span>
+      <!-- Visually hidden heading for SEO / screen readers (title is in the hero image) -->
+      <div class="sr-only"><h1>Apex Skyline Hospital — Jhunjhunu</h1></div>
     </section>
 
     <!-- ===== HIGHLIGHT STRIP ===== -->
