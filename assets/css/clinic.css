@@ -95,7 +95,16 @@ img,svg{display:block;max-width:100%}
 .nav__home .ic{width:17px;height:17px;stroke:var(--violet-bright)}
 .brand{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;line-height:0}
 .brand__logo{height:46px;width:auto;display:block;filter:drop-shadow(0 0 16px rgba(166,77,255,.55))}
-.nav__right{display:flex;align-items:center;gap:16px}
+.nav__right{display:flex;align-items:center;gap:14px}
+/* city search */
+.citysearch{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
+  background:var(--glass-2);border:1px solid var(--glass-line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:border-color .25s,box-shadow .25s}
+.citysearch:focus-within{border-color:var(--violet);box-shadow:0 0 0 3px rgba(166,77,255,.18)}
+.citysearch__ic{width:16px;height:16px;flex:none;fill:none;stroke:var(--violet-bright);stroke-width:2;stroke-linecap:round}
+.citysearch__in{border:0;background:transparent;outline:none;color:var(--ink);font-family:var(--font);font-size:13.5px;width:150px}
+.citysearch__in::placeholder{color:var(--faint)}
+@media(max-width:1080px){.citysearch__in{width:110px}}
 .nav__loc{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);font-weight:500}
 .nav__dot{width:8px;height:8px;border-radius:50%;background:var(--violet);box-shadow:0 0 10px var(--violet);
   animation:pulseDot 2s ease-in-out infinite}
@@ -115,7 +124,9 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   .nav__links a{padding:15px 0;width:100%;border-bottom:1px solid var(--line);font-size:16px;color:var(--ink)}
   .navtoggle{display:flex}
   .nav__loc{display:none}
+  .citysearch__in{width:120px}
 }
+@media(max-width:600px){.citysearch{display:none}}
 @media(max-width:560px){.brand__logo{height:38px}.btn--pill{padding:11px 11px 11px 18px;font-size:13px}}
 
 /* ---------- GLASS ---------- */
