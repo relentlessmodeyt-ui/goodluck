@@ -66,28 +66,27 @@
     <!-- ===== HERO ===== -->
     <section class="hero" id="home">
       <div class="hero__stage">
-        <!-- Hero image created by client. Desktop = wide; phones get the portrait version (auto-swapped by screen size). -->
-        <picture>
-          <source media="(max-width:768px)" srcset="assets/img/hero-mobile.webp">
-          <img src="assets/img/hero.webp" class="hero__bg" decoding="async" alt="Apex Hospitals — Precision, Speed, Intelligence. We are in the heart of Jhunjhunu." fetchpriority="high">
-        </picture>
+        <!-- text-free background image; the title is live, animated HTML over it -->
+        <img src="assets/img/hero.webp" class="hero__bg" decoding="async" alt="" aria-hidden="true" fetchpriority="high">
         <span class="hero__stars" aria-hidden="true"></span>
-        <span class="hero__sparkles" id="heroSparkles" aria-hidden="true"></span>
         <span class="hero__shooting" id="heroShooting" aria-hidden="true"></span>
-        <!-- planet re-drawn on top of the shooting layer so stars pass BEHIND it -->
-        <span class="hero__planet" aria-hidden="true"></span>
-        <!-- Real button placed over (and covering) the baked-in BOOK MY APPOINTMENT button -->
-        <a href="#appointment" class="hero__cta" aria-label="Book my appointment">
-          <span class="hero__cta-txt">BOOK MY APPOINTMENT</span>
-          <span class="hero__cta-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-        </a>
+        <!-- animated floating organs (components) -->
+        <img src="assets/img/heart-float.png" class="hero__organ hero__organ--heart" alt="" aria-hidden="true">
+        <img src="assets/img/brain-float.png" class="hero__organ hero__organ--brain" alt="" aria-hidden="true">
+        <span class="hero__sparkles" id="heroSparkles" aria-hidden="true"></span>
+
+        <!-- live, animated hero text -->
+        <div class="hero__head">
+          <span class="hero__eyebrow">Precision. Speed. Intelligence.</span>
+          <h1 class="hero__title">APEX SKYLINE HOSPITAL</h1>
+          <p class="hero__tagline">We are in the heart of Jhunjhunu</p>
+          <a href="#appointment" class="hero__cta" aria-label="Book my appointment">
+            <span class="hero__cta-txt">BOOK MY APPOINTMENT</span>
+            <span class="hero__cta-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+          </a>
+        </div>
       </div>
       <span class="hero__fade" aria-hidden="true"></span>
-      <!-- Visually hidden text for SEO & screen readers (the title is part of the hero image) -->
-      <div class="sr-only">
-        <h1>Apex Skyline Multi Speciality Hospital — Jhunjhunu</h1>
-        <p>Precision. Speed. Intelligence. We are in the heart of Jhunjhunu.</p>
-      </div>
     </section>
 
     <!-- ===== HIGHLIGHT STRIP ===== -->
