@@ -136,7 +136,10 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 /* ---------- HERO ---------- */
 .hero{position:relative;width:100%;overflow:hidden;background:#07040f}
 .hero__stage{position:relative}
-.hero__bg{display:block;width:100%;height:auto;pointer-events:none;user-select:none}
+.hero__bg{display:block;width:100%;height:auto;pointer-events:none;user-select:none;transform-origin:50% 42%;
+  animation:heroIn 1.1s ease-out both,heroDrift 26s ease-in-out 1.1s infinite alternate}
+@keyframes heroIn{from{opacity:0;transform:scale(1.09)}to{opacity:1;transform:scale(1.04)}}
+@keyframes heroDrift{from{transform:scale(1.04) translate3d(0,0,0)}to{transform:scale(1.1) translate3d(-1.4%,-1.2%,0)}}
 /* shooting-stars layer (deep space — sits behind the planet layer) */
 .hero__shooting{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
 .shooting{position:absolute;height:2px;border-radius:2px;transform-origin:right center;opacity:0;
@@ -194,7 +197,7 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   .hero__organ{display:none}
   .hero__stars{opacity:.4}
 }
-@media (prefers-reduced-motion: reduce){ .hero__organ{animation:none} }
+@media (prefers-reduced-motion: reduce){ .hero__organ{animation:none} .hero__bg{animation:heroIn .6s ease-out both} }
 
 /* ---------- HIGHLIGHT STRIP ---------- */
 .strip{position:relative;z-index:5;margin-top:-44px}
@@ -468,3 +471,44 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   .bg__aurora{animation:none;filter:blur(80px);opacity:.15}
   .bg__grain{display:none}
 }
+
+/* ========================================================
+   THEME TOGGLE button
+   ======================================================== */
+.themetoggle{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;cursor:pointer;
+  background:var(--glass-2);border:1px solid var(--glass-line);color:var(--violet-bright);
+  transition:border-color .25s,box-shadow .25s,transform .2s}
+.themetoggle:hover{border-color:var(--violet);box-shadow:var(--glow-sm);transform:translateY(-1px)}
+.themetoggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.themetoggle__sun{display:none}
+html.light .themetoggle__sun{display:block}
+html.light .themetoggle__moon{display:none}
+
+/* ========================================================
+   LIGHT MODE — re-skins the site; the HERO stays dark (image-based)
+   ======================================================== */
+html.light{
+  --bg:#f4f1fb; --bg-2:#ece6f8; --panel:#ffffff;
+  --ink:#1d1233; --muted:#5b5170; --faint:#9089a6;
+  --line:rgba(108,43,217,.14); --line-2:rgba(108,43,217,.28); --violet-soft:rgba(166,77,255,.10);
+  --glass:rgba(255,255,255,.72); --glass-2:rgba(255,255,255,.82); --glass-line:rgba(108,43,217,.18);
+  --violet-bright:#6a1fc7;
+  --sh:0 30px 70px -28px rgba(60,30,120,.22); --sh-sm:0 14px 30px -16px rgba(60,30,120,.16);
+  --glow:0 0 40px rgba(166,77,255,.28); --glow-sm:0 0 22px rgba(166,77,255,.26);
+}
+html.light body{background:var(--bg);color:var(--ink)}
+html.light .bg{background:
+  radial-gradient(900px 700px at 80% -5%,#efe6ff 0,transparent 60%),
+  radial-gradient(800px 600px at 10% 8%,#f1ebff 0,transparent 55%),
+  linear-gradient(180deg,#f6f3fc,#eee8f7)}
+html.light .bg__aurora{opacity:.10}
+html.light .bg__grain{display:none}
+html.light .nav.scrolled{background:rgba(255,255,255,.8);box-shadow:0 10px 40px -24px rgba(60,30,120,.4)}
+html.light .footer{background:linear-gradient(180deg,transparent,#e9e3f6)}
+/* recolour text that was hardcoded white so it stays readable on light surfaces */
+html.light .sec-head h2,html.light .flip__front h3,html.light .flip__back h3,
+html.light .about__statcard strong,html.light .about__copy h2,html.light .about__stats strong,
+html.light .step h3,html.light .doc h3,html.light .appt__info h2,html.light .appt__form h3,
+html.light .footer__col h4{color:var(--ink)}
+html.light .hl{text-shadow:none}
+/* HERO intentionally not re-skinned: the .hero section + image + CTA stay dark in both modes */

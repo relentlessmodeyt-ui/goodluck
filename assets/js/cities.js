@@ -155,7 +155,21 @@
     });
   }
 
+  function wireTheme() {
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    var root = document.documentElement;
+    function sync() { btn.setAttribute('aria-pressed', String(!root.classList.contains('light'))); }
+    sync();
+    btn.addEventListener('click', function () {
+      var light = root.classList.toggle('light');
+      try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
+      sync();
+    });
+  }
+
   apply(currentSlug());
   fillDatalist();
   wireSearch();
+  wireTheme();
 })();
