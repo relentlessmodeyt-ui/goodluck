@@ -21,8 +21,8 @@
     'udaipur': {
       label: 'Udaipur', title: 'Apex Hospitals · Udaipur — Precision, Speed, Intelligence',
       hero: 'assets/img/hero-udaipur.webp',
-      address: 'Apex Hospitals — Udaipur, Rajasthan', emergency: '0141-4101111', enquiry: '0141-4101111', email: EMAIL,
-      map: 'Apex Hospitals, Udaipur, Rajasthan', toConfirm: true
+      address: 'Apex Hospitals, Bhuwana By-Pass, Udaipur, Rajasthan', emergency: '0141-4101111', enquiry: '0141-4101111', email: EMAIL,
+      map: 'Apex Hospitals, Bhuwana, Udaipur, Rajasthan', toConfirm: true
     },
     'bikaner': {
       label: 'Bikaner', title: 'Apex Hospitals · Bikaner — Precision, Speed, Intelligence',
@@ -32,16 +32,18 @@
       map: 'Apex Hospitals, Rani Bazar, Bikaner, Rajasthan'
     },
     'lucknow': {
-      label: 'Lucknow', title: 'Apex Hospitals · Lucknow — Precision, Speed, Intelligence',
+      label: 'Lucknow', title: 'Apex Goel Super Speciality Hospital · Lucknow — Precision, Speed, Intelligence',
       hero: 'assets/img/hero-lucknow.webp',
-      address: 'Apex Goel Super Speciality Hospital — Lucknow, Uttar Pradesh', emergency: '0141-4101111', enquiry: '0141-4101111', email: EMAIL,
-      map: 'Apex Goel Super Speciality Hospital, Lucknow', toConfirm: true
+      address: 'Apex Goel Super Speciality Hospital, 697, Anaura Kala, Chinhat, Lucknow, Uttar Pradesh – 226028',
+      emergency: '+91 91510 14001', enquiry: '+91 91510 14003', email: EMAIL,
+      map: 'Apex Goel Super Speciality Hospital, Anaura Kala, Lucknow'
     },
     'sri-ganganagar': {
-      label: 'Sri Ganganagar', title: 'Apex Hospitals · Sri Ganganagar — Precision, Speed, Intelligence',
+      label: 'Sri Ganganagar', title: 'Apex PMG Hospitals · Sri Ganganagar — Precision, Speed, Intelligence',
       hero: 'assets/img/hero-sri-ganganagar.webp',
-      address: 'Apex PMG Hospitals — Sri Ganganagar, Rajasthan', emergency: '0141-4101111', enquiry: '0141-4101111', email: EMAIL,
-      map: 'Apex PMG Hospitals, Sri Ganganagar, Rajasthan', toConfirm: true
+      address: 'Apex PMG Hospitals, Shiv Circle, Sri Ganganagar, Rajasthan – 335001',
+      emergency: '+91 99283 65484', enquiry: '+91 93766 66110', email: EMAIL,
+      map: 'Apex PMG Hospitals, Sri Ganganagar, Rajasthan'
     },
     'sawai-madhopur': {
       label: 'Sawai Madhopur', title: 'Apex Hospitals · Sawai Madhopur — Precision, Speed, Intelligence',
