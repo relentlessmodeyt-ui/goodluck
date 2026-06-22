@@ -94,7 +94,7 @@ img,svg{display:block;max-width:100%}
 .nav__home{display:inline-flex;align-items:center;gap:7px;color:var(--ink)!important}
 .nav__home .ic{width:17px;height:17px;stroke:var(--violet-bright)}
 .brand{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;line-height:0}
-.brand__logo{height:46px;width:auto;display:block;filter:drop-shadow(0 0 16px rgba(166,77,255,.55))}
+.brand__logo{height:34px;width:auto;display:block;filter:drop-shadow(0 0 16px rgba(166,77,255,.55))}
 .nav__right{display:flex;align-items:center;gap:14px}
 /* city search */
 .citysearch{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
@@ -229,8 +229,11 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   background:linear-gradient(90deg,transparent,var(--violet) 12%,var(--violet-bright) 50%,var(--violet) 88%,transparent);
   box-shadow:0 0 18px rgba(166,77,255,.7)}
 .hang{position:relative;flex:1 1 0;max-width:230px;padding-top:36px;transform-origin:top center;
-  animation:sway calc(4s + var(--d) * .5s) ease-in-out calc(var(--d) * -.7s) infinite alternate}
-@keyframes sway{from{transform:rotate(-2.4deg)}to{transform:rotate(2.4deg)}}
+  animation:sway calc(9s + var(--d) * .8s) ease-in-out calc(var(--d) * -.7s) infinite alternate}
+@keyframes sway{from{transform:rotate(-2deg)}to{transform:rotate(2deg)}}
+/* tap/hover: stop swaying and enlarge a touch */
+.hang:hover,.hang.tapped{animation-play-state:paused}
+.hang.tapped .hang__card{transform:translateY(4px) scale(1.07);border-color:var(--line-2);box-shadow:var(--glow-sm),var(--sh)}
 .hang__cord{position:absolute;top:0;left:50%;width:2px;height:36px;transform:translateX(-50%);
   background:linear-gradient(var(--violet-bright),var(--line-2))}
 .hang__cord::before{content:"";position:absolute;top:-3px;left:50%;width:9px;height:9px;border-radius:50%;
@@ -503,12 +506,61 @@ html.light .bg{background:
   linear-gradient(180deg,#f6f3fc,#eee8f7)}
 html.light .bg__aurora{opacity:.10}
 html.light .bg__grain{display:none}
-html.light .nav.scrolled{background:rgba(255,255,255,.8);box-shadow:0 10px 40px -24px rgba(60,30,120,.4)}
-html.light .footer{background:linear-gradient(180deg,transparent,#e9e3f6)}
-/* recolour text that was hardcoded white so it stays readable on light surfaces */
+/* top nav stays DARK in light mode (black bar) with light text */
+html.light .nav.scrolled{background:rgba(14,8,26,.9);box-shadow:0 10px 40px -22px #000;border-bottom-color:rgba(166,77,255,.28)}
+html.light .nav__links a{color:#c7bbe6}
+html.light .nav__links a:hover,html.light .nav__home{color:#fff!important}
+html.light .nav__loc{color:#bcb0da}
+html.light .navtoggle span{background:#e8def8}
+html.light .themetoggle{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#ead9ff}
+html.light .citysearch{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2)}
+html.light .citysearch__in{color:#fff}
+html.light .citysearch__in::placeholder{color:#b9addb}
+/* the strip that overlaps the hero bottom → light purple, not white */
+html.light .strip__grid{background:rgba(232,223,255,.94);border-color:rgba(108,43,217,.18)}
+html.light .strip__item:hover{background:rgba(166,77,255,.12)}
+html.light .hero__fade{background:linear-gradient(to top,#f4f1fb 0%,rgba(244,241,251,.4) 55%,transparent 100%)}
+html.light .footer{background:linear-gradient(180deg,transparent,#e7e0f5)}
+/* recolour text that was hardcoded white/light so it stays readable on light surfaces */
 html.light .sec-head h2,html.light .flip__front h3,html.light .flip__back h3,
 html.light .about__statcard strong,html.light .about__copy h2,html.light .about__stats strong,
 html.light .step h3,html.light .doc h3,html.light .appt__info h2,html.light .appt__form h3,
-html.light .footer__col h4{color:var(--ink)}
+html.light .footer__col h4,html.light .q blockquote,html.light .q figcaption strong{color:var(--ink)}
+html.light .flip__back p{color:#4a3f66}
+html.light .flip__cta{color:#6a1fc7}
+html.light .footer__brand p,html.light .footer__col a,html.light .footer__col span{color:var(--muted)}
 html.light .hl{text-shadow:none}
 /* HERO intentionally not re-skinned: the .hero section + image + CTA stay dark in both modes */
+
+/* ---------- FAQ + LOCATIONS MAP ---------- */
+.faq__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:start}
+.faq__list{display:flex;flex-direction:column;gap:12px}
+.faq__item{border:1px solid var(--line);border-radius:var(--r);background:var(--glass);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);overflow:hidden;transition:border-color .3s}
+.faq__item[open]{border-color:var(--line-2);box-shadow:var(--sh-sm)}
+.faq__item summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;
+  padding:17px 20px;font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink)}
+.faq__item summary::-webkit-details-marker{display:none}
+.faq__item summary::after{content:"+";font-size:22px;line-height:1;color:var(--violet-bright);transition:transform .3s;flex:none}
+.faq__item[open] summary::after{transform:rotate(45deg)}
+.faq__item p{padding:0 20px 18px;color:var(--muted);font-size:14.5px;line-height:1.6}
+.faq__map{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--glass-line);background:var(--glass-2);box-shadow:var(--sh)}
+.faq__places{display:flex;flex-wrap:wrap;gap:8px;padding:16px}
+.faq__place{cursor:pointer;font-family:var(--font);font-weight:600;font-size:12.5px;color:var(--muted);
+  padding:8px 14px;border-radius:999px;background:var(--violet-soft);border:1px solid var(--line);transition:color .25s,background .25s,border-color .25s}
+.faq__place:hover{color:var(--ink);border-color:var(--line-2)}
+.faq__place.is-active{background:var(--violet);color:#fff;border-color:transparent;box-shadow:var(--glow-sm)}
+.faq__map iframe{display:block;width:100%;height:368px;border:0}
+@media(max-width:880px){.faq__grid{grid-template-columns:1fr;gap:22px}}
+
+/* ---------- APP STORE BUTTONS (footer) ---------- */
+.appstores{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.appstore{display:inline-flex;align-items:center;gap:10px;padding:9px 15px;border-radius:12px;
+  background:var(--glass-2);border:1px solid var(--glass-line);color:var(--ink);
+  transition:border-color .25s,transform .2s,box-shadow .25s}
+.appstore:hover{border-color:var(--violet);transform:translateY(-2px);box-shadow:var(--glow-sm)}
+.appstore svg{width:22px;height:22px;flex:none}
+.appstore span{display:flex;flex-direction:column;line-height:1.15;font-family:var(--display);font-weight:700;font-size:14px}
+.appstore span small{font-weight:500;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+html.light .faq__place.is-active{color:#fff}

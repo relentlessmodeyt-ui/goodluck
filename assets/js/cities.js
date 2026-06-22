@@ -168,8 +168,37 @@
     });
   }
 
+  // hanging speciality cards: tap to enlarge + stop swaying (one at a time)
+  function wireHangCards() {
+    var hangs = Array.prototype.slice.call(document.querySelectorAll('.hang'));
+    if (!hangs.length) return;
+    hangs.forEach(function (h) {
+      h.addEventListener('click', function () {
+        var on = h.classList.contains('tapped');
+        hangs.forEach(function (x) { x.classList.remove('tapped'); });
+        if (!on) h.classList.add('tapped');
+      });
+    });
+  }
+
+  // FAQ locations map: pressing a place re-centres the embedded map
+  function wireFaqMap() {
+    var places = document.getElementById('faqPlaces');
+    var map = document.getElementById('faqMap');
+    if (!places || !map) return;
+    places.addEventListener('click', function (e) {
+      var b = e.target.closest('.faq__place');
+      if (!b) return;
+      places.querySelectorAll('.faq__place').forEach(function (x) { x.classList.remove('is-active'); });
+      b.classList.add('is-active');
+      map.src = 'https://www.google.com/maps?q=' + encodeURIComponent(b.getAttribute('data-q')) + '&output=embed';
+    });
+  }
+
   apply(currentSlug());
   fillDatalist();
   wireSearch();
   wireTheme();
+  wireHangCards();
+  wireFaqMap();
 })();
