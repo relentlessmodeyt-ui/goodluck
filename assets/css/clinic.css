@@ -93,8 +93,8 @@ img,svg{display:block;max-width:100%}
 .nav__links a:hover{color:var(--ink)}
 .nav__home{display:inline-flex;align-items:center;gap:7px;color:var(--ink)!important}
 .nav__home .ic{width:17px;height:17px;stroke:var(--violet-bright)}
-.brand{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;gap:9px;line-height:0}
-.brand__mark{height:34px;width:auto;display:block}
+.brand{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;gap:11px;line-height:0}
+.brand__mark{height:38px;width:auto;display:block}
 .brand__logo{height:34px;width:auto;display:block;filter:drop-shadow(0 0 16px rgba(166,77,255,.55))}
 .nav__right{display:flex;align-items:center;gap:14px}
 /* city search */
