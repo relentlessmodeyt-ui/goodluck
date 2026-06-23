@@ -11,6 +11,13 @@
   // slug -> city data. (Some branch addresses/phones are placeholders and
   // marked toConfirm:true until verified — easy to update here.)
   var CITIES = {
+    'main': {
+      label: 'Apex Hospitals', title: 'Apex Hospitals — Precision, Speed, Intelligence',
+      hero: 'assets/img/hero-main.webp',
+      address: 'Apex Hospitals — super-speciality care across Rajasthan & beyond',
+      emergency: '0141-4101111', enquiry: '0141-4101111', email: EMAIL,
+      map: 'Apex Hospitals, Jaipur, Rajasthan'
+    },
     'jhunjhunu': {
       label: 'Jhunjhunu', title: 'Apex Skyline Hospital · Jhunjhunu — Precision, Speed, Intelligence',
       hero: 'assets/img/hero.webp',
@@ -87,7 +94,7 @@
   function currentSlug() {
     var p = new URLSearchParams(window.location.search).get('city');
     if (p) { p = p.toLowerCase(); if (CITIES[p]) return p; }
-    return 'jhunjhunu';
+    return 'main';
   }
 
   function setText(key, val) {
@@ -101,7 +108,11 @@
     var c = CITIES[slug];
     document.title = c.title;
     var hero = document.getElementById('heroImg');
-    if (hero) { hero.src = c.hero; hero.alt = 'Apex Hospitals — we are in the heart of ' + c.label; }
+    if (hero) {
+      hero.onerror = function () { this.onerror = null; this.src = 'assets/img/hero.webp'; }; // fallback until main hero is uploaded
+      hero.src = c.hero;
+      hero.alt = (slug === 'main') ? 'Apex Hospitals' : 'Apex Hospitals — we are in the heart of ' + c.label;
+    }
 
     setText('navloc', c.label.replace(/ · .*/, '')); // short label in nav
     setText('emergency', c.emergency);
@@ -155,19 +166,6 @@
     });
   }
 
-  function wireTheme() {
-    var btn = document.getElementById('themeToggle');
-    if (!btn) return;
-    var root = document.documentElement;
-    function sync() { btn.setAttribute('aria-pressed', String(!root.classList.contains('light'))); }
-    sync();
-    btn.addEventListener('click', function () {
-      var light = root.classList.toggle('light');
-      try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
-      sync();
-    });
-  }
-
   // hanging speciality cards: tap to enlarge + stop swaying (one at a time)
   function wireHangCards() {
     var hangs = Array.prototype.slice.call(document.querySelectorAll('.hang'));
@@ -198,7 +196,6 @@
   apply(currentSlug());
   fillDatalist();
   wireSearch();
-  wireTheme();
   wireHangCards();
   wireFaqMap();
 })();

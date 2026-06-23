@@ -10,9 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/clinic.css" />
-  <script>document.documentElement.classList.add('js');
-    /* apply saved theme before paint (default = dark) */
-    try{if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light');}catch(e){}</script>
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
@@ -41,10 +39,6 @@
       </a>
 
       <div class="nav__right">
-        <button class="themetoggle" id="themeToggle" type="button" aria-label="Toggle light / dark mode" aria-pressed="true">
-          <svg class="themetoggle__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-          <svg class="themetoggle__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
-        </button>
         <form class="citysearch" id="citySearch" role="search" autocomplete="off">
           <svg class="citysearch__ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
           <input class="citysearch__in" id="cityInput" type="text" placeholder="Find your city…" list="cityList" aria-label="Search Apex Hospitals by city">
@@ -73,7 +67,7 @@
         <span class="hero__sparkles" id="heroSparkles" aria-hidden="true"></span>
         <!-- real button placed over the cleared button spot in the image -->
         <a href="#appointment" class="hero__cta" aria-label="Book my appointment">
-          <span class="hero__cta-txt">BOOK MY APPOINTMENT</span>
+          <span class="hero__cta-txt">SEARCH A DOCTOR</span>
           <span class="hero__cta-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
         </a>
       </div>
@@ -356,7 +350,6 @@
               <a href="https://in.linkedin.com/company/apexhospitals" class="social" aria-label="Apex Hospitals on LinkedIn" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0ZM.25 8.25h4.5V24h-4.5zM8.5 8.25h4.3v2.15h.06c.6-1.13 2.06-2.32 4.24-2.32 4.53 0 5.37 2.98 5.37 6.86V24h-4.5v-6.96c0-1.66-.03-3.8-2.31-3.8-2.32 0-2.67 1.81-2.67 3.68V24H8.5z"/></svg></a>
             </div>
             <div><strong data-count="2021" data-plain="1">2021</strong><span>Established</span></div>
-            <div><strong data-count="10">0</strong><b>+</b><span>Specialist doctors</span></div>
           </div>
         </div>
 
@@ -383,34 +376,6 @@
           </div>
           <a href="#appointment" class="btn btn--primary btn--lg">Visit us in Jhunjhunu
             <span class="btn__arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== HOW IT WORKS ===== -->
-    <section class="section steps" id="how">
-      <div class="wrap">
-        <div class="sec-head reveal">
-          <span class="kicker">Simple &amp; quick</span>
-          <h2>Book your visit in <span class="hl">three steps</span></h2>
-        </div>
-        <div class="steps__row">
-          <span class="steps__line" aria-hidden="true"></span>
-          <div class="step glass reveal">
-            <span class="step__n">1</span>
-            <h3>Choose a specialty</h3>
-            <p>Tell us your concern, or pick the department you need.</p>
-          </div>
-          <div class="step glass reveal">
-            <span class="step__n">2</span>
-            <h3>Book your slot</h3>
-            <p>Request a time online or call us — same-day visits available.</p>
-          </div>
-          <div class="step glass reveal">
-            <span class="step__n">3</span>
-            <h3>Meet your doctor</h3>
-            <p>Get seen, diagnosed and treated — all in one place.</p>
-          </div>
         </div>
       </div>
     </section>
@@ -549,11 +514,6 @@
               <div><span>Visit us</span><a data-city="address" data-city-href="mapLink" href="https://www.google.com/maps?q=Apex%20Skyline%20Hospital%2C%20Milap%20Nagar%2C%20Jhunjhunu%2C%20Rajasthan" target="_blank" rel="noopener noreferrer">Apex Skyline Hospital, Road No. 3, Near Piru Singh Circle, Milap Nagar, Jhunjhunu, Rajasthan – 333001</a></div>
             </li>
           </ul>
-          <div class="appt__map">
-            <iframe title="Apex Skyline Hospital — location on Google Maps" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
-              data-city-src="mapSrc" src="https://www.google.com/maps?q=Apex%20Skyline%20Hospital%2C%20Milap%20Nagar%2C%20Jhunjhunu%2C%20Rajasthan&output=embed"></iframe>
-            <a class="appt__map-link" data-city-href="mapLink" href="https://www.google.com/maps?q=Apex%20Skyline%20Hospital%2C%20Milap%20Nagar%2C%20Jhunjhunu%2C%20Rajasthan" target="_blank" rel="noopener noreferrer">Open in Google Maps →</a>
-          </div>
         </div>
 
         <form class="appt__form glass reveal" id="apptForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
@@ -624,7 +584,6 @@
         <h4>Care</h4>
         <a href="#appointment">Book Appointment</a>
         <a data-city-href="telEmergency" href="tel:+919672209136">Emergency 24/7</a>
-        <a href="#how">How it works</a>
       </div>
       <div class="footer__col footer__col--contact">
         <h4>Reach us</h4>

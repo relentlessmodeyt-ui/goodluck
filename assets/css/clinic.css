@@ -312,7 +312,7 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   box-shadow:0 0 40px rgba(166,77,255,.3),inset 0 0 40px rgba(166,77,255,.2);animation:spin 30s linear infinite}
 .about__ring::after{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;
   transform:translateX(-50%);background:var(--violet-bright);box-shadow:0 0 14px var(--violet)}
-.about__statcard{position:absolute;right:-14px;bottom:-22px;border-radius:18px;padding:16px 20px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;max-width:min(94vw,430px)}
+.about__statcard{position:absolute;right:-8px;bottom:-24px;border-radius:14px;padding:9px 15px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;max-width:min(88vw,300px)}
 .socials{display:flex;gap:9px;align-items:center;padding-right:20px;border-right:1px solid var(--line-2)}
 .social{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex:none;
   background:var(--violet-soft);border:1px solid var(--line-2);color:var(--ink);
@@ -475,62 +475,6 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   .bg__grain{display:none}
 }
 
-/* ========================================================
-   THEME TOGGLE button
-   ======================================================== */
-.themetoggle{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;cursor:pointer;
-  background:var(--glass-2);border:1px solid var(--glass-line);color:var(--violet-bright);
-  transition:border-color .25s,box-shadow .25s,transform .2s}
-.themetoggle:hover{border-color:var(--violet);box-shadow:var(--glow-sm);transform:translateY(-1px)}
-.themetoggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.themetoggle__sun{display:none}
-html.light .themetoggle__sun{display:block}
-html.light .themetoggle__moon{display:none}
-
-/* ========================================================
-   LIGHT MODE — re-skins the site; the HERO stays dark (image-based)
-   ======================================================== */
-html.light{
-  --bg:#f4f1fb; --bg-2:#ece6f8; --panel:#ffffff;
-  --ink:#1d1233; --muted:#5b5170; --faint:#9089a6;
-  --line:rgba(108,43,217,.14); --line-2:rgba(108,43,217,.28); --violet-soft:rgba(166,77,255,.10);
-  --glass:rgba(255,255,255,.72); --glass-2:rgba(255,255,255,.82); --glass-line:rgba(108,43,217,.18);
-  --violet-bright:#6a1fc7;
-  --sh:0 30px 70px -28px rgba(60,30,120,.22); --sh-sm:0 14px 30px -16px rgba(60,30,120,.16);
-  --glow:0 0 40px rgba(166,77,255,.28); --glow-sm:0 0 22px rgba(166,77,255,.26);
-}
-html.light body{background:var(--bg);color:var(--ink)}
-html.light .bg{background:
-  radial-gradient(900px 700px at 80% -5%,#efe6ff 0,transparent 60%),
-  radial-gradient(800px 600px at 10% 8%,#f1ebff 0,transparent 55%),
-  linear-gradient(180deg,#f6f3fc,#eee8f7)}
-html.light .bg__aurora{opacity:.10}
-html.light .bg__grain{display:none}
-/* top nav stays DARK in light mode (black bar) with light text */
-html.light .nav.scrolled{background:rgba(14,8,26,.9);box-shadow:0 10px 40px -22px #000;border-bottom-color:rgba(166,77,255,.28)}
-html.light .nav__links a{color:#c7bbe6}
-html.light .nav__links a:hover,html.light .nav__home{color:#fff!important}
-html.light .nav__loc{color:#bcb0da}
-html.light .navtoggle span{background:#e8def8}
-html.light .themetoggle{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#ead9ff}
-html.light .citysearch{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2)}
-html.light .citysearch__in{color:#fff}
-html.light .citysearch__in::placeholder{color:#b9addb}
-/* the strip that overlaps the hero bottom → light purple, not white */
-html.light .strip__grid{background:rgba(232,223,255,.94);border-color:rgba(108,43,217,.18)}
-html.light .strip__item:hover{background:rgba(166,77,255,.12)}
-html.light .hero__fade{background:linear-gradient(to top,#f4f1fb 0%,rgba(244,241,251,.4) 55%,transparent 100%)}
-html.light .footer{background:linear-gradient(180deg,transparent,#e7e0f5)}
-/* recolour text that was hardcoded white/light so it stays readable on light surfaces */
-html.light .sec-head h2,html.light .flip__front h3,html.light .flip__back h3,
-html.light .about__statcard strong,html.light .about__copy h2,html.light .about__stats strong,
-html.light .step h3,html.light .doc h3,html.light .appt__info h2,html.light .appt__form h3,
-html.light .footer__col h4,html.light .q blockquote,html.light .q figcaption strong{color:var(--ink)}
-html.light .flip__back p{color:#4a3f66}
-html.light .flip__cta{color:#6a1fc7}
-html.light .footer__brand p,html.light .footer__col a,html.light .footer__col span{color:var(--muted)}
-html.light .hl{text-shadow:none}
-/* HERO intentionally not re-skinned: the .hero section + image + CTA stay dark in both modes */
 
 /* ---------- FAQ + LOCATIONS MAP ---------- */
 .faq__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:start}
@@ -562,5 +506,3 @@ html.light .hl{text-shadow:none}
 .appstore svg{width:22px;height:22px;flex:none}
 .appstore span{display:flex;flex-direction:column;line-height:1.15;font-family:var(--display);font-weight:700;font-size:14px}
 .appstore span small{font-weight:500;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-
-html.light .faq__place.is-active{color:#fff}
