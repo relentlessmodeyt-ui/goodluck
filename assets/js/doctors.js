@@ -163,16 +163,33 @@
     else document.addEventListener("DOMContentLoaded", fn);
   }
 
+  // a single doctor card
+  function card(d) {
+    return '<article class="doc glass"><div class="doc__photo"><span class="doc__avatar">' + initials(d[0]) +
+      '</span></div><h3>' + d[0] + '</h3><span class="doc__role">' + d[1] + '</span>' +
+      (d[2] ? '<span class="doc__qual">' + d[2] + '</span>' : '') +
+      '<span class="doc__loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>' + d[3] + '</span></article>';
+  }
+
   ready(function () {
+    // attach derived specialty (used by both the preview loop and the directory)
+    DOCTORS.forEach(function (d) { d[4] = specOf(d[1]); });
+
+    // --- homepage preview: a small looping row of doctors ---
+    var preview = document.getElementById("docPreview");
+    if (preview) {
+      var picks = [0, 6, 2, 36, 16, 8, 30, 19]; // varied directors/specialists
+      var html = picks.map(function (i) { return card(DOCTORS[i]); }).join("");
+      preview.innerHTML = html + html; // duplicate for a seamless marquee
+    }
+
+    // --- full directory page (doctors.html) ---
     var grid = document.getElementById("docResults");
     if (!grid) return;
     var nameI = document.getElementById("docSearch");
     var specI = document.getElementById("docSpec");
     var locI = document.getElementById("docLoc");
     var countEl = document.getElementById("docCount");
-
-    // attach derived specialty
-    DOCTORS.forEach(function (d) { d[4] = specOf(d[1]); });
 
     function fillSelect(sel, values) {
       values.sort().forEach(function (v) {
@@ -192,10 +209,7 @@
         if (sp && d[4] !== sp) continue;
         if (lc && d[3] !== lc) continue;
         n++;
-        html += '<article class="doc glass"><div class="doc__photo"><span class="doc__avatar">' + initials(d[0]) +
-          '</span></div><h3>' + d[0] + '</h3><span class="doc__role">' + d[1] + '</span>' +
-          (d[2] ? '<span class="doc__qual">' + d[2] + '</span>' : '') +
-          '<span class="doc__loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>' + d[3] + '</span></article>';
+        html += card(d);
       }
       grid.innerHTML = html || '<p class="doc__empty">No doctors match your search. Try a different name, specialty or location.</p>';
       if (countEl) countEl.textContent = "Showing " + n + " doctor" + (n === 1 ? "" : "s") + " available for consultation";

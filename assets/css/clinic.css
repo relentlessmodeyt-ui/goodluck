@@ -595,3 +595,12 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .doc__loc{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:12px;color:var(--muted)}
 .doc__loc svg{width:13px;height:13px;fill:none;stroke:var(--violet-bright);stroke-width:1.8}
 .doc__empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:34px 10px}
+
+/* homepage doctor preview — a slow looping row that links to the full directory */
+.docloop .loop__track{animation-duration:60s}
+.docloop .doc{flex:0 0 auto;width:248px;margin:0;text-align:center}
+.docloop__cta{display:flex;justify-content:center;margin-top:26px}
+
+/* standalone directory page (doctors.html) — clear the fixed nav */
+.docpage{padding-top:140px}
+@media(max-width:768px){.docpage{padding-top:116px}}
