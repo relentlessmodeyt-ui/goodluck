@@ -194,9 +194,12 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .hero__notch:hover{box-shadow:0 0 0 7px var(--bg),0 0 46px rgba(166,77,255,.78),0 16px 34px -14px rgba(0,0,0,.8)}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:768px){
-  .hero__cta{top:62%;font-size:2.7vw;padding:.7em 1.1em}
-  .hero__organ{display:none}
-  .hero__stars{opacity:.4}
+  /* portrait hero image (9:16) — CTA sits where the baked button was */
+  .hero__cta{top:41%;font-size:13px;padding:.72em 1.2em}
+  /* keep the floating heart & brain animations on mobile, in the lower planet area */
+  .hero__organ--heart{display:block;left:5%;top:58%;width:26%}
+  .hero__organ--brain{display:block;right:5%;top:60%;width:28%}
+  .hero__stars{opacity:.45}
 }
 @media (prefers-reduced-motion: reduce){ .hero__organ{animation:none} .hero__bg{animation:heroIn .6s ease-out both} }
 

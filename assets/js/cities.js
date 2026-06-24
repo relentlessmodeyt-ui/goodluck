@@ -12,42 +12,42 @@
   // marked toConfirm:true until verified — easy to update here.)
   var CITIES = {
     'main': {
-      label: 'Apex Hospitals', title: 'Apex Hospitals — Precision, Speed, Intelligence',
-      hero: 'assets/img/hero-main.webp',
-      address: 'Apex Hospitals — super-speciality care across Rajasthan & beyond',
-      emergency: '0141-4101111', enquiry: '0141-4101111', email: EMAIL,
-      map: 'Apex Hospitals, Jaipur, Rajasthan'
+      label: 'Jaipur', title: 'Apex Hospitals · Jaipur — Precision, Speed, Intelligence',
+      hero: 'assets/img/hero-jaipur.webp', heroMobile: 'assets/img/hero-jaipur-mobile.webp',
+      address: 'Apex Hospitals, SP-4 & 6, Malviya Nagar Industrial Area, Jaipur, Rajasthan – 302017',
+      emergency: '+91 98290 30011', enquiry: '0141-2700888', email: EMAIL,
+      map: 'Apex Hospitals, Malviya Nagar, Jaipur, Rajasthan'
     },
     'jhunjhunu': {
       label: 'Jhunjhunu', title: 'Apex Skyline Hospital · Jhunjhunu — Precision, Speed, Intelligence',
-      hero: 'assets/img/hero.webp',
+      hero: 'assets/img/hero.webp', heroMobile: 'assets/img/hero-mobile.webp',
       address: 'Apex Skyline Hospital, Road No. 3, Near Piru Singh Circle, Milap Nagar, Jhunjhunu, Rajasthan – 333001',
       emergency: '+91 96722 09136', enquiry: '01592-230444', email: EMAIL,
       map: 'Apex Skyline Hospital, Milap Nagar, Jhunjhunu, Rajasthan'
     },
     'udaipur': {
       label: 'Udaipur', title: 'Apex Hospitals · Udaipur — Precision, Speed, Intelligence',
-      hero: 'assets/img/hero-udaipur.webp',
+      hero: 'assets/img/hero-udaipur.webp', heroMobile: 'assets/img/hero-udaipur-mobile.webp',
       address: 'Apex Hospitals, Bhuwana By-Pass, Udaipur, Rajasthan', emergency: '0141-4101111', enquiry: '0141-4101111', email: EMAIL,
       map: 'Apex Hospitals, Bhuwana, Udaipur, Rajasthan', toConfirm: true
     },
     'bikaner': {
       label: 'Bikaner', title: 'Apex Hospitals · Bikaner — Precision, Speed, Intelligence',
-      hero: 'assets/img/hero-bikaner.webp',
+      hero: 'assets/img/hero-bikaner.webp', heroMobile: 'assets/img/hero-bikaner-mobile.webp',
       address: 'Apex Hospitals, NH 89, Rani Bazar, Bikaner, Rajasthan – 334001',
       emergency: '0151-2222052', enquiry: '0151-2222052', email: EMAIL,
       map: 'Apex Hospitals, Rani Bazar, Bikaner, Rajasthan'
     },
     'lucknow': {
       label: 'Lucknow', title: 'Apex Goel Super Speciality Hospital · Lucknow — Precision, Speed, Intelligence',
-      hero: 'assets/img/hero-lucknow.webp',
+      hero: 'assets/img/hero-lucknow.webp', heroMobile: 'assets/img/hero-lucknow-mobile.webp',
       address: 'Apex Goel Super Speciality Hospital, 697, Anaura Kala, Chinhat, Lucknow, Uttar Pradesh – 226028',
       emergency: '+91 91510 14001', enquiry: '+91 91510 14003', email: EMAIL,
       map: 'Apex Goel Super Speciality Hospital, Anaura Kala, Lucknow'
     },
     'sri-ganganagar': {
       label: 'Sri Ganganagar', title: 'Apex PMG Hospitals · Sri Ganganagar — Precision, Speed, Intelligence',
-      hero: 'assets/img/hero-sri-ganganagar.webp',
+      hero: 'assets/img/hero-sri-ganganagar.webp', heroMobile: 'assets/img/hero-sri-ganganagar-mobile.webp',
       address: 'Apex PMG Hospitals, Shiv Circle, Sri Ganganagar, Rajasthan – 335001',
       emergency: '+91 99283 65484', enquiry: '+91 93766 66110', email: EMAIL,
       map: 'Apex PMG Hospitals, Sri Ganganagar, Rajasthan'
@@ -58,20 +58,6 @@
       address: 'Apex Ranthambore Sevika Hospital, Vinayak Nagar, Housing Board, Sawai Madhopur, Rajasthan – 322021',
       emergency: '+91 74622 34364', enquiry: '+91 74622 34364', email: EMAIL,
       map: 'Apex Ranthambore Sevika Hospital, Sawai Madhopur, Rajasthan'
-    },
-    'mansarovar-jaipur': {
-      label: 'Jaipur · Mansarovar', title: 'Apex Hospitals · Mansarovar, Jaipur — Precision, Speed, Intelligence',
-      hero: 'assets/img/hero-jaipur.webp',
-      address: 'Apex Hospitals, 55, Rajat Path, Sector 5, Mansarovar, Jaipur, Rajasthan – 302020',
-      emergency: '0141-2700888', enquiry: '1800-180-5025', email: EMAIL,
-      map: 'Apex Hospitals, Mansarovar, Jaipur, Rajasthan'
-    },
-    'malviya-nagar-jaipur': {
-      label: 'Jaipur · Malviya Nagar', title: 'Apex Hospitals · Malviya Nagar, Jaipur — Precision, Speed, Intelligence',
-      hero: 'assets/img/hero-jaipur.webp',
-      address: 'Apex Hospitals, SP-4 & 6, Malviya Nagar Industrial Area, Malviya Nagar, Jaipur, Rajasthan – 302017',
-      emergency: '+91 98290 30011', enquiry: '+91 98290 30011', email: EMAIL,
-      map: 'Apex Hospitals, Malviya Nagar, Jaipur, Rajasthan'
     }
   };
 
@@ -83,9 +69,7 @@
     ['lucknow', 'lucknow'], ['goel', 'lucknow'],
     ['sri ganganagar', 'sri-ganganagar'], ['ganganagar', 'sri-ganganagar'], ['sriganganagar', 'sri-ganganagar'], ['pmg', 'sri-ganganagar'],
     ['sawai madhopur', 'sawai-madhopur'], ['sawai', 'sawai-madhopur'], ['ranthambore', 'sawai-madhopur'], ['ranthambhore', 'sawai-madhopur'],
-    ['malviya', 'malviya-nagar-jaipur'],
-    ['mansarovar', 'mansarovar-jaipur'],
-    ['jaipur', 'mansarovar-jaipur'] // generic "jaipur" -> Mansarovar
+    ['jaipur', 'main'], ['mansarovar', 'main'], ['malviya', 'main']
   ];
 
   function digits(s) { return 'tel:' + s.replace(/[^0-9+]/g, ''); }
@@ -109,9 +93,11 @@
     document.title = c.title;
     var hero = document.getElementById('heroImg');
     if (hero) {
-      hero.onerror = function () { this.onerror = null; this.src = 'assets/img/hero.webp'; }; // fallback until main hero is uploaded
-      hero.src = c.hero;
-      hero.alt = (slug === 'main') ? 'Apex Hospitals' : 'Apex Hospitals — we are in the heart of ' + c.label;
+      var mobile = window.matchMedia('(max-width: 768px)').matches;
+      var src = (mobile && c.heroMobile) ? c.heroMobile : c.hero;
+      hero.onerror = function () { this.onerror = null; this.src = c.hero; }; // fall back to desktop hero
+      hero.src = src;
+      hero.alt = 'Apex Hospitals — we are in the heart of ' + c.label;
     }
 
     setText('navloc', c.label.replace(/ · .*/, '')); // short label in nav
@@ -198,4 +184,13 @@
   wireSearch();
   wireHangCards();
   wireFaqMap();
+
+  // swap hero between desktop / mobile image when the breakpoint changes
+  var mq = window.matchMedia('(max-width: 768px)');
+  var onBP = function () {
+    var c = CITIES[currentSlug()], hero = document.getElementById('heroImg');
+    if (!c || !hero) return;
+    hero.src = (mq.matches && c.heroMobile) ? c.heroMobile : c.hero;
+  };
+  if (mq.addEventListener) mq.addEventListener('change', onBP); else if (mq.addListener) mq.addListener(onBP);
 })();
