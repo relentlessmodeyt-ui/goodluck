@@ -184,12 +184,24 @@
     document.querySelectorAll('.loop__track').forEach(function (t) { t.innerHTML += t.innerHTML; });
   }
 
+  // gallery "view all" toggle
+  function wireGallery() {
+    var btn = document.getElementById('galleryMore'), grid = document.getElementById('galleryGrid');
+    if (!btn || !grid) return;
+    btn.addEventListener('click', function () {
+      var hidden = grid.hasAttribute('hidden');
+      if (hidden) { grid.removeAttribute('hidden'); btn.firstChild.nodeValue = 'Show fewer'; }
+      else { grid.setAttribute('hidden', ''); btn.firstChild.nodeValue = 'View all photos'; }
+    });
+  }
+
   apply(currentSlug());
   fillDatalist();
   wireSearch();
   wireHangCards();
   wireFaqMap();
   wireLoops();
+  wireGallery();
 
   // swap hero between desktop / mobile image when the breakpoint changes
   var mq = window.matchMedia('(max-width: 768px)');
