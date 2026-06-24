@@ -179,11 +179,19 @@
     });
   }
 
+  // duplicate the milestone ticker items so the marquee loops seamlessly (-50%)
+  function wireTicker() {
+    var track = document.getElementById('msTrack');
+    if (!track) return;
+    track.innerHTML += track.innerHTML;
+  }
+
   apply(currentSlug());
   fillDatalist();
   wireSearch();
   wireHangCards();
   wireFaqMap();
+  wireTicker();
 
   // swap hero between desktop / mobile image when the breakpoint changes
   var mq = window.matchMedia('(max-width: 768px)');

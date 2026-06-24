@@ -205,6 +205,20 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 
 /* ---------- HIGHLIGHT STRIP ---------- */
 .strip{position:relative;z-index:5;margin-top:-44px}
+/* milestones ticker (scrolling text on the strip that overlaps the hero) */
+.ticker{position:relative;overflow:hidden;border-radius:var(--r-lg);padding:15px 0;
+  background:var(--glass-2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--glass-line);box-shadow:var(--sh);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.ticker__track{display:flex;align-items:center;width:max-content;animation:ticker 60s linear infinite}
+.ticker:hover .ticker__track{animation-play-state:paused}
+.mstone{display:inline-flex;align-items:center;gap:11px;white-space:nowrap;padding:0 28px;position:relative;
+  font-family:var(--display);font-weight:600;font-size:14.5px;color:var(--ink)}
+.mstone::after{content:"";position:absolute;right:0;top:50%;transform:translateY(-50%);width:1px;height:18px;background:var(--line-2)}
+.mstone__ic{width:21px;height:21px;flex:none;fill:none;stroke:var(--violet-bright);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.ticker__track{animation:none}}
 .strip__grid{border-radius:var(--r-lg);display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:18px;
   background:var(--glass-2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border:1px solid var(--glass-line);box-shadow:var(--sh)}
