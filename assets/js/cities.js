@@ -179,11 +179,9 @@
     });
   }
 
-  // duplicate the milestone ticker items so the marquee loops seamlessly (-50%)
-  function wireTicker() {
-    var track = document.getElementById('msTrack');
-    if (!track) return;
-    track.innerHTML += track.innerHTML;
+  // duplicate each loop track so the marquee loops seamlessly (-50%)
+  function wireLoops() {
+    document.querySelectorAll('.loop__track').forEach(function (t) { t.innerHTML += t.innerHTML; });
   }
 
   apply(currentSlug());
@@ -191,7 +189,7 @@
   wireSearch();
   wireHangCards();
   wireFaqMap();
-  wireTicker();
+  wireLoops();
 
   // swap hero between desktop / mobile image when the breakpoint changes
   var mq = window.matchMedia('(max-width: 768px)');
