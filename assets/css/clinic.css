@@ -574,3 +574,24 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .gallery__grid[hidden]{display:none}
 .gallery__grid .gphoto{width:100%;height:188px}
 .gallery__cta{text-align:center;margin-top:26px}
+
+/* ---------- FIND YOUR DOCTOR (directory + filters) ---------- */
+.docfilters{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:30px}
+.docfilter--search{flex:1 1 260px;display:flex;align-items:center;gap:10px;padding:0 16px;border-radius:999px;
+  background:var(--glass-2);border:1px solid var(--glass-line)}
+.docfilter--search svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--violet-bright);stroke-width:2;stroke-linecap:round}
+.docfilter--search input{flex:1;border:0;background:transparent;outline:none;color:var(--ink);font-family:var(--font);font-size:14.5px;padding:13px 0}
+.docfilter--search input::placeholder{color:var(--faint)}
+.docfilter--search:focus-within{border-color:var(--violet)}
+.docfilter__sel{flex:0 1 220px;padding:12px 38px 12px 16px;border-radius:999px;background:var(--glass-2);
+  border:1px solid var(--glass-line);color:var(--ink);font-family:var(--font);font-size:14px;cursor:pointer;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c98bff' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;background-size:16px}
+.docfilter__sel:focus{border-color:var(--violet);outline:none}
+.docfilter__sel option{background:#160c2c;color:var(--ink)}
+.doc__role{display:block;font-size:13px;color:var(--violet-bright);font-weight:600;margin-top:3px}
+.doc__qual{display:block;font-size:11.5px;color:var(--muted);line-height:1.42;margin-top:7px}
+.doc__loc{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:12px;color:var(--muted)}
+.doc__loc svg{width:13px;height:13px;fill:none;stroke:var(--violet-bright);stroke-width:1.8}
+.doc__empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:34px 10px}

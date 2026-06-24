@@ -62,7 +62,7 @@
         <img src="assets/img/brain-float.png" class="hero__organ hero__organ--brain" alt="" aria-hidden="true">
         <span class="hero__sparkles" id="heroSparkles" aria-hidden="true"></span>
         <!-- real button placed over the cleared button spot in the image -->
-        <a href="#appointment" class="hero__cta" aria-label="Book my appointment">
+        <a href="#doctors" class="hero__cta" aria-label="Search a doctor">
           <span class="hero__cta-txt">SEARCH A DOCTOR</span>
           <span class="hero__cta-arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
         </a>
@@ -304,32 +304,23 @@
       </div>
     </section>
 
-    <!-- ===== DOCTORS (no photos) ===== -->
+    <!-- ===== FIND YOUR DOCTOR ===== -->
     <section class="section doctors" id="doctors">
       <div class="wrap">
         <div class="sec-head reveal">
-          <span class="kicker">Meet the team</span>
-          <h2>Hands you can <span class="hl">trust</span></h2>
-          <p>A multidisciplinary team of consultants, surgeons, intensivists and nurses — united by one standard of care.</p>
+          <span class="kicker">Search a doctor</span>
+          <h2>Find your <span class="hl">doctor</span></h2>
+          <p id="docCount">Showing doctors available for consultation</p>
         </div>
-        <div class="docgrid">
-          <article class="doc glass reveal" data-tilt>
-            <div class="doc__photo"><span class="doc__avatar">KS</span></div>
-            <h3>Dr. Kundan Sen</h3><span class="doc__spec">Orthopaedics &amp; Joint Replacement</span>
-          </article>
-          <article class="doc glass reveal" data-tilt>
-            <div class="doc__photo"><span class="doc__avatar">NM</span></div>
-            <h3>Dr. Naveen Mehla</h3><span class="doc__spec">Gastroenterology</span>
-          </article>
-          <article class="doc glass reveal" data-tilt>
-            <div class="doc__photo"><span class="doc__avatar">DJ</span></div>
-            <h3>Dr. Joginder</h3><span class="doc__spec">Neurosurgery</span>
-          </article>
-          <article class="doc glass reveal" data-tilt>
-            <div class="doc__photo"><span class="doc__avatar">HS</span></div>
-            <h3>Dr. Hitesh Soni</h3><span class="doc__spec">Laparoscopic &amp; Bariatric Surgery</span>
-          </article>
+        <div class="docfilters reveal">
+          <div class="docfilter docfilter--search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input id="docSearch" type="text" placeholder="Search by name…" aria-label="Search doctors by name">
+          </div>
+          <select id="docSpec" class="docfilter__sel" aria-label="Filter by specialty"><option value="">All specialties</option></select>
+          <select id="docLoc" class="docfilter__sel" aria-label="Filter by location"><option value="">All locations</option></select>
         </div>
+        <div class="docgrid" id="docResults"></div>
       </div>
     </section>
 
@@ -586,5 +577,7 @@
   <script defer src="assets/js/clinic.js"></script>
   <!-- per-city homepage switcher (?city=<slug>) -->
   <script defer src="assets/js/cities.js"></script>
+  <!-- searchable doctor directory -->
+  <script defer src="assets/js/doctors.js"></script>
 </body>
 </html>
