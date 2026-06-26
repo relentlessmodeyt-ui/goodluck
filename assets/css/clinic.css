@@ -553,7 +553,9 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .specrail__bar{position:absolute;top:0;left:0;right:0;height:3px;z-index:4;border-radius:3px;
   background:linear-gradient(90deg,transparent,var(--violet) 9%,var(--violet) 91%,transparent);
   box-shadow:0 0 18px rgba(166,77,255,.55)}
-.loop__track--hang{align-items:flex-start}
+.loop__track--hang{align-items:flex-start;animation-duration:120s}
+/* "View all specialities" CTA under the rail */
+.specs__cta{display:flex;justify-content:center;margin-top:30px}
 .hang2{flex:0 0 auto;position:relative;padding-top:38px;display:flex;justify-content:center}
 .hang2__cord{position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:38px;
   background:linear-gradient(var(--violet-bright),var(--line-2))}
@@ -604,3 +606,53 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 /* standalone directory page (doctors.html) — clear the fixed nav */
 .docpage{padding-top:140px}
 @media(max-width:768px){.docpage{padding-top:116px}}
+
+/* ---------- ALL SPECIALITIES (listing page) ---------- */
+.speclist{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:18px}
+.specitem{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;
+  border-radius:var(--r);padding:24px 22px;border:1px solid var(--glass-line);text-decoration:none;
+  transition:transform .35s,box-shadow .35s,border-color .35s}
+a.specitem:hover{transform:translateY(-6px);border-color:var(--line-2);box-shadow:var(--glow-sm),var(--sh)}
+.specitem__ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;flex:none;
+  background:var(--violet-soft);border:1px solid var(--line)}
+.specitem__ic svg{width:24px;height:24px;fill:none;stroke:var(--violet-bright);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.specitem h3{font-family:var(--display);font-size:16px;font-weight:600;line-height:1.25;color:var(--ink)}
+.specitem p{font-size:13px;color:var(--muted);line-height:1.5;flex:1}
+.specitem__go{font-size:13px;font-weight:600;color:var(--violet-bright);margin-top:4px}
+.specitem__go i{font-style:normal;transition:transform .3s}
+a.specitem:hover .specitem__go i{transform:translateX(4px)}
+.specitem--soon{opacity:.72}
+.specitem__soon{font-size:12px;color:var(--faint);margin-top:4px}
+
+/* ---------- SPECIALITY DETAIL PAGE ---------- */
+.specdetail{padding-top:140px}
+@media(max-width:768px){.specdetail{padding-top:116px}}
+.specdetail .wrap{max-width:900px}
+.specdetail .sec-head{max-width:none;margin:0 0 8px;text-align:left}
+.specd__crumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+.specd__crumb a{color:var(--violet-bright);text-decoration:none}
+.specd__crumb a:hover{text-decoration:underline}
+.specd__loc{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;color:var(--muted)}
+.specd__loc svg{width:15px;height:15px;fill:none;stroke:var(--violet-bright);stroke-width:1.8}
+.specd__block{margin-top:40px}
+.specd__block h2{font-family:var(--display);font-size:23px;font-weight:700;color:var(--ink);margin-bottom:14px;
+  padding-bottom:10px;border-bottom:1px solid var(--glass-line)}
+.specd__block h3{font-family:var(--display);font-size:16px;font-weight:600;color:var(--ink);margin:20px 0 8px}
+.specd__block p{font-size:15px;line-height:1.7;color:var(--muted);margin-bottom:14px}
+.specd__block ul{list-style:none;margin:0 0 16px;padding:0}
+.specd__block ul li{position:relative;padding-left:26px;margin-bottom:10px;font-size:15px;line-height:1.6;color:var(--muted)}
+.specd__block ul li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;
+  background:var(--violet-bright);box-shadow:0 0 10px var(--violet)}
+.specd__block ul li strong{color:var(--ink)}
+.specd__table{width:100%;border-collapse:collapse;margin:8px 0 18px;font-size:14px}
+.specd__table th,.specd__table td{text-align:left;padding:12px 14px;border:1px solid var(--glass-line);vertical-align:top;line-height:1.5}
+.specd__table th{font-family:var(--display);font-weight:600;color:var(--ink);background:var(--violet-soft)}
+.specd__table td{color:var(--muted)}
+.specd__table tr td:first-child{color:var(--ink);font-weight:500}
+.specd__tablewrap{overflow-x:auto}
+.specd__faq{border:1px solid var(--glass-line);border-radius:14px;padding:16px 18px;margin-bottom:12px;background:var(--glass-2)}
+.specd__faq h3{margin:0 0 6px}
+.specd__faq p{margin:0}
+.specd__contact{margin-top:30px;padding:22px 24px;border-radius:16px;border:1px solid var(--line-2);background:var(--violet-soft)}
+.specd__contact p{margin-bottom:8px}
+.specd__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}

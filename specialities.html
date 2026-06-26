@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Specialities — Apex Hospitals</title>
+  <meta name="description" content="Browse all specialities and departments at Apex Hospitals. Search by speciality or condition and filter by hospital location across Jaipur, Bikaner, Jhunjhunu, Sawai Madhopur, Sri Ganganagar, Udaipur and Lucknow." />
+  <meta name="theme-color" content="#07040f" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/clinic.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <div class="bg" aria-hidden="true">
+    <span class="bg__aurora bg__aurora--1"></span>
+    <span class="bg__aurora bg__aurora--2"></span>
+    <span class="bg__grain"></span>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav scrolled" id="nav">
+    <div class="nav__in">
+      <nav class="nav__links" id="navlinks">
+        <a href="index.html" class="nav__home">
+          <svg viewBox="0 0 24 24" class="ic"><path d="M4 11l8-7 8 7M6 10v9h12v-9"/></svg>
+          Home
+        </a>
+        <a href="index.html#specialities">Specialities</a>
+        <a href="doctors.html">Find a Doctor</a>
+      </nav>
+      <a href="index.html" class="brand" aria-label="Apex Hospitals — home">
+        <img src="assets/img/apex-mark.png" class="brand__mark" alt="" aria-hidden="true" />
+        <img src="assets/img/apex-logo.png" class="brand__logo" alt="Apex Hospitals" />
+      </a>
+      <div class="nav__right">
+        <a href="index.html#appointment" class="btn btn--primary">Book Appointment
+          <span class="btn__arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section doctors docpage" id="specialities">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="kicker">All Specialities</span>
+          <h2>Expert care across <span class="hl">every department</span></h2>
+          <p id="specCount">Showing specialities across Apex Hospitals</p>
+        </div>
+        <div class="docfilters reveal">
+          <div class="docfilter docfilter--search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input id="specSearch" type="text" placeholder="Search a speciality or condition…" aria-label="Search a speciality or condition">
+          </div>
+          <select id="specLoc" class="docfilter__sel" aria-label="Filter by location"><option value="">Filter by location</option></select>
+        </div>
+        <div class="speclist" id="specResults"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__bar">
+      <span>© <span id="yr"></span> Apex Hospitals. All rights reserved.</span>
+      <a href="index.html">← Back to home</a>
+    </div>
+  </footer>
+
+  <script defer src="assets/js/clinic.js"></script>
+  <script defer src="assets/js/specialities.js"></script>
+</body>
+</html>
