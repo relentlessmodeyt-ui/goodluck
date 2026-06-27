@@ -443,7 +443,7 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 
 /* ---------- FOOTER ---------- */
 .footer{background:linear-gradient(180deg,transparent,#05030b);padding:70px 0 26px;border-top:1px solid var(--line);position:relative}
-.footer__grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1.5fr;gap:36px;padding-bottom:44px;border-bottom:1px solid var(--line)}
+.footer__grid{display:grid;grid-template-columns:1.8fr 1fr 1fr;gap:36px;padding-bottom:44px;border-bottom:1px solid var(--line)}
 .brand--footer{position:static;transform:none;display:inline-flex;flex-direction:column;gap:4px;letter-spacing:.34em;font-size:22px;padding:0;line-height:1.05}
 .brand--footer small{font-family:var(--font);font-weight:600;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .footer__brand p{margin:18px 0 20px;font-size:14.5px;max-width:34ch;color:var(--muted)}
