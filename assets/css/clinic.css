@@ -695,8 +695,9 @@ html.theme-light .bg__aurora--1{background:radial-gradient(circle,#d9c2ff,transp
 html.theme-light .bg__aurora--2{background:radial-gradient(circle,#c9b0ff,transparent 72%)}
 html.theme-light .hl{text-shadow:none}
 
-/* keep the nav + hero exactly as the dark theme (re-declare dark tokens) */
-html.theme-light .nav,html.theme-light .hero{
+/* keep the nav, hero, the strip touching the hero, and the flip-card BACK
+   exactly as the dark theme (re-declare dark tokens) */
+html.theme-light .nav,html.theme-light .hero,html.theme-light .strip,html.theme-light .flip__back{
   --ink:#ece6fb; --muted:#9b8cc2; --faint:#6f6396;
   --line:rgba(166,77,255,.16); --line-2:rgba(166,77,255,.30); --violet-soft:rgba(166,77,255,.12);
   --glass:rgba(28,16,52,.55); --glass-2:rgba(36,21,64,.65); --glass-line:rgba(178,120,255,.22);
@@ -717,6 +718,10 @@ html.theme-light .step h3,
 html.theme-light .doc h3,
 html.theme-light .footer__col h4{color:var(--ink)}
 html.theme-light .flip__cta{color:var(--violet-bright)}
+/* Why Apex: the heart panel goes light */
+html.theme-light .about__panel{background:radial-gradient(circle at 50% 40%,rgba(166,77,255,.20),rgba(255,255,255,.55))}
+/* drop the dark vignette at the very bottom of the page (footer) */
+html.theme-light .footer{background:linear-gradient(180deg,transparent,rgba(231,221,250,.65))}
 
 /* ---------- OUR HOSPITALS (per-city details) ---------- */
 .citystat{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:6px 0 34px}
