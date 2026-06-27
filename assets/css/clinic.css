@@ -562,11 +562,19 @@ body.nav-open .navtoggle span:nth-child(3){transform:translateY(-7px) rotate(-45
 .hang2__cord::before{content:"";position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:9px;height:9px;
   border-radius:50%;background:var(--violet-bright);box-shadow:0 0 12px var(--violet)}
 
-/* ---------- MILESTONES: static cards ---------- */
-.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.mgrid .mcard{width:auto}
-@media(max-width:900px){.mgrid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.mgrid{grid-template-columns:1fr}}
+/* ---------- MILESTONES ----------
+   Mobile: running marquee (like the gallery / specialities loop).
+   Desktop: static grid (the JS-duplicated copies are hidden). */
+.milestones__loop .loop__track{animation-duration:60s}
+@media(min-width:561px){
+  .milestones__loop{overflow:visible;-webkit-mask-image:none;mask-image:none;padding:0}
+  .milestones__loop .loop__track{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;width:auto;padding:0;animation:none}
+  .milestones__loop .loop__track>.mcard:nth-child(n+13){display:none}
+  .milestones__loop .mcard{width:auto}
+}
+@media(min-width:901px){
+  .milestones__loop .loop__track{grid-template-columns:repeat(4,1fr)}
+}
 
 /* ---------- GALLERY ---------- */
 .gallery__loop .loop__track{gap:18px;animation-duration:80s}
