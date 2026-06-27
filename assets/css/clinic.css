@@ -664,3 +664,78 @@ a.specitem:hover .specitem__go i{transform:translateX(4px)}
 .specd__contact{margin-top:30px;padding:22px 24px;border-radius:16px;border:1px solid var(--line-2);background:var(--violet-soft)}
 .specd__contact p{margin-bottom:8px}
 .specd__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+
+/* ============================================================
+   THEME TOGGLE (dark / light) — the nav bar + hero stay dark;
+   everything below the hero switches to a light-purple theme.
+   ============================================================ */
+.themebtn{display:inline-grid;place-items:center;width:38px;height:38px;flex:none;border-radius:50%;cursor:pointer;
+  background:var(--glass);border:1px solid var(--glass-line);color:var(--ink);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:transform .25s,border-color .25s,background .25s}
+.themebtn:hover{transform:translateY(-2px);border-color:var(--line-2)}
+.themebtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.themebtn .ic-sun{display:none}
+html.theme-light .themebtn .ic-sun{display:block}
+html.theme-light .themebtn .ic-moon{display:none}
+
+/* ---- light-purple theme tokens (apply to the whole document) ---- */
+html.theme-light{
+  --bg:#f4effc; --bg-2:#ece3fb;
+  --ink:#241640; --muted:#5f5183; --faint:#8a7cae;
+  --line:rgba(115,34,216,.16); --line-2:rgba(115,34,216,.30);
+  --violet-soft:rgba(166,77,255,.10);
+  --glass:rgba(255,255,255,.74); --glass-2:rgba(255,255,255,.88); --glass-line:rgba(115,34,216,.18);
+  --violet-bright:#7c3aed;
+  --sh:0 24px 60px -28px rgba(80,40,140,.35); --sh-sm:0 14px 30px -16px rgba(80,40,140,.28);
+  --glow:0 0 40px rgba(166,77,255,.26); --glow-sm:0 0 22px rgba(166,77,255,.20);
+}
+html.theme-light .bg{background:linear-gradient(180deg,#f6f1fe,#eee6fc)}
+html.theme-light .bg__aurora{opacity:.34}
+html.theme-light .bg__aurora--1{background:radial-gradient(circle,#d9c2ff,transparent 72%)}
+html.theme-light .bg__aurora--2{background:radial-gradient(circle,#c9b0ff,transparent 72%)}
+html.theme-light .hl{text-shadow:none}
+
+/* keep the nav + hero exactly as the dark theme (re-declare dark tokens) */
+html.theme-light .nav,html.theme-light .hero{
+  --ink:#ece6fb; --muted:#9b8cc2; --faint:#6f6396;
+  --line:rgba(166,77,255,.16); --line-2:rgba(166,77,255,.30); --violet-soft:rgba(166,77,255,.12);
+  --glass:rgba(28,16,52,.55); --glass-2:rgba(36,21,64,.65); --glass-line:rgba(178,120,255,.22);
+  --violet-bright:#c98bff;
+}
+/* the top bar must look unchanged (dark) in light mode, even at scroll top */
+html.theme-light .nav{background:rgba(10,5,22,.82);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);box-shadow:0 10px 40px -22px #000}
+/* hardcoded near-white headings -> dark ink in light mode (below the hero) */
+html.theme-light .sec-head h2,
+html.theme-light .about__copy h2,
+html.theme-light .about__stats strong,
+html.theme-light .about__statcard strong,
+html.theme-light .appt__info h2,
+html.theme-light .appt__form h3,
+html.theme-light .flip__front h3,
+html.theme-light .flip__back h3,
+html.theme-light .step h3,
+html.theme-light .doc h3,
+html.theme-light .footer__col h4{color:var(--ink)}
+html.theme-light .flip__cta{color:var(--violet-bright)}
+
+/* ---------- OUR HOSPITALS (per-city details) ---------- */
+.citystat{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:6px 0 34px}
+.citystat__pill{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;
+  background:var(--glass);border:1px solid var(--glass-line)}
+.citystat__pill strong{font-family:var(--display);font-size:22px;color:var(--ink);font-variant-numeric:tabular-nums}
+.citystat__pill span{font-size:13px;color:var(--muted)}
+.citygrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.citycard{display:flex;flex-direction:column;gap:10px;border-radius:var(--r);padding:24px 22px;
+  border:1px solid var(--glass-line);transition:transform .35s,box-shadow .35s,border-color .35s}
+.citycard:hover{transform:translateY(-6px);border-color:var(--line-2);box-shadow:var(--glow-sm),var(--sh)}
+.citycard__top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.citycard__city{font-family:var(--display);font-size:18px;font-weight:600;color:var(--ink)}
+.citycard__beds{flex:none;text-align:center;padding:6px 12px;border-radius:12px;background:var(--violet-soft);border:1px solid var(--line)}
+.citycard__beds b{display:block;font-family:var(--display);font-size:18px;color:var(--violet-bright);line-height:1}
+.citycard__beds span{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.citycard__name{font-size:13.5px;color:var(--violet-bright);font-weight:600}
+.citycard__row{display:flex;gap:8px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.citycard__row svg{width:15px;height:15px;flex:none;margin-top:3px;fill:none;stroke:var(--violet-bright);stroke-width:1.8}
+.citycard__row a{color:var(--muted)}
+.citycard__row a:hover{color:var(--violet-bright)}
+.citycard__soon{font-size:11px;color:var(--faint)}

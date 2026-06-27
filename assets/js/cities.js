@@ -61,6 +61,19 @@
     }
   };
 
+  // Per-city bed counts (PLACEHOLDER values — replace with verified figures)
+  // and the city-specific "Why Apex" copy.
+  var EXTRA = {
+    'main': { beds: 350, why: "In the heart of Malviya Nagar, Apex Hospitals Jaipur is our flagship multi-speciality centre — advanced cardiac sciences, neurosciences, oncology, robotic surgery and 24/7 critical care under one roof. NABH & NABL accredited, with senior consultants, modern diagnostics and a genuinely human approach to care." },
+    'jhunjhunu': { beds: 70, why: "Established in 2021, Apex Skyline Hospital is a multi-speciality hospital in the heart of Jhunjhunu — built around advanced cardiac care, with a 24/7 Cardiac ICU, a cath lab and onsite cardiologists, alongside orthopaedics, neurology and critical care. NABH & NABL accredited, with a genuinely human approach — whether it's a planned procedure or an emergency at 3 AM." },
+    'udaipur': { beds: 150, why: "Apex Hospitals Udaipur brings trusted multi-speciality care to the Lake City — cardiology, orthopaedics, neurology and round-the-clock emergency support, delivered by experienced consultants with the same standards of safety and compassion that define the Apex network." },
+    'bikaner': { beds: 200, why: "Apex Hospitals Bikaner serves the region with comprehensive multi-speciality care — advanced diagnostics, cardiac and critical-care services and a 24/7 emergency team, backed by quality-driven protocols and a patient-first approach." },
+    'lucknow': { beds: 250, why: "Apex Goel Super Speciality Hospital in Lucknow offers advanced super-speciality care for Uttar Pradesh — modern operation theatres, critical-care units and a multidisciplinary team committed to safe, evidence-based and compassionate treatment." },
+    'sri-ganganagar': { beds: 100, why: "Apex PMG Hospitals in Sri Ganganagar delivers dependable multi-speciality care close to home — emergency services, diagnostics and specialist consultations supported by the wider Apex network of expertise." },
+    'sawai-madhopur': { beds: 80, why: "Apex Ranthambore Sevika Hospital brings quality multi-speciality and emergency care to Sawai Madhopur — with experienced doctors, in-house diagnostics and 24/7 critical-care readiness for the community." }
+  };
+  Object.keys(EXTRA).forEach(function (s) { if (CITIES[s]) { CITIES[s].beds = EXTRA[s].beds; CITIES[s].why = EXTRA[s].why; } });
+
   // search aliases -> slug (matched as substrings of the typed text)
   var ALIASES = [
     ['jhunjhunu', 'jhunjhunu'], ['skyline', 'jhunjhunu'],
@@ -105,6 +118,11 @@
     setText('enquiry', c.enquiry);
     setText('email', c.email);
     setText('address', c.address);
+
+    // "Why Apex" section — swap heading, copy & button to the selected city
+    setText('whyHeading', 'Families in ' + c.label + ' trust us with what matters most');
+    if (c.why) setText('whyText', c.why);
+    setText('whyCity', c.label);
 
     setHref('telEmergency', digits(c.emergency));
     setHref('telEnquiry', digits(c.enquiry));
@@ -195,6 +213,36 @@
     });
   }
 
+  // build the "Our Hospitals across cities" grid + totals
+  function renderCities() {
+    var grid = document.getElementById('cityGrid');
+    if (!grid) return;
+    var pin = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+    var ph = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>';
+    var slugs = Object.keys(CITIES), total = 0, html = '';
+    slugs.forEach(function (slug) {
+      var c = CITIES[slug];
+      total += (c.beds || 0);
+      var hospital = c.address.split(',')[0];
+      html += '<a class="citycard glass" href="?city=' + slug + '">'
+        + '<div class="citycard__top"><span class="citycard__city">' + c.label + '</span>'
+        + '<span class="citycard__beds"><b>' + (c.beds || '—') + '</b><span>Beds</span></span></div>'
+        + '<span class="citycard__name">' + hospital + '</span>'
+        + '<div class="citycard__row">' + pin + '<span>' + c.address + '</span></div>'
+        + '<div class="citycard__row">' + ph + '<span>Emergency ' + c.emergency + ' · Enquiry ' + c.enquiry + '</span></div>'
+        + (c.toConfirm ? '<span class="citycard__soon">Contact details being verified</span>' : '')
+        + '</a>';
+    });
+    grid.innerHTML = html;
+    var stat = document.getElementById('cityStat');
+    if (stat) {
+      stat.innerHTML =
+        '<span class="citystat__pill"><strong>' + slugs.length + '</strong><span>Cities</span></span>'
+        + '<span class="citystat__pill"><strong>' + total + '+</strong><span>Beds in total</span></span>'
+        + '<span class="citystat__pill"><strong>24/7</strong><span>Emergency &amp; ICU</span></span>';
+    }
+  }
+
   apply(currentSlug());
   fillDatalist();
   wireSearch();
@@ -202,6 +250,7 @@
   wireFaqMap();
   wireLoops();
   wireGallery();
+  renderCities();
 
   // swap hero between desktop / mobile image when the breakpoint changes
   var mq = window.matchMedia('(max-width: 768px)');
