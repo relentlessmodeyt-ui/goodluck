@@ -124,6 +124,11 @@
     if (c.why) setText('whyText', c.why);
     setText('whyCity', c.label);
 
+    // footer brand — per-city name + description
+    setText('footerName', 'Hospitals · ' + c.label);
+    setText('footerDesc', 'NABH & NABL-accredited super-speciality care in ' + c.label +
+      ' — compassionate, 24/7 emergency-ready, part of the Apex Hospitals network.');
+
     setHref('telEmergency', digits(c.emergency));
     setHref('telEnquiry', digits(c.enquiry));
     setHref('mailtoEmail', 'mailto:' + c.email);

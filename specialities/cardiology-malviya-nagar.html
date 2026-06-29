@@ -10,7 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/clinic.css" />
-  <script>document.documentElement.classList.add('js');</script>
+  <script>document.documentElement.classList.add('js');
+    try{if(localStorage.getItem('apex-theme')==='light')document.documentElement.classList.add('theme-light');}catch(e){}</script>
 </head>
 <body>
 
@@ -36,6 +37,10 @@
         <img src="../assets/img/apex-logo.png" class="brand__logo" alt="Apex Hospitals" />
       </a>
       <div class="nav__right">
+        <button class="themebtn" id="themeToggle" type="button" aria-label="Switch between light and dark mode" aria-pressed="false">
+          <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
+        </button>
         <a href="../index.html#appointment" class="btn btn--primary">Book Appointment
           <span class="btn__arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
       </div>
@@ -270,13 +275,10 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer__bar">
-      <span>© <span id="yr"></span> Apex Hospitals. All rights reserved.</span>
-      <a href="../specialities.html">← All specialities</a>
-    </div>
-  </footer>
+  <div id="siteFooter" data-base="../"></div>
 
   <script defer src="../assets/js/clinic.js"></script>
+  <script defer src="../assets/js/footer.js"></script>
+  <script defer src="../assets/js/theme.js"></script>
 </body>
 </html>
