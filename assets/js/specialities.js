@@ -39,7 +39,6 @@
     ["Neurology", "neurology", "Expert care for brain, spine, and nerve disorders."],
     ["Pain And Intervention", "pain-and-intervention", "Interventional care for chronic pain."],
     ["Pathology", "pathology", "Accurate lab diagnostics &amp; testing."],
-    ["Physiotherapy And Rehabilitation", "physiotherapy-and-rehabilitation", "Structured rehab to restore function."],
     ["Psychiatry", "psychiatry", "Compassionate mental health care."],
     ["Department Of Pulmonary Medicine", "pulmonary-medicine", "Care for lungs &amp; respiratory disorders."],
     ["Vascular Surgery", "vascular-surgery", "Expert management of vascular disorders."],
@@ -48,8 +47,7 @@
     ["Kidney Transplant", "kidney-transplant", "Specialised kidney transplant programme."],
     ["Extracorporeal Membrane Oxygenation (ECMO)", "ecmo", "Advanced life support for heart &amp; lungs."],
     ["Emergency and Trauma", "emergency-and-trauma", "24/7 emergency &amp; trauma response."],
-    ["Bone Marrow Transplant", "bone-marrow-transplant", "Specialised transplant for blood disorders."],
-    ["Gynaecology &amp; Obstetrics", "gynaecology-and-obstetrics", "Complete women's health &amp; maternity care."]
+    ["Bone Marrow Transplant", "bone-marrow-transplant", "Specialised transplant for blood disorders."]
   ];
 
   // Hospitals / locations (kept in sync with the doctor directory)

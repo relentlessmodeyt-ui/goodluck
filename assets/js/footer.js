@@ -17,7 +17,7 @@
     ['Blogs', P('Blogs')],
     ['Specialities', b + 'specialities.html'],
     ['Careers', P('Careers')],
-    ['Contact us', b + 'index.html#contact'],
+    ['Contact us', b + 'appointment.html'],
     ['Privacy Policy', P('Privacy Policy')],
     ['Disclaimer', P('Disclaimer')],
     ['Terms and Conditions', P('Terms and Conditions')],
